@@ -966,29 +966,29 @@ const ExpenseTrackerMain = () => {
                 if (label === 'Attendance') navigate('/attendance');
                 else setActiveTab(label);
             }}
-            className={`w-full flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 group ${activeTab === label ? 'bg-[#2d5bff] text-white shadow-lg shadow-blue-500/30' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'}`}
+            className={`w-full flex items-center gap-[16px] px-[24px] py-[16px] rounded-[16px] transition-all duration-300 group ${activeTab === label ? 'bg-[#2d5bff] text-white shadow-lg shadow-blue-500/30' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'}`}
         >
-            <Icon className={`text-lg transition-transform group-hover:scale-110 ${activeTab === label ? 'text-white' : 'text-slate-400'}`} />
-            <span className="font-black text-xs uppercase tracking-widest">{label}</span>
+            <Icon className={`text-[18px] transition-transform group-hover:scale-110 ${activeTab === label ? 'text-white' : 'text-slate-400'}`} />
+            <span className="font-black text-[12px] uppercase tracking-widest">{label}</span>
         </button>
     );
 
-    if (loading) return <div className="h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#2d5bff]"></div></div>;
+    if (loading) return <div className="h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-[48px] w-[48px] border-t-[2px] border-[#2d5bff]"></div></div>;
 
     return (
         <div className="flex bg-slate-50 min-h-screen text-slate-800 font-['Outfit']">
             {/* Sidebar */}
-            <aside className="w-72 bg-white border-r border-slate-200 p-8 hidden lg:flex flex-col">
-                <div className="flex items-center gap-3 mb-12">
-                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#2d5bff] to-[#6366f1] flex items-center justify-center shadow-lg shadow-blue-500/20">
-                        <FaWallet className="text-white text-lg" />
+            <aside className="w-[288px] bg-white border-r border-slate-200 p-[32px] hidden lg:flex flex-col">
+                <div className="flex items-center gap-[12px] mb-[48px]">
+                    <div className="w-[40px] h-[40px] rounded-[12px] bg-linear-to-br from-[#2d5bff] to-[#6366f1] flex items-center justify-center shadow-lg shadow-blue-500/20">
+                        <FaWallet className="text-white text-[18px]" />
                     </div>
                     <div>
-                        <h2 className="text-sm font-black tracking-tight">Financial Hub</h2>
+                        <h2 className="text-[14px] font-black tracking-tight">Financial Hub</h2>
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Management</p>
                     </div>
                 </div>
-                <nav className="flex-1 space-y-2">
+                <nav className="flex-1 space-y-[8px]">
                     <SidebarItem icon={FaChartBar} label="Dashboard" />
                     <SidebarItem icon={FaUsers} label="Members" onClick={() => setActiveTab('Members')} />
                     <SidebarItem icon={FaExchangeAlt} label="Transactions" />
@@ -1006,37 +1006,37 @@ const ExpenseTrackerMain = () => {
                     Manufacturing Expense
                 </h1>
                 {['Dashboard', 'Reports'].includes(activeTab) && (
-                    <div className="flex flex-col gap-6 mb-8 lg:mb-12">
+                    <div className="flex flex-col gap-[24px] mb-[32px] lg:mb-[48px]">
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-[12px]">
                                 <Link
                                     to="/manufacturing"
-                                    className="w-10 h-10 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-slate-500 hover:text-[#2d5bff] hover:border-[#2d5bff] transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0"
+                                    className="w-[40px] h-[40px] bg-white border border-slate-200 rounded-[12px] flex items-center justify-center text-slate-500 hover:text-[#2d5bff] hover:border-[#2d5bff] transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0"
                                 >
-                                    <FaChevronLeft className="w-4 h-4" />
+                                    <FaChevronLeft className="w-[16px] h-[16px]" />
                                 </Link>
 
                                 <div>
-                                    <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900">Expense Tracker</h1>
-                                    <div className="h-[8px] mt-0.5 flex gap-1">
-                                        <div className="px-1 bg-emerald-50 text-[6px] font-black text-emerald-600 rounded-full flex items-center uppercase tracking-tighter">FINANCE HUB</div>
-                                        <div className="px-1 bg-blue-50 text-[6px] font-black text-blue-500 rounded-full flex items-center uppercase tracking-tighter">REAL-TIME STATS</div>
+                                    <h1 className="text-[20px] sm:text-[24px] font-black tracking-tight text-slate-900">Expense Tracker</h1>
+                                    <div className="h-[8px] mt-[2px] flex gap-[4px]">
+                                        <div className="px-[4px] bg-emerald-50 text-[6px] font-black text-emerald-600 rounded-[9999px] flex items-center uppercase tracking-tighter">FINANCE HUB</div>
+                                        <div className="px-[4px] bg-blue-50 text-[6px] font-black text-blue-500 rounded-[9999px] flex items-center uppercase tracking-tighter">REAL-TIME STATS</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Filter Grid */}
-                        <div className="flex flex-wrap items-end gap-3 p-[14px] sm:p-6 bg-white rounded-[20px] sm:rounded-[32px] border border-slate-100 shadow-sm transition-all hover:shadow-md">
+                        <div className="flex flex-wrap items-end gap-[12px] p-[14px] sm:p-[24px] bg-white rounded-[20px] sm:rounded-[32px] border border-slate-100 shadow-sm transition-all hover:shadow-md">
                             {/* Period Type - Full Width Row */}
                             <div className="w-full">
-                                <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Period Type</label>
-                                <div className="flex p-1 bg-slate-50 rounded-xl border border-slate-100">
+                                <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Period Type</label>
+                                <div className="flex p-[4px] bg-slate-50 rounded-[12px] border border-slate-100">
                                     {['day', 'week', 'month', 'year', 'range'].map((type) => (
                                         <button
                                             key={type}
                                             onClick={() => setPeriodType(type)}
-                                            className={`flex-1 h-9 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${periodType === type ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                            className={`flex-1 h-[36px] rounded-[8px] text-[9px] font-black uppercase tracking-widest transition-all ${periodType === type ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
                                         >
                                             {type}
                                         </button>
@@ -1046,15 +1046,15 @@ const ExpenseTrackerMain = () => {
 
                             {/* Date Selector */}
                             <div className={`transition-all duration-300 w-full ${periodType === 'range' ? 'sm:w-[300px]' : 'sm:w-[180px]'}`}>
-                                <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Select {periodType}</label>
-                                <div className="h-10 bg-slate-50 border border-slate-100 rounded-xl px-3 flex items-center">
-                                    {periodType === 'day' ? <input type="date" value={currentPeriod.length === 10 ? currentPeriod : ''} onChange={(e) => setCurrentPeriod(e.target.value)} className="w-full text-xs font-bold text-slate-700 outline-none bg-transparent" /> :
-                                        periodType === 'week' ? <input type="week" value={currentPeriod.includes('W') ? currentPeriod : ''} onChange={(e) => setCurrentPeriod(e.target.value)} className="w-full text-xs font-bold text-slate-700 outline-none bg-transparent" /> :
-                                            periodType === 'month' ? <input type="month" value={currentPeriod.length === 7 ? currentPeriod : ''} onChange={(e) => setCurrentPeriod(e.target.value)} className="w-full text-xs font-bold text-slate-700 outline-none bg-transparent" /> :
-                                                periodType === 'year' ? <input type="number" min="2000" max="2100" value={currentPeriod.slice(0, 4)} onChange={(e) => setCurrentPeriod(e.target.value)} className="w-full text-xs font-bold text-slate-700 outline-none bg-transparent" /> :
-                                                    <div className="flex items-center gap-2 w-full">
+                                <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Select {periodType}</label>
+                                <div className="h-[40px] bg-slate-50 border border-slate-100 rounded-[12px] px-[12px] flex items-center">
+                                    {periodType === 'day' ? <input type="date" value={currentPeriod.length === 10 ? currentPeriod : ''} onChange={(e) => setCurrentPeriod(e.target.value)} className="w-full text-[12px] font-bold text-slate-700 outline-none bg-transparent" /> :
+                                        periodType === 'week' ? <input type="week" value={currentPeriod.includes('W') ? currentPeriod : ''} onChange={(e) => setCurrentPeriod(e.target.value)} className="w-full text-[12px] font-bold text-slate-700 outline-none bg-transparent" /> :
+                                            periodType === 'month' ? <input type="month" value={currentPeriod.length === 7 ? currentPeriod : ''} onChange={(e) => setCurrentPeriod(e.target.value)} className="w-full text-[12px] font-bold text-slate-700 outline-none bg-transparent" /> :
+                                                periodType === 'year' ? <input type="number" min="2000" max="2100" value={currentPeriod.slice(0, 4)} onChange={(e) => setCurrentPeriod(e.target.value)} className="w-full text-[12px] font-bold text-slate-700 outline-none bg-transparent" /> :
+                                                    <div className="flex items-center gap-[8px] w-full">
                                                         <input type="date" value={customRange.start} onChange={(e) => setCustomRange({ ...customRange, start: e.target.value })} className="text-[10px] font-bold text-slate-700 w-full bg-transparent" />
-                                                        <span className="text-slate-400 text-xs">—</span>
+                                                        <span className="text-slate-400 text-[12px]">—</span>
                                                         <input type="date" value={customRange.end} onChange={(e) => setCustomRange({ ...customRange, end: e.target.value })} className="text-[10px] font-bold text-slate-700 w-full bg-transparent" />
                                                     </div>}
                                 </div>
@@ -1064,8 +1064,8 @@ const ExpenseTrackerMain = () => {
                                 <>
                                     {/* Project Filter */}
                                     <div className="w-full sm:w-[140px]">
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Project</label>
-                                        <select value={filterProject} onChange={(e) => setFilterProject(e.target.value)} className="h-10 w-full bg-slate-50 border border-slate-100 rounded-xl px-3 text-xs font-bold text-slate-700 outline-none cursor-pointer">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Project</label>
+                                        <select value={filterProject} onChange={(e) => setFilterProject(e.target.value)} className="h-[40px] w-full bg-slate-50 border border-slate-100 rounded-[12px] px-[12px] text-[12px] font-bold text-slate-700 outline-none cursor-pointer">
                                             <option value="">All Projects</option>
                                             {Array.isArray(projects) && projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                                         </select>
@@ -1073,8 +1073,8 @@ const ExpenseTrackerMain = () => {
 
                                     {/* Vehicle Filter */}
                                     <div className="w-full sm:w-[140px]">
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Vehicle</label>
-                                        <select value={filterVehicle} onChange={(e) => setFilterVehicle(e.target.value)} className="h-10 w-full bg-slate-50 border border-slate-100 rounded-xl px-3 text-xs font-bold text-slate-700 outline-none cursor-pointer">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Vehicle</label>
+                                        <select value={filterVehicle} onChange={(e) => setFilterVehicle(e.target.value)} className="h-[40px] w-full bg-slate-50 border border-slate-100 rounded-[12px] px-[12px] text-[12px] font-bold text-slate-700 outline-none cursor-pointer">
                                             <option value="">All Vehicles</option>
                                             {[...new Set((Array.isArray(vehicleLogs) ? vehicleLogs : []).map(l => l.vehicle_name))].filter(Boolean).sort().map(v => <option key={v} value={v}>{v}</option>)}
                                         </select>
@@ -1082,8 +1082,8 @@ const ExpenseTrackerMain = () => {
 
                                     {/* Role Filter */}
                                     <div className="w-full sm:w-[130px]">
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Role</label>
-                                        <select value={filterRole} onChange={(e) => setFilterRole(e.target.value)} className="h-10 w-full bg-slate-50 border border-slate-100 rounded-xl px-3 text-xs font-bold text-slate-700 outline-none cursor-pointer">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Role</label>
+                                        <select value={filterRole} onChange={(e) => setFilterRole(e.target.value)} className="h-[40px] w-full bg-slate-50 border border-slate-100 rounded-[12px] px-[12px] text-[12px] font-bold text-slate-700 outline-none cursor-pointer">
                                             <option value="">All Roles</option>
                                             {[...new Set([...(Array.isArray(roles) ? roles.map(r => r.name) : []), ...(Array.isArray(members) ? members.map(m => m.role).filter(Boolean) : [])])].sort().map(role => (
                                                 <option key={role} value={role}>{role}</option>
@@ -1093,8 +1093,8 @@ const ExpenseTrackerMain = () => {
 
                                     {/* Type Filter */}
                                     <div className="w-full sm:w-[130px]">
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Type</label>
-                                        <select value={filterMemberType} onChange={(e) => setFilterMemberType(e.target.value)} className="h-10 w-full bg-slate-50 border border-slate-100 rounded-xl px-3 text-xs font-bold text-slate-700 outline-none cursor-pointer">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Type</label>
+                                        <select value={filterMemberType} onChange={(e) => setFilterMemberType(e.target.value)} className="h-[40px] w-full bg-slate-50 border border-slate-100 rounded-[12px] px-[12px] text-[12px] font-bold text-slate-700 outline-none cursor-pointer">
                                             <option value="all">Everyone</option>
                                             <option value="worker">Workers</option>
                                             <option value="employee">Employees</option>
@@ -1103,8 +1103,8 @@ const ExpenseTrackerMain = () => {
 
                                     {/* Member Filter */}
                                     <div className="w-full sm:w-[180px]">
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Member / Guest</label>
-                                        <select value={filterMember} onChange={(e) => setFilterMember(e.target.value)} className="h-10 w-full bg-slate-50 border border-slate-100 rounded-xl px-3 text-xs font-bold text-slate-700 outline-none cursor-pointer">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Member / Guest</label>
+                                        <select value={filterMember} onChange={(e) => setFilterMember(e.target.value)} className="h-[40px] w-full bg-slate-50 border border-slate-100 rounded-[12px] px-[12px] text-[12px] font-bold text-slate-700 outline-none cursor-pointer">
                                             <option value="">Everyone</option>
                                             <option value="guest">All Guests (Non-Members)</option>
                                             <optgroup label="Registered Members">
@@ -1117,13 +1117,13 @@ const ExpenseTrackerMain = () => {
                                     </div>
 
                                     {/* Action Buttons */}
-                                    <div className="flex items-center gap-2 ml-auto">
+                                    <div className="flex items-center gap-[8px] ml-auto">
                                         <ExportButtons onExportCSV={() => setConfirmModal({ show: true, type: 'CSV', label: 'CSV Report' })} onExportPDF={() => setConfirmModal({ show: true, type: 'PDF', label: 'PDF Report' })} onExportTXT={() => setConfirmModal({ show: true, type: 'TXT', label: 'Plain Text Report' })} />
-                                        <button onClick={() => setShowProjectManager(true)} className="h-10 bg-blue-600 text-white px-4 rounded-xl shadow-lg shadow-blue-500/20 hover:scale-105 transition-all flex items-center gap-2" title="New Project">
+                                        <button onClick={() => setShowProjectManager(true)} className="h-[40px] bg-blue-600 text-white px-[16px] rounded-[12px] shadow-lg shadow-blue-500/20 hover:scale-105 transition-all flex items-center gap-[8px]" title="New Project">
                                             <FaFolderPlus />
                                             <span className="text-[9px] font-black uppercase tracking-widest hidden lg:inline">Project</span>
                                         </button>
-                                        <button onClick={() => setActiveTab('Work Log')} className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all shadow-sm lg:hidden ${activeTab === 'Work Log' ? 'bg-[#2d5bff] text-white' : 'bg-slate-800 text-white hover:bg-slate-900'}`} title="Daily Work Logs"><FaBoxes /></button>
+                                        <button onClick={() => setActiveTab('Work Log')} className={`w-[40px] h-[40px] rounded-[12px] flex items-center justify-center transition-all shadow-sm lg:hidden ${activeTab === 'Work Log' ? 'bg-[#2d5bff] text-white' : 'bg-slate-800 text-white hover:bg-slate-900'}`} title="Daily Work Logs"><FaBoxes /></button>
                                     </div>
                                 </>
                             )}
@@ -1132,9 +1132,9 @@ const ExpenseTrackerMain = () => {
                 )}
 
                 {/* Mobile Tabs */}
-                <div className="lg:hidden flex overflow-x-auto gap-3 mb-8 pb-2 custom-scrollbar">
+                <div className="lg:hidden flex overflow-x-auto gap-[12px] mb-[32px] pb-[8px] custom-scrollbar">
                     {['Dashboard', 'Members', 'Transactions', 'Reports', 'Salary', 'Work Log', 'Vehicle Log'].map(tab => (
-                        <button key={tab} onClick={() => setActiveTab(tab)} className={`whitespace-nowrap px-[14px] sm:px-5 py-[10px] sm:py-3 rounded-[10px] sm:rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'bg-[#2d5bff] text-white' : 'bg-white text-slate-500 border'}`}>{tab}</button>
+                        <button key={tab} onClick={() => setActiveTab(tab)} className={`whitespace-nowrap px-[14px] sm:px-[20px] py-[10px] sm:py-[12px] rounded-[10px] sm:rounded-[12px] text-[9px] sm:text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'bg-[#2d5bff] text-white' : 'bg-white text-slate-500 border'}`}>{tab}</button>
                     ))}
                 </div>
 
@@ -1199,73 +1199,73 @@ const ExpenseTrackerMain = () => {
 
             {/* Global Modals */}
             {showAddModal && (
-                <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
-                    <div className="bg-white rounded-[24px] sm:rounded-[40px] p-[16px] sm:p-8 md:p-10 w-full max-w-md shadow-2xl relative animate-in zoom-in-95 duration-300 border border-white">
-                        <button onClick={() => { setShowAddModal(false); setEditingId(null); }} className="absolute top-8 right-8 text-slate-400 hover:text-slate-800 transition-colors">
+                <div className="fixed inset-0 z-100 flex items-center justify-center p-[16px] bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
+                    <div className="bg-white rounded-[24px] sm:rounded-[40px] p-[16px] sm:p-[32px] md:p-[40px] w-full max-w-[448px] shadow-2xl relative animate-in zoom-in-95 duration-300 border border-white">
+                        <button onClick={() => { setShowAddModal(false); setEditingId(null); }} className="absolute top-[32px] right-[32px] text-slate-400 hover:text-slate-800 transition-colors">
                             <FaTimes size={18} />
                         </button>
 
-                        <div className="mb-[16px] sm:mb-8">
-                            <h2 className="text-[18px] sm:text-2xl font-black text-slate-900 leading-tight">
+                        <div className="mb-[16px] sm:mb-[32px]">
+                            <h2 className="text-[18px] sm:text-[24px] font-black text-slate-900 leading-tight">
                                 {editingId ? 'Edit Record' : `New ${formData.type === 'income' ? 'Income' : 'Expense'}`}
                             </h2>
-                            <div className="h-[8px] mt-1 flex gap-1">
-                                <div className="px-1 bg-blue-50 text-[6px] font-black text-blue-500 rounded-full flex items-center uppercase tracking-tighter">FINANCIAL RECORD</div>
-                                <div className="px-1 bg-slate-100 text-[6px] font-black text-slate-400 rounded-full flex items-center uppercase tracking-tighter">{formData.type.toUpperCase()}</div>
+                            <div className="h-[8px] mt-[4px] flex gap-[4px]">
+                                <div className="px-[4px] bg-blue-50 text-[6px] font-black text-blue-500 rounded-[9999px] flex items-center uppercase tracking-tighter">FINANCIAL RECORD</div>
+                                <div className="px-[4px] bg-slate-100 text-[6px] font-black text-slate-400 rounded-[9999px] flex items-center uppercase tracking-tighter">{formData.type.toUpperCase()}</div>
                             </div>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="flex p-1 bg-slate-100 rounded-2xl">
-                                <button type="button" onClick={() => setFormData({ ...formData, type: 'expense', category: 'General' })} className={`flex-1 py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${formData.type === 'expense' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}>Expense</button>
-                                <button type="button" onClick={() => setFormData({ ...formData, type: 'income', category: 'General' })} className={`flex-1 py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${formData.type === 'income' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}>Income</button>
+                        <form onSubmit={handleSubmit} className="space-y-[24px]">
+                            <div className="flex p-[4px] bg-slate-100 rounded-[16px]">
+                                <button type="button" onClick={() => setFormData({ ...formData, type: 'expense', category: 'General' })} className={`flex-1 py-[12px] px-[16px] rounded-[12px] text-[10px] font-black uppercase tracking-widest transition-all ${formData.type === 'expense' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}>Expense</button>
+                                <button type="button" onClick={() => setFormData({ ...formData, type: 'income', category: 'General' })} className={`flex-1 py-[12px] px-[16px] rounded-[12px] text-[10px] font-black uppercase tracking-widest transition-all ${formData.type === 'income' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}>Income</button>
                             </div>
 
-                            <div className="space-y-4">
-                                <div className="grid grid-cols-1 gap-4">
+                            <div className="space-y-[16px]">
+                                <div className="grid grid-cols-1 gap-[16px]">
                                     <div>
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Title / Description</label>
-                                        <input required type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" placeholder="What is this for?" />
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Title / Description</label>
+                                        <input required type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-[20px] py-[16px] text-[14px] font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" placeholder="What is this for?" />
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-[16px]">
                                     <div>
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">
                                             {formData.type === 'income' ? 'Qty Sold' : 'Qty / Count'}
                                         </label>
                                         <input required type="number" step="0.01" value={formData.quantity} onChange={(e) => {
                                             const qty = parseFloat(e.target.value) || 0;
                                             setFormData({ ...formData, quantity: qty, amount: (qty * formData.unit_price).toFixed(2) });
-                                        }} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3 text-sm font-black text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" placeholder="1" />
+                                        }} className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-[20px] py-[12px] text-[14px] font-black text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" placeholder="1" />
                                     </div>
                                     <div>
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">
                                             {formData.type === 'income' ? 'Rate / Price' : 'Unit Cost'}
                                         </label>
                                         <input required type="number" step="0.01" value={formData.unit_price} onChange={(e) => {
                                             const rate = parseFloat(e.target.value) || 0;
                                             setFormData({ ...formData, unit_price: rate, amount: (formData.quantity * rate).toFixed(2) });
-                                        }} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3 text-sm font-black text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" placeholder="0.00" />
+                                        }} className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-[20px] py-[12px] text-[14px] font-black text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" placeholder="0.00" />
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-[16px]">
                                     <div>
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Total Amount (₹)</label>
-                                        <input required type="number" step="0.01" value={formData.amount} onChange={(e) => setFormData({ ...formData, amount: e.target.value })} className="w-full bg-blue-50 border border-blue-200 rounded-2xl px-5 py-3 text-sm font-black text-blue-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" placeholder="0.00" />
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Total Amount (₹)</label>
+                                        <input required type="number" step="0.01" value={formData.amount} onChange={(e) => setFormData({ ...formData, amount: e.target.value })} className="w-full bg-blue-50 border border-blue-200 rounded-[16px] px-[20px] py-[12px] text-[14px] font-black text-blue-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" placeholder="0.00" />
                                     </div>
                                     <div>
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Category</label>
-                                        <div className="flex gap-2">
-                                            <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3 text-sm font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs cursor-pointer">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Category</label>
+                                        <div className="flex gap-[8px]">
+                                            <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-[20px] py-[12px] text-[14px] font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs cursor-pointer">
                                                 <option value="General">General</option>
                                                 {Array.isArray(categories) && categories.filter(c => c.type === formData.type && c.name !== 'General').map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
                                             </select>
                                             <button
                                                 type="button"
                                                 onClick={() => setShowCategoryManager(true)}
-                                                className="w-12 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center hover:bg-purple-100 transition-all border border-purple-100 shrink-0"
+                                                className="w-[48px] bg-purple-50 text-purple-600 rounded-[16px] flex items-center justify-center hover:bg-purple-100 transition-all border border-purple-100 shrink-0"
                                                 title="Add New Category"
                                             >
                                                 <FaPlus />
@@ -1274,26 +1274,26 @@ const ExpenseTrackerMain = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                                <div className="grid grid-cols-2 gap-[12px] p-[12px] bg-slate-50 rounded-[16px] border border-slate-100">
                                     <div>
-                                        <label className="block text-[7px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1.5 ml-1">Project (Optional)</label>
-                                        <select value={formData.project_id} onChange={(e) => setFormData({ ...formData, project_id: e.target.value })} className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-[10px] font-bold text-slate-700 outline-none focus:border-blue-500 transition-all shadow-xs cursor-pointer">
+                                        <label className="block text-[7px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[6px] ml-[4px]">Project (Optional)</label>
+                                        <select value={formData.project_id} onChange={(e) => setFormData({ ...formData, project_id: e.target.value })} className="w-full bg-white border border-slate-200 rounded-[12px] px-[12px] py-[8px] text-[10px] font-bold text-slate-700 outline-none focus:border-blue-500 transition-all shadow-xs cursor-pointer">
                                             <option value="">No Project</option>
                                             {Array.isArray(projects) && projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <div className="flex justify-between items-center mb-1.5 px-1">
+                                        <div className="flex justify-between items-center mb-[6px] px-[4px]">
                                             <label className="block text-[7px] font-black text-slate-400 uppercase tracking-[0.2em]">Member / Guest</label>
-                                            <div className="flex bg-slate-200 p-0.5 rounded-md">
-                                                <button type="button" onClick={() => setFormData(prev => ({ ...prev, member_id: '', guest_name: '' }))} className={`px-1 rounded text-[6px] font-black transition-all ${!formData.guest_name ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'}`}>M</button>
-                                                <button type="button" onClick={() => setFormData(prev => ({ ...prev, member_id: '', guest_name: 'Guest' }))} className={`px-1 rounded text-[6px] font-black transition-all ${formData.guest_name ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'}`}>G</button>
+                                            <div className="flex bg-slate-200 p-[2px] rounded-[6px]">
+                                                <button type="button" onClick={() => setFormData(prev => ({ ...prev, member_id: '', guest_name: '' }))} className={`px-[4px] rounded-[4px] text-[6px] font-black transition-all ${!formData.guest_name ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'}`}>M</button>
+                                                <button type="button" onClick={() => setFormData(prev => ({ ...prev, member_id: '', guest_name: 'Guest' }))} className={`px-[4px] rounded-[4px] text-[6px] font-black transition-all ${formData.guest_name ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'}`}>G</button>
                                             </div>
                                         </div>
                                         {formData.guest_name !== undefined && formData.guest_name !== null && typeof formData.guest_name === 'string' && formData.guest_name.length >= 0 && (formData.member_id === '' || formData.member_id === null) && formData.guest_name !== '' ? (
-                                            <input type="text" value={formData.guest_name === 'Guest' ? '' : formData.guest_name} onChange={(e) => setFormData({ ...formData, guest_name: e.target.value, member_id: '' })} className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-[10px] font-bold text-slate-700 outline-none focus:border-blue-500 transition-all shadow-xs" placeholder="Guest Name..." />
+                                            <input type="text" value={formData.guest_name === 'Guest' ? '' : formData.guest_name} onChange={(e) => setFormData({ ...formData, guest_name: e.target.value, member_id: '' })} className="w-full bg-white border border-slate-200 rounded-[12px] px-[12px] py-[8px] text-[10px] font-bold text-slate-700 outline-none focus:border-blue-500 transition-all shadow-xs" placeholder="Guest Name..." />
                                         ) : (
-                                            <select value={formData.member_id} onChange={(e) => setFormData({ ...formData, member_id: e.target.value, guest_name: '' })} className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-[10px] font-bold text-slate-700 outline-none focus:border-blue-500 transition-all shadow-xs cursor-pointer">
+                                            <select value={formData.member_id} onChange={(e) => setFormData({ ...formData, member_id: e.target.value, guest_name: '' })} className="w-full bg-white border border-slate-200 rounded-[12px] px-[12px] py-[8px] text-[10px] font-bold text-slate-700 outline-none focus:border-blue-500 transition-all shadow-xs cursor-pointer">
                                                 <option value="">No Member</option>
                                                 {Array.isArray(members) && members.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
                                             </select>
@@ -1301,14 +1301,14 @@ const ExpenseTrackerMain = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-[16px]">
                                     <div>
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Date</label>
-                                        <input required type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3 text-sm font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" />
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Date</label>
+                                        <input required type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-[20px] py-[12px] text-[14px] font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs" />
                                     </div>
                                     <div>
-                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 ml-1">Status</label>
-                                        <select value={formData.payment_status || 'completed'} onChange={(e) => setFormData({ ...formData, payment_status: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3 text-sm font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs cursor-pointer">
+                                        <label className="block text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[8px] ml-[4px]">Status</label>
+                                        <select value={formData.payment_status || 'completed'} onChange={(e) => setFormData({ ...formData, payment_status: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-[20px] py-[12px] text-[14px] font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all shadow-xs cursor-pointer">
                                             <option value="completed">Paid</option>
                                             <option value="pending">Pending</option>
                                         </select>
@@ -1316,7 +1316,7 @@ const ExpenseTrackerMain = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-5 rounded-[24px] transition-all active:scale-95 shadow-xl shadow-slate-900/10 flex items-center justify-center gap-3 text-sm mt-4">
+                            <button type="submit" className="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-[20px] rounded-[24px] transition-all active:scale-95 shadow-xl shadow-slate-900/10 flex items-center justify-center gap-[12px] text-[14px] mt-[16px]">
                                 {editingId ? <FaEdit /> : <FaPlus />}
                                 {editingId ? 'Update Record' : 'Save Record'}
                             </button>
@@ -1326,26 +1326,26 @@ const ExpenseTrackerMain = () => {
             )}
 
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-[16px]">
                     <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowModal(null)}></div>
-                    <div className="relative bg-white rounded-[32px] shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden z-10">
-                        <div className="sticky top-0 bg-white border-b border-slate-100 p-6 flex items-center justify-between z-10">
-                            <h3 className="text-xl font-black text-slate-800">{showModal === 'income' ? 'Income Transactions' : 'Expense Transactions'}</h3>
-                            <button onClick={() => setShowModal(null)} className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"><FaTimes className="w-5 h-5 text-slate-600" /></button>
+                    <div className="relative bg-white rounded-[32px] shadow-2xl max-w-[672px] w-full max-h-[80vh] overflow-hidden z-10">
+                        <div className="sticky top-0 bg-white border-b border-slate-100 p-[24px] flex items-center justify-between z-10">
+                            <h3 className="text-[20px] font-black text-slate-800">{showModal === 'income' ? 'Income Transactions' : 'Expense Transactions'}</h3>
+                            <button onClick={() => setShowModal(null)} className="w-[40px] h-[40px] rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"><FaTimes className="w-[20px] h-[20px] text-slate-600" /></button>
                         </div>
-                        <div className="p-6 overflow-y-auto max-h-[calc(80vh-80px)]">
+                        <div className="p-[24px] overflow-y-auto max-h-[calc(80vh-80px)]">
                             {modalTransactions.length > 0 ? (
-                                <div className="space-y-3">
+                                <div className="space-y-[12px]">
                                     {modalTransactions.map((transaction) => (
-                                        <div key={transaction.id} className="bg-slate-50 rounded-2xl p-4 border border-slate-100 hover:border-blue-200 transition-all">
-                                            <div className="flex items-start justify-between gap-3">
-                                                <div className="flex-1"><h4 className="font-bold text-slate-800 mb-1">{transaction.title}</h4><div className="flex flex-wrap gap-2 text-xs"><span className={`px-2 py-1 rounded-full font-bold ${transaction.type === 'income' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-600'}`}>{transaction.type}</span></div></div>
-                                                <div className={`text-lg font-black ${transaction.type === 'income' ? 'text-blue-600' : 'text-red-600'}`}>₹{formatAmount(transaction.amount)}</div>
+                                        <div key={transaction.id} className="bg-slate-50 rounded-[16px] p-[16px] border border-slate-100 hover:border-blue-200 transition-all">
+                                            <div className="flex items-start justify-between gap-[12px]">
+                                                <div className="flex-1"><h4 className="font-bold text-slate-800 mb-[4px]">{transaction.title}</h4><div className="flex flex-wrap gap-[8px] text-[12px]"><span className={`px-[8px] py-[4px] rounded-[9999px] font-bold ${transaction.type === 'income' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-600'}`}>{transaction.type}</span></div></div>
+                                                <div className={`text-[18px] font-black ${transaction.type === 'income' ? 'text-blue-600' : 'text-red-600'}`}>₹{formatAmount(transaction.amount)}</div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-                            ) : (<div className="text-center py-12"><div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"><FaWallet className="w-8 h-8 text-slate-400" /></div><p className="text-slate-500 font-bold">No {showModal} transactions found</p></div>)}
+                            ) : (<div className="text-center py-[48px]"><div className="w-[64px] h-[64px] bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-[16px]"><FaWallet className="w-[32px] h-[32px] text-slate-400" /></div><p className="text-slate-500 font-bold">No {showModal} transactions found</p></div>)}
                         </div>
                     </div>
                 </div>
@@ -1401,13 +1401,13 @@ const ExpenseTrackerMain = () => {
                             </div>
                             <div className="grid grid-cols-2 gap-[16px]">
                                 <div><label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-[8px] ml-[4px]">Vehicle (Fleet)</label><select value={customReportForm.vehicle} onChange={(e) => setCustomReportForm({ ...customReportForm, vehicle: e.target.value })} className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-[20px] py-[12px] text-[12px] font-bold text-slate-700 outline-none focus:border-indigo-500 transition-all cursor-pointer">{vehicleNames.map(v => <option key={v} value={v}>{v}</option>)}<option value="">All Vehicles</option></select></div>
-                            </div>
-                            <div className="flex flex-col gap-[12px]">
-                                <button onClick={() => handleGenerateCustomReport('PDF')} disabled={!!customReportLoading} className="w-full bg-[#2d5bff] hover:bg-blue-600 text-white font-black py-[18px] rounded-[20px] transition-all active:scale-95 shadow-xl flex items-center justify-center gap-[12px] text-[14px] disabled:opacity-50 disabled:cursor-not-allowed">{customReportLoading === 'PDF' ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <FaFileAlt />} {customReportLoading === 'PDF' ? 'Generating...' : 'Download PDF Report'}</button>
-                                <div className="grid grid-cols-2 gap-[12px]">
-                                    <button onClick={() => handleGenerateCustomReport('CSV')} disabled={!!customReportLoading} className="bg-emerald-500 hover:bg-emerald-600 text-white font-black py-[16px] rounded-[20px] transition-all active:scale-95 shadow-lg flex items-center justify-center gap-[8px] text-[12px] disabled:opacity-50 disabled:cursor-not-allowed">{customReportLoading === 'CSV' ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <FaFileAlt />} CSV</button>
-                                    <button onClick={() => handleGenerateCustomReport('TXT')} disabled={!!customReportLoading} className="bg-slate-700 hover:bg-slate-800 text-white font-black py-[16px] rounded-[20px] transition-all active:scale-95 shadow-lg flex items-center justify-center gap-[8px] text-[12px] disabled:opacity-50 disabled:cursor-not-allowed">{customReportLoading === 'TXT' ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <FaFileAlt />} Text</button>
-                                </div>
+                                <div className="flex flex-col gap-[12px]">
+                                 <button onClick={() => handleGenerateCustomReport('PDF')} disabled={!!customReportLoading} className="w-full bg-[#2d5bff] hover:bg-blue-600 text-white font-black py-[18px] rounded-[20px] transition-all active:scale-95 shadow-xl flex items-center justify-center gap-[12px] text-[14px] disabled:opacity-50 disabled:cursor-not-allowed">{customReportLoading === 'PDF' ? <div className="w-[20px] h-[20px] border-[2px] border-white/30 border-t-white rounded-full animate-spin"></div> : <FaFileAlt />} {customReportLoading === 'PDF' ? 'Generating...' : 'Download PDF Report'}</button>
+                                 <div className="grid grid-cols-2 gap-[12px]">
+                                     <button onClick={() => handleGenerateCustomReport('CSV')} disabled={!!customReportLoading} className="bg-emerald-500 hover:bg-emerald-600 text-white font-black py-[16px] rounded-[20px] transition-all active:scale-95 shadow-lg flex items-center justify-center gap-[8px] text-[12px] disabled:opacity-50 disabled:cursor-not-allowed">{customReportLoading === 'CSV' ? <div className="w-[16px] h-[16px] border-[2px] border-white/30 border-t-white rounded-full animate-spin"></div> : <FaFileAlt />} CSV</button>
+                                     <button onClick={() => handleGenerateCustomReport('TXT')} disabled={!!customReportLoading} className="bg-slate-700 hover:bg-slate-800 text-white font-black py-[16px] rounded-[20px] transition-all active:scale-95 shadow-lg flex items-center justify-center gap-[8px] text-[12px] disabled:opacity-50 disabled:cursor-not-allowed">{customReportLoading === 'TXT' ? <div className="w-[16px] h-[16px] border-[2px] border-white/30 border-t-white rounded-full animate-spin"></div> : <FaFileAlt />} Text</button>
+                                 </div>
+                             </div>
                             </div>
                         </div>
                     </div>

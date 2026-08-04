@@ -20,7 +20,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
             {/* Hero Section */}
             <section className="pt-[100px] lg:pt-[120px] pb-[80px] px-[20px] sm:px-[30px] relative overflow-hidden">
                 {/* Background Decor */}
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-[9999px] blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
 
                 <div className="max-w-[1280px] mx-auto">
                     <div className="grid lg:grid-cols-2 gap-[40px] lg:gap-[80px] items-center">
@@ -37,23 +37,23 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
                             </p>
 
                             {isLoggedIn ? (
-                                <div className="flex flex-col gap-6 mb-12 items-center lg:items-start">
+                                <div className="flex flex-col gap-[24px] mb-[48px] items-center lg:items-start">
                                     <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Go to your workspace:</p>
                                     <Link
                                         to="/manufacturing"
                                         className="inline-flex items-center gap-[12px] bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-[12px] tracking-widest px-[32px] py-[20px] rounded-[24px] shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all hover:-translate-y-[2px]"
                                     >
-                                        Enter Manufacturing Hub <ArrowRight className="w-4 h-4" />
+                                        Enter Manufacturing Hub <ArrowRight className="w-[16px] h-[16px]" />
                                     </Link>
                                 </div>
                             ) : (
-                                <div className="flex flex-col gap-6 mb-12 items-center lg:items-start">
+                                <div className="flex flex-col gap-[24px] mb-[48px] items-center lg:items-start">
                                     <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Access the system:</p>
                                     <button
                                         onClick={() => { localStorage.setItem('selectedSector', 'manufacturing'); onSignupClick(); }}
                                         className="inline-flex items-center gap-[12px] bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-[12px] tracking-widest px-[32px] py-[20px] rounded-[24px] shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all hover:-translate-y-[2px]"
                                     >
-                                        Create Account / Login <ArrowRight className="w-4 h-4" />
+                                        Create Account / Login <ArrowRight className="w-[16px] h-[16px]" />
                                     </button>
                                 </div>
                             )}
@@ -100,10 +100,10 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
 
                         <div className="relative animate-in fade-in slide-in-from-right-10 duration-1000 delay-200 hidden lg:flex justify-end">
                             <div className="relative z-10 scale-105 lg:scale-110">
-                                <div className="navigate-home-container bg-white rounded-[32px] sm:rounded-[48px] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-100 max-w-[500px]">
-                                    <div className="bg-[#1a1c21] rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-2xl p-4 flex flex-col items-center justify-center text-center text-white min-h-[300px]">
-                                        <Factory className="w-24 h-24 text-blue-500 mb-6 animate-pulse" />
-                                        <h3 className="text-2xl font-black mb-2">OrganizerPro</h3>
+                                <div className="navigate-home-container bg-white rounded-[32px] sm:rounded-[48px] p-[16px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-100 max-w-[500px]">
+                                    <div className="bg-[#1a1c21] rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-2xl p-[16px] flex flex-col items-center justify-center text-center text-white min-h-[300px]">
+                                        <Factory className="w-[96px] h-[96px] text-blue-500 mb-[24px] animate-pulse" />
+                                        <h3 className="text-2xl font-black mb-[8px]">OrganizerPro</h3>
                                         <p className="text-slate-400 text-sm max-w-[300px]">Standalone Portal for Manufacturing Sector Management</p>
                                     </div>
                                 </div>
@@ -115,41 +115,41 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
 
             {/* Features Icon Row */}
             <section className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
+                <div className="max-w-7xl mx-auto px-[24px]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-[48px] lg:gap-[32px]">
                         <div className="flex flex-col items-center text-center group">
-                            <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
-                                <RefreshCcw className="w-7 h-7 text-blue-500" />
+                            <div className="w-[56px] h-[56px] rounded-[16px] bg-blue-50 flex items-center justify-center mb-[24px] group-hover:bg-blue-100 transition-colors">
+                                <RefreshCcw className="w-[28px] h-[28px] text-blue-500" />
                             </div>
-                            <h4 className="font-black text-[#1a1c21] text-base mb-2">Smart Sync</h4>
+                            <h4 className="font-black text-[#1a1c21] text-base mb-[8px]">Smart Sync</h4>
                             <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Work life together</p>
                         </div>
                         <div className="flex flex-col items-center text-center group">
-                            <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mb-6 group-hover:bg-emerald-100 transition-colors">
-                                <BarChart3 className="w-7 h-7 text-emerald-500" />
+                            <div className="w-[56px] h-[56px] rounded-[16px] bg-emerald-50 flex items-center justify-center mb-[24px] group-hover:bg-emerald-100 transition-colors">
+                                <BarChart3 className="w-[28px] h-[28px] text-emerald-500" />
                             </div>
-                            <h4 className="font-black text-[#1a1c21] text-base mb-2">Analytics View</h4>
+                            <h4 className="font-black text-[#1a1c21] text-base mb-[8px]">Analytics View</h4>
                             <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Real-time insights</p>
                         </div>
                         <div className="flex flex-col items-center text-center group">
-                            <div className="w-14 h-14 rounded-2xl bg-orange-50 flex items-center justify-center mb-6 group-hover:bg-orange-100 transition-colors">
-                                <UserCheck className="w-7 h-7 text-orange-500" />
+                            <div className="w-[56px] h-[56px] rounded-[16px] bg-orange-50 flex items-center justify-center mb-[24px] group-hover:bg-orange-100 transition-colors">
+                                <UserCheck className="w-[28px] h-[28px] text-orange-500" />
                             </div>
-                            <h4 className="font-black text-[#1a1c21] text-base mb-2">Attendance Log</h4>
+                            <h4 className="font-black text-[#1a1c21] text-base mb-[8px]">Attendance Log</h4>
                             <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Daily consistency</p>
                         </div>
                         <div className="flex flex-col items-center text-center group">
-                            <div className="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center mb-6 group-hover:bg-indigo-100 transition-colors">
-                                <TrendingUp className="w-7 h-7 text-indigo-500" />
+                            <div className="w-[56px] h-[56px] rounded-[16px] bg-indigo-50 flex items-center justify-center mb-[24px] group-hover:bg-indigo-100 transition-colors">
+                                <TrendingUp className="w-[28px] h-[28px] text-indigo-500" />
                             </div>
-                            <h4 className="font-black text-[#1a1c21] text-base mb-2">Habit Analysis</h4>
+                            <h4 className="font-black text-[#1a1c21] text-base mb-[8px]">Habit Analysis</h4>
                             <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Productivity sync</p>
                         </div>
                         <div className="flex flex-col items-center text-center group">
-                            <div className="w-14 h-14 rounded-2xl bg-sky-50 flex items-center justify-center mb-6 group-hover:bg-sky-100 transition-colors">
-                                <Cloud className="w-7 h-7 text-sky-400" />
+                            <div className="w-[56px] h-[56px] rounded-[16px] bg-sky-50 flex items-center justify-center mb-[24px] group-hover:bg-sky-100 transition-colors">
+                                <Cloud className="w-[28px] h-[28px] text-sky-400" />
                             </div>
-                            <h4 className="font-black text-[#1a1c21] text-base mb-2">Cloud Backup</h4>
+                            <h4 className="font-black text-[#1a1c21] text-base mb-[8px]">Cloud Backup</h4>
                             <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Never lose data</p>
                         </div>
                     </div>

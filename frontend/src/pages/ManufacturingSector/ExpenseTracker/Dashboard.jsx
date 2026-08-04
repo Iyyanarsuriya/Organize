@@ -37,62 +37,62 @@ const Dashboard = ({
     return (
         <div className="animate-in fade-in duration-500">
             {/* Period Summary Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[12px] sm:gap-4 mb-[12px] sm:mb-8">
-                <div className="bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-100 relative group overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl -mr-12 -mt-12 group-hover:bg-blue-500/10 transition-colors"></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[12px] sm:gap-[16px] mb-[12px] sm:mb-[32px]">
+                <div className="bg-white p-[24px] sm:p-[32px] rounded-[32px] shadow-sm border border-slate-100 relative group overflow-hidden">
+                    <div className="absolute top-0 right-0 w-[96px] h-[96px] bg-blue-500/5 rounded-full blur-[40px] -mr-[48px] -mt-[48px] group-hover:bg-blue-500/10 transition-colors"></div>
                     <div className="relative z-10 flex flex-col justify-between h-full">
                         <div>
-                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Total Period Income</p>
-                            <h3 className="text-[20px] sm:text-3xl font-black tracking-tight text-blue-600">₹{formatAmount(stats.summary?.total_income || 0)}</h3>
+                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[4px]">Total Period Income</p>
+                            <h3 className="text-[20px] sm:text-[30px] font-black tracking-tight text-blue-600">₹{formatAmount(stats.summary?.total_income || 0)}</h3>
                         </div>
-                        <div className="h-[8px] mt-4 flex items-center gap-1">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
+                        <div className="h-[8px] mt-[16px] flex items-center gap-[4px]">
+                            <div className="w-[6px] h-[6px] rounded-full bg-blue-500 animate-pulse"></div>
                             <span className="text-[6px] font-black text-blue-400 uppercase tracking-tighter">LIVE FLOW</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white p-6 sm:p-8 rounded-[32px] shadow-sm border border-slate-100 relative group overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-red-500/5 rounded-full blur-2xl -mr-12 -mt-12 group-hover:bg-red-500/10 transition-colors"></div>
+                <div className="bg-white p-[24px] sm:p-[32px] rounded-[32px] shadow-sm border border-slate-100 relative group overflow-hidden">
+                    <div className="absolute top-0 right-0 w-[96px] h-[96px] bg-red-500/5 rounded-full blur-[40px] -mr-[48px] -mt-[48px] group-hover:bg-red-500/10 transition-colors"></div>
                     <div className="relative z-10 flex flex-col justify-between h-full">
                         <div>
-                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Total Period Expense</p>
-                            <h3 className="text-[20px] sm:text-3xl font-black tracking-tight text-rose-600">₹{formatAmount(stats.summary?.total_expense || 0)}</h3>
+                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[4px]">Total Period Expense</p>
+                            <h3 className="text-[20px] sm:text-[30px] font-black tracking-tight text-rose-600">₹{formatAmount(stats.summary?.total_expense || 0)}</h3>
                         </div>
-                        <div className="h-[8px] mt-4 flex items-center gap-1">
-                            <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></div>
+                        <div className="h-[8px] mt-[16px] flex items-center gap-[4px]">
+                            <div className="w-[6px] h-[6px] rounded-full bg-rose-500 animate-pulse"></div>
                             <span className="text-[6px] font-black text-rose-400 uppercase tracking-tighter">PERIOD SPEND</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-slate-900 p-[16px] sm:p-6 md:p-8 rounded-[20px] sm:rounded-[32px] shadow-xl border border-slate-800 relative group overflow-hidden sm:col-span-2 lg:col-span-1">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-indigo-500/20 transition-colors"></div>
+                <div className="bg-slate-900 p-[16px] sm:p-[24px] md:p-[32px] rounded-[20px] sm:rounded-[32px] shadow-xl border border-slate-800 relative group overflow-hidden sm:col-span-2 lg:col-span-1">
+                    <div className="absolute top-0 right-0 w-[128px] h-[128px] bg-indigo-500/10 rounded-full blur-[64px] -mr-[64px] -mt-[64px] group-hover:bg-indigo-500/20 transition-colors"></div>
                     <div className="relative z-10 flex flex-col justify-between h-full">
                         <div>
-                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Period Net Cash Flow</p>
-                            <h3 className={`text-3xl font-black tracking-tight ${(stats.summary?.total_income - stats.summary?.total_expense) >= 0 ? 'text-blue-400' : 'text-rose-400'}`}>
+                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-[4px]">Period Net Cash Flow</p>
+                            <h3 className={`text-[30px] font-black tracking-tight ${(stats.summary?.total_income - stats.summary?.total_expense) >= 0 ? 'text-blue-400' : 'text-rose-400'}`}>
                                 ₹{formatAmount(stats.summary?.total_income - stats.summary?.total_expense)}
                             </h3>
                         </div>
-                        <div className="h-[8px] mt-4 flex items-center gap-1">
-                            <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${(stats.summary?.total_income - stats.summary?.total_expense) >= 0 ? 'bg-blue-400' : 'bg-rose-400'}`}></div>
+                        <div className="h-[8px] mt-[16px] flex items-center gap-[4px]">
+                            <div className={`w-[6px] h-[6px] rounded-full animate-pulse ${(stats.summary?.total_income - stats.summary?.total_expense) >= 0 ? 'bg-blue-400' : 'bg-rose-400'}`}></div>
                             <span className="text-[6px] font-black text-slate-500 uppercase tracking-tighter">BALANCE STATUS</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[12px] sm:gap-8 mb-[12px] sm:mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[12px] sm:gap-[32px] mb-[12px] sm:mb-[48px]">
                 {/* Visualizations */}
-                <div className="bg-white rounded-[40px] p-8 sm:p-10 shadow-sm border border-slate-100 flex flex-col min-h-[450px]">
-                    <div className="flex justify-between items-center mb-10">
-                        <h3 className="text-sm font-black flex items-center gap-2">
-                            <div className="w-1 h-6 bg-blue-600 rounded-full"></div>
+                <div className="bg-white rounded-[40px] p-[32px] sm:p-[40px] shadow-sm border border-slate-100 flex flex-col min-h-[450px]">
+                    <div className="flex justify-between items-center mb-[40px]">
+                        <h3 className="text-sm font-black flex items-center gap-[8px]">
+                            <div className="w-[4px] h-[24px] bg-blue-600 rounded-full"></div>
                             Spend by Category
                         </h3>
                         {stats.mostSpentCategory && (
-                            <div className="h-[20px] px-3 bg-rose-50 text-rose-600 rounded-full flex items-center text-[10px] font-black uppercase tracking-widest border border-rose-100">
+                            <div className="h-[20px] px-[12px] bg-rose-50 text-rose-600 rounded-full flex items-center text-[10px] font-black uppercase tracking-widest border border-rose-100">
                                 Most: {stats.mostSpentCategory}
                             </div>
                         )}
@@ -127,13 +127,13 @@ const Dashboard = ({
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[24px] sm:rounded-[40px] p-[16px] sm:p-8 md:p-10 shadow-sm border border-slate-100 flex flex-col min-h-[280px] sm:min-h-[450px]">
-                    <div className="flex justify-between items-center mb-[10px] sm:mb-10">
-                        <h3 className="text-sm font-black flex items-center gap-2">
-                            <div className="w-1 h-6 bg-slate-900 rounded-full"></div>
+                <div className="bg-white rounded-[24px] sm:rounded-[40px] p-[16px] sm:p-[32px] md:p-[40px] shadow-sm border border-slate-100 flex flex-col min-h-[280px] sm:min-h-[450px]">
+                    <div className="flex justify-between items-center mb-[10px] sm:mb-[40px]">
+                        <h3 className="text-sm font-black flex items-center gap-[8px]">
+                            <div className="w-[4px] h-[24px] bg-slate-900 rounded-full"></div>
                             Activity Overview
                         </h3>
-                        <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <div className="h-[8px] w-[8px] rounded-full bg-emerald-500 animate-pulse"></div>
                     </div>
                     <div className="flex-1 w-full min-h-0">
                         {barData && barData.length > 0 ? (
@@ -155,30 +155,30 @@ const Dashboard = ({
                 </div>
             </div>
             {/* Budgets & Recent Activity */}
-            <div className="grid grid-cols-1 gap-6 mb-8 lg:mb-12">
+            <div className="grid grid-cols-1 gap-[24px] mb-[32px] lg:mb-[48px]">
 
                 {/* Recent Activity */}
-                <div className="bg-white rounded-[20px] sm:rounded-[32px] p-[14px] sm:p-8 shadow-sm border border-slate-100">
-                    <div className="flex justify-between items-center mb-[14px] sm:mb-6">
-                        <h3 className="text-sm font-black flex items-center gap-2">
-                            <div className="w-1 h-6 bg-slate-900 rounded-full"></div>
+                <div className="bg-white rounded-[20px] sm:rounded-[32px] p-[14px] sm:p-[32px] shadow-sm border border-slate-100">
+                    <div className="flex justify-between items-center mb-[14px] sm:mb-[24px]">
+                        <h3 className="text-sm font-black flex items-center gap-[8px]">
+                            <div className="w-[4px] h-[24px] bg-slate-900 rounded-full"></div>
                             Recent Activity
                         </h3>
                         <button onClick={() => setActiveTab('Transactions')} className="text-[10px] font-black text-blue-600 uppercase tracking-widest hover:underline">View All Records</button>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-[12px]">
                         {Array.isArray(transactions) && transactions.slice(0, 5).map(t => (
-                            <div key={t.id} className="flex justify-between items-center p-[10px] sm:p-4 rounded-[16px] sm:rounded-3xl hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100 group">
-                                <div className="flex items-center gap-[10px] sm:gap-4">
-                                    <div className={`w-[36px] h-[36px] sm:w-10 sm:h-10 rounded-[10px] sm:rounded-xl flex items-center justify-center text-sm shadow-xs shrink-0 ${t.type === 'income' ? 'bg-blue-50 text-blue-500' : 'bg-red-50 text-red-500'}`}>
+                            <div key={t.id} className="flex justify-between items-center p-[10px] sm:p-[16px] rounded-[16px] sm:rounded-3xl hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100 group">
+                                <div className="flex items-center gap-[10px] sm:gap-[16px]">
+                                    <div className={`w-[36px] h-[36px] sm:w-[40px] sm:h-[40px] rounded-[10px] sm:rounded-xl flex items-center justify-center text-sm shadow-xs shrink-0 ${t.type === 'income' ? 'bg-blue-50 text-blue-500' : 'bg-red-50 text-red-500'}`}>
                                         {t.type === 'income' ? '↓' : '↑'}
                                     </div>
                                     <div>
                                         <p className="font-black text-slate-900 text-sm leading-tight">{t.title}</p>
-                                        <div className="h-[8px] mt-1 flex gap-1">
-                                            <div className="px-1 bg-slate-100 text-[6px] font-black text-slate-400 rounded-full flex items-center uppercase tracking-tighter">{t.category}</div>
-                                            {t.project_name && <div className="px-1 bg-blue-50 text-[6px] font-black text-blue-500 rounded-full flex items-center uppercase tracking-tighter">{t.project_name}</div>}
-                                            {t.member_name && <div className="px-1 bg-orange-50 text-[6px] font-black text-orange-500 rounded-full flex items-center uppercase tracking-tighter">{t.member_name}</div>}
+                                        <div className="h-[8px] mt-[4px] flex gap-[4px]">
+                                            <div className="px-[4px] bg-slate-100 text-[6px] font-black text-slate-400 rounded-full flex items-center uppercase tracking-tighter">{t.category}</div>
+                                            {t.project_name && <div className="px-[4px] bg-blue-50 text-[6px] font-black text-blue-500 rounded-full flex items-center uppercase tracking-tighter">{t.project_name}</div>}
+                                            {t.member_name && <div className="px-[4px] bg-orange-50 text-[6px] font-black text-orange-500 rounded-full flex items-center uppercase tracking-tighter">{t.member_name}</div>}
                                         </div>
                                     </div>
                                 </div>
@@ -187,7 +187,7 @@ const Dashboard = ({
                                 </p>
                             </div>
                         ))}
-                        {transactions.length === 0 && <p className="text-center py-8 text-slate-400 text-[10px] font-bold uppercase tracking-widest">No transaction history yet</p>}
+                        {transactions.length === 0 && <p className="text-center py-[32px] text-slate-400 text-[10px] font-bold uppercase tracking-widest">No transaction history yet</p>}
                     </div>
                 </div>
             </div>

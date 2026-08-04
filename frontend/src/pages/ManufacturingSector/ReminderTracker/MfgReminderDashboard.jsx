@@ -101,7 +101,7 @@ const MfgReminderDashboard = () => {
         });
     }, [reminders, periodType, customRange, filterStatus]);
 
-    // Derived Stats
+    // Statistics
     const stats = useMemo(() => {
         const total = processedReminders.length;
         const completed = processedReminders.filter(r => Boolean(r.is_completed)).length;
@@ -109,34 +109,17 @@ const MfgReminderDashboard = () => {
         return { total, completed, remaining };
     }, [processedReminders]);
 
-    const exportPeriod = useMemo(() => {
-        if (periodType === 'today') return new Date().toLocaleDateString('en-GB');
-        if (periodType === 'range') {
-            if (customRange.start && customRange.end) return `${customRange.start} to ${customRange.end}`;
-            return 'Custom Range';
-        }
-        return 'All Time';
-    }, [periodType, customRange]);
-
-    const handleLogout = () => {
-        localStorage.clear();
-        sessionStorage.clear();
-        navigate('/');
-        window.dispatchEvent(new Event('storage'));
-        toast.success("Logged out successfully");
-    };
-
     const handleConnectCalendar = async () => {
         try {
             const res = await getGoogleAuthUrl();
-            if (res.data.url) {
+            if (res.data?.url) {
+                // Redirect user to google oauth consent screen
                 window.location.href = res.data.url;
             } else {
-                toast.error("Failed to get Google Auth URL");
+                toast.error("OAuth Link Generation failed");
             }
         } catch (error) {
-            console.error("Connect Calendar Error:", error);
-            toast.error("Failed to initiate connection");
+            toast.error(error.response?.data?.error || "Google Integration failed");
         }
     };
 
@@ -147,61 +130,53 @@ const MfgReminderDashboard = () => {
     const confirmDisconnect = async () => {
         try {
             await disconnectGoogle();
-
-            // Update local user state
-            const updatedUser = { ...user, google_refresh_token: null };
-            setUser(updatedUser);
-            localStorage.setItem('user', JSON.stringify(updatedUser));
-
-            toast.success("Disconnected from Google Calendar");
+            setUser(prev => {
+                const updated = { ...prev, is_google_connected: false };
+                localStorage.setItem('user', JSON.stringify(updated));
+                return updated;
+            });
+            toast.success("Disconnected successfully");
         } catch (error) {
-            console.error("Disconnect Error:", error);
-            toast.error("Failed to disconnect");
+            toast.error("Failed to disconnect calendar");
         } finally {
             setShowDisconnectModal(false);
         }
     };
 
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#6366f1]"></div>
-            </div>
-        );
-    }
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/login");
+    };
 
-    const currentDate = new Date().toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-    });
+    const exportPeriod = periodType === 'range' ? `${customRange.start}_to_${customRange.end}` : periodType;
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] p-4 sm:p-8 font-['Outfit']">
-            <div className="max-w-5xl mx-auto space-y-8">
+        <div className="min-h-screen bg-[#f8fafc] p-[16px] sm:p-[28px] md:p-[40px] font-['Outfit'] pb-[80px] sm:pb-[100px]">
+            <div className="max-w-[1280px] mx-auto w-full flex flex-col gap-[20px] sm:gap-[32px]">
 
-                {/* Header */}
-                <div className="flex items-center justify-between">
+                {/* Header Row */}
+                <div className="flex items-center gap-[12px] sm:gap-[16px]">
                     <button
                         onClick={() => navigate('/manufacturing/reminders')}
-                        className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full text-slate-600 font-bold text-xs uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm"
+                        className="w-[40px] h-[40px] sm:w-[48px] sm:h-[48px] bg-white border border-slate-200 rounded-[14px] sm:rounded-[18px] flex items-center justify-center text-slate-500 hover:text-blue-500 hover:border-blue-200 transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0"
                     >
-                        <IoArrowBack className="text-sm" />
-                        Back to Reminders
+                        <IoArrowBack className="text-[16px] sm:text-[20px]" />
                     </button>
-
-                    <div className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-700 font-black text-xs shadow-sm">
-                        <span>{currentDate}</span>
-                        <FaCalendarAlt className="text-slate-400" />
+                    <div>
+                        <h1 className="text-[20px] sm:text-[28px] md:text-[32px] font-black text-slate-800 tracking-tight leading-none flex items-center gap-[10px]">
+                            Reminder Analytics
+                        </h1>
+                        <p className="text-slate-500 mt-[4px] text-[11px] sm:text-[14px] font-medium leading-none">View summary, export data, and connect calendar</p>
                     </div>
                 </div>
 
-                {/* Filters & Export Bar */}
-                <div className="bg-white rounded-[24px] p-4 sm:p-6 shadow-lg shadow-slate-200/50 border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex flex-wrap items-center gap-4 w-full md:w-auto">
+                {/* Filter and Export Bar */}
+                <div className="bg-white rounded-[24px] p-[16px] sm:p-[24px] shadow-lg shadow-slate-200/50 border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-[24px]">
+                    <div className="flex flex-wrap items-center gap-[16px] w-full md:w-auto">
 
                         {/* Period Filter */}
-                        <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl">
+                        <div className="flex items-center gap-[8px] bg-slate-50 border border-slate-200 px-[12px] py-[8px] rounded-[12px]">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-wide">Period:</span>
                             <select
                                 value={periodType}
@@ -216,7 +191,7 @@ const MfgReminderDashboard = () => {
 
                         {/* Date Range Inputs */}
                         {periodType === 'range' && (
-                            <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl animate-in fade-in zoom-in-95 duration-200">
+                            <div className="flex items-center gap-[8px] bg-slate-50 border border-slate-200 px-[12px] py-[8px] rounded-[12px] animate-in fade-in zoom-in-95 duration-200">
                                 <input
                                     type="date"
                                     value={customRange.start}
@@ -234,7 +209,7 @@ const MfgReminderDashboard = () => {
                         )}
 
                         {/* Status Filter */}
-                        <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl">
+                        <div className="flex items-center gap-[8px] bg-slate-50 border border-slate-200 px-[12px] py-[8px] rounded-[12px]">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-wide">Status:</span>
                             <select
                                 value={filterStatus}
@@ -249,9 +224,9 @@ const MfgReminderDashboard = () => {
                     </div>
 
                     {/* Export Actions */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-[16px]">
                         <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest hidden sm:inline">Export Report</span>
-                        <div className="h-8 w-px bg-slate-100 hidden sm:block"></div>
+                        <div className="h-[32px] w-px bg-slate-100 hidden sm:block"></div>
                         <ExportButtons
                             onExportCSV={() => exportReminderToCSV({ data: processedReminders, period: exportPeriod, filename: `mfg_reminders_report_${new Date().toISOString().split('T')[0]}` })}
                             onExportPDF={() => exportReminderToPDF({ data: processedReminders, period: exportPeriod, filename: `mfg_reminders_report_${new Date().toISOString().split('T')[0]}` })}
@@ -261,43 +236,43 @@ const MfgReminderDashboard = () => {
                 </div>
 
                 {/* Stats Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px]">
                     {/* Total Tasks */}
                     <div
                         onClick={() => setViewModalType('total')}
-                        className="bg-white rounded-[32px] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center transition-all hover:scale-105 duration-300 cursor-pointer group hover:ring-2 hover:ring-[#6366f1]/20"
+                        className="bg-white rounded-[32px] p-[32px] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center transition-all hover:scale-105 duration-300 cursor-pointer group hover:ring-2 hover:ring-[#6366f1]/20"
                     >
-                        <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 group-hover:text-[#6366f1] transition-colors">Total Tasks</h3>
+                        <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-[16px] group-hover:text-[#6366f1] transition-colors">Total Tasks</h3>
                         <div className="text-6xl font-black text-[#6366f1] drop-shadow-sm">{stats.total}</div>
-                        {periodType !== 'all' && <span className="text-[10px] font-bold text-slate-300 mt-2 uppercase tracking-wide">Filtered</span>}
-                        <p className="text-[10px] text-slate-300 mt-2 font-bold uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity">Click to view</p>
+                        {periodType !== 'all' && <span className="text-[10px] font-bold text-slate-300 mt-[8px] uppercase tracking-wide">Filtered</span>}
+                        <p className="text-[10px] text-slate-300 mt-[8px] font-bold uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity">Click to view</p>
                     </div>
 
                     {/* Completed */}
                     <div
                         onClick={() => setViewModalType('completed')}
-                        className="bg-white rounded-[32px] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center transition-all hover:scale-105 duration-300 cursor-pointer group hover:ring-2 hover:ring-[#00d1a0]/20"
+                        className="bg-white rounded-[32px] p-[32px] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center transition-all hover:scale-105 duration-300 cursor-pointer group hover:ring-2 hover:ring-[#00d1a0]/20"
                     >
-                        <h3 className="text-xs font-black uppercase tracking-widest mb-4 text-[#00d1a0]/80 group-hover:text-[#00d1a0] transition-colors">Completed</h3>
+                        <h3 className="text-xs font-black uppercase tracking-widest mb-[16px] text-[#00d1a0]/80 group-hover:text-[#00d1a0] transition-colors">Completed</h3>
                         <div className="text-6xl font-black text-[#00d1a0] drop-shadow-sm">{stats.completed}</div>
-                        <p className="text-[10px] text-slate-300 mt-2 font-bold uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity">Click to view</p>
+                        <p className="text-[10px] text-slate-300 mt-[8px] font-bold uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity">Click to view</p>
                     </div>
 
                     {/* Remaining */}
                     <div
                         onClick={() => setViewModalType('remaining')}
-                        className="bg-white rounded-[32px] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center transition-all hover:scale-105 duration-300 cursor-pointer group hover:ring-2 hover:ring-orange-400/20"
+                        className="bg-white rounded-[32px] p-[32px] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center transition-all hover:scale-105 duration-300 cursor-pointer group hover:ring-2 hover:ring-orange-400/20"
                     >
-                        <h3 className="text-xs font-black uppercase tracking-widest mb-4 text-orange-400 group-hover:text-orange-500 transition-colors">Remaining</h3>
+                        <h3 className="text-xs font-black uppercase tracking-widest mb-[16px] text-orange-400 group-hover:text-orange-500 transition-colors">Remaining</h3>
                         <div className="text-6xl font-black text-orange-400 drop-shadow-sm">{stats.remaining}</div>
-                        <p className="text-[10px] text-slate-300 mt-2 font-bold uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity">Click to view</p>
+                        <p className="text-[10px] text-slate-300 mt-[8px] font-bold uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity">Click to view</p>
                     </div>
                 </div>
 
                 {/* Google Calendar Section */}
-                <div className="bg-white rounded-[32px] p-4 sm:p-6 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-6">
-                        <div className="w-16 h-16 rounded-full bg-white shadow-lg border border-slate-100 flex items-center justify-center shrink-0">
+                <div className="bg-white rounded-[32px] p-[16px] sm:p-[24px] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-[24px]">
+                    <div className="flex items-center gap-[24px]">
+                        <div className="w-[64px] h-[64px] rounded-full bg-white shadow-lg border border-slate-100 flex items-center justify-center shrink-0">
                             <FaGoogle className="text-3xl text-blue-500" />
                         </div>
                         <div className="text-center sm:text-left">
@@ -307,35 +282,34 @@ const MfgReminderDashboard = () => {
                     </div>
                     <button
                         onClick={handleConnectCalendar}
-                        className="px-8 py-4 bg-[#6366f1] hover:bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-blue-500/30 transition-all active:scale-95 flex items-center gap-2"
+                        className="px-[32px] py-[16px] bg-[#6366f1] hover:bg-blue-600 text-white rounded-[16px] font-black text-xs uppercase tracking-widest shadow-lg shadow-blue-500/30 transition-all active:scale-95 flex items-center gap-[8px]"
                     >
                         <FaCalendarAlt />
                         Connect Calendar
                     </button>
                 </div>
 
-                <div className="text-center pt-8 pb-4">
+                <div className="text-center pt-[32px] pb-[16px]">
                     <p className="text-[10px] font-black text-slate-400/50 uppercase tracking-[0.2em]">Link your calendar to get automatic notifications & event sync</p>
                 </div>
 
-
                 {/* Account Settings Header */}
-                <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-slate-100 rounded-lg text-slate-400">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <div className="flex items-center gap-[12px] mb-[8px]">
+                    <div className="p-[8px] bg-slate-100 rounded-[8px] text-slate-400">
+                        <svg className="w-[20px] h-[20px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     </div>
                     <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">Account Settings</h3>
                 </div>
 
                 {/* Session / Logout */}
-                <div className="bg-white rounded-[32px] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="bg-white rounded-[32px] p-[32px] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-[24px]">
                     <div className="text-center sm:text-left">
                         <h3 className="text-lg font-black text-slate-800">Session</h3>
                         <p className="text-xs font-medium text-slate-500">Log out of your current session</p>
                     </div>
                     <button
                         onClick={handleLogout}
-                        className="px-8 py-3 bg-white text-red-500 border border-slate-200 hover:border-red-200 hover:bg-red-50 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95"
+                        className="px-[32px] py-[12px] bg-white text-red-500 border border-slate-200 hover:border-red-200 hover:bg-red-50 rounded-[16px] font-black text-xs uppercase tracking-widest transition-all active:scale-95"
                     >
                         Logout
                     </button>
@@ -345,8 +319,8 @@ const MfgReminderDashboard = () => {
 
             {/* Generic Task View Modal */}
             {viewModalType && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200" onClick={() => setViewModalType(null)}>
-                    <div className="bg-white rounded-[32px] p-6 w-full max-w-2xl shadow-2xl animate-in zoom-in-95 duration-200 border border-white h-[80vh] flex flex-col" onClick={e => e.stopPropagation()}>
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-[16px] bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200" onClick={() => setViewModalType(null)}>
+                    <div className="bg-white rounded-[32px] p-[24px] w-full max-w-[672px] shadow-2xl animate-in zoom-in-95 duration-200 border border-white h-[80vh] flex flex-col" onClick={e => e.stopPropagation()}>
                         {(() => {
                             const getContent = () => {
                                 switch (viewModalType) {
@@ -364,22 +338,22 @@ const MfgReminderDashboard = () => {
 
                             return (
                                 <>
-                                    <div className="flex justify-between items-center mb-6 px-2">
-                                        <div className="flex items-center gap-3">
-                                            <div className={`w-10 h-10 rounded-full ${bg} flex items-center justify-center ${color}`}>
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                    <div className="flex justify-between items-center mb-[24px] px-[8px]">
+                                        <div className="flex items-center gap-[12px]">
+                                            <div className={`w-[40px] h-[40px] rounded-full ${bg} flex items-center justify-center ${color}`}>
+                                                <svg className="w-[20px] h-[20px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                                             </div>
                                             <h3 className="text-xl font-black text-slate-800 uppercase tracking-tighter">{title}</h3>
                                         </div>
                                         <button
                                             onClick={() => setViewModalType(null)}
-                                            className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-rose-100 hover:text-rose-500 transition-colors cursor-pointer"
+                                            className="w-[40px] h-[40px] rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-rose-100 hover:text-rose-500 transition-colors cursor-pointer"
                                         >
-                                            <FaTimes className="w-4 h-4" />
+                                            <FaTimes className="w-[16px] h-[16px]" />
                                         </button>
                                     </div>
 
-                                    <div className="flex-1 overflow-y-auto custom-scrollbar px-2 pb-4">
+                                    <div className="flex-1 overflow-y-auto custom-scrollbar px-[8px] pb-[16px]">
                                         {data.length > 0 ? (
                                             <ReminderList
                                                 reminders={data}
@@ -388,11 +362,11 @@ const MfgReminderDashboard = () => {
                                             />
                                         ) : (
                                             <div className="h-full flex flex-col items-center justify-center text-center opacity-50">
-                                                <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
-                                                    <svg className="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                <div className="w-[64px] h-[64px] bg-slate-50 rounded-full flex items-center justify-center mb-[16px]">
+                                                    <svg className="w-[32px] h-[32px] text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                                 </div>
                                                 <p className="text-slate-500 font-bold">No tasks found</p>
-                                                {periodType !== 'all' && <p className="text-xs text-slate-400 mt-1">Try changing the period filter</p>}
+                                                {periodType !== 'all' && <p className="text-xs text-slate-400 mt-[4px]">Try changing the period filter</p>}
                                             </div>
                                         )}
                                     </div>
@@ -405,26 +379,26 @@ const MfgReminderDashboard = () => {
 
             {/* Disconnect Confirmation Modal */}
             {showDisconnectModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
-                    <div className="bg-white rounded-[32px] p-8 w-full max-w-[400px] shadow-2xl animate-in zoom-in-95 duration-200 border border-white">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-[16px] bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
+                    <div className="bg-white rounded-[32px] p-[32px] w-full max-w-[400px] shadow-2xl animate-in zoom-in-95 duration-200 border border-white">
                         <div className="flex flex-col items-center text-center">
-                            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-6 border border-red-100 shadow-lg shadow-red-500/10">
+                            <div className="w-[64px] h-[64px] bg-red-50 rounded-full flex items-center justify-center mb-[24px] border border-red-100 shadow-lg shadow-red-500/10">
                                 <FaGoogle className="text-2xl text-[#ff4d4d]" />
                             </div>
                             <h3 className="text-xl font-black text-slate-800 mb-2 uppercase tracking-tighter">Disconnect Calendar?</h3>
-                            <p className="text-slate-500 text-sm font-medium mb-8">
+                            <p className="text-slate-500 text-sm font-medium mb-[32px]">
                                 Are you sure you want to disconnect? You will stop receiving automatic event syncs.
                             </p>
-                            <div className="flex w-full gap-3">
+                            <div className="flex w-full gap-[12px]">
                                 <button
                                     onClick={() => setShowDisconnectModal(false)}
-                                    className="flex-1 py-3 px-6 rounded-xl font-black text-[13px] tracking-widest uppercase border border-slate-200 text-slate-500 hover:bg-slate-50 transition-all active:scale-95 cursor-pointer"
+                                    className="flex-1 py-[12px] px-[24px] rounded-[12px] font-black text-[13px] tracking-widest uppercase border border-slate-200 text-slate-500 hover:bg-slate-50 transition-all active:scale-95 cursor-pointer"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     onClick={confirmDisconnect}
-                                    className="flex-1 py-3 px-6 rounded-xl font-black text-[13px] tracking-widest uppercase bg-[#ff4d4d] text-white shadow-lg shadow-red-500/20 hover:bg-[#ff3333] hover:shadow-xl transition-all active:scale-95 cursor-pointer"
+                                    className="flex-1 py-[12px] px-[24px] rounded-[12px] font-black text-[13px] tracking-widest uppercase bg-[#ff4d4d] text-white shadow-lg shadow-red-500/20 hover:bg-[#ff3333] hover:shadow-xl transition-all active:scale-95 cursor-pointer"
                                 >
                                     Disconnect
                                 </button>

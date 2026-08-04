@@ -428,7 +428,7 @@ const ManufacturingPayroll = () => {
                                             </td>
                                             {/* Status */}
                                             <td className="py-[14px] sm:py-[20px] px-[14px] sm:px-[24px]">
-                                                <span className={`inline-flex items-center px-[8px] sm:px-[12px] py-[3px] sm:py-[6px] rounded-full text-[10px] sm:text-[12px] font-bold capitalize
+                                                <span className={`inline-flex items-center px-[8px] sm:px-[12px] py-[3px] sm:py-[6px] rounded-[9999px] text-[10px] sm:text-[12px] font-bold capitalize
                                                     ${payroll.status === 'approved' ? 'bg-emerald-100 text-emerald-700' :
                                                         payroll.status === 'paid' ? 'bg-blue-100 text-blue-700' :
                                                             'bg-amber-100 text-amber-700'}`}>
@@ -462,7 +462,7 @@ const ManufacturingPayroll = () => {
                                                             </span>
                                                             <button
                                                                 onClick={() => handleRevert(payroll.id)}
-                                                                className="p-[6px] text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-all"
+                                                                className="p-[6px] text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-[9999px] transition-all"
                                                                 title="Undo Approval"
                                                             >
                                                                 <RotateCcw className="w-[16px] h-[16px]" />

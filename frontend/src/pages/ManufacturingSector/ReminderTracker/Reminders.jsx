@@ -176,7 +176,7 @@ const Reminders = () => {
                                 <div className="flex items-center">
                                     <div className="shrink-0">
                                         <div className="h-[32px] w-[32px] sm:h-[40px] sm:w-[40px] bg-linear-to-br from-[#2d5bff] to-[#6366f1] rounded-full flex items-center justify-center border border-white/10 shadow-lg shadow-blue-500/20">
-                                            <FaBell className="h-4 w-4 sm:h-5 sm:w-5 text-white animate-bounce" />
+                                            <FaBell className="h-[16px] w-[16px] sm:h-[20px] sm:w-[20px] text-white animate-bounce" />
                                         </div>
                                     </div>
                                     <div className="ml-3 sm:ml-4 flex-1">
@@ -288,7 +288,7 @@ const Reminders = () => {
                         <div className="flex items-start gap-[12px] sm:gap-[16px]">
                             <div className="shrink-0">
                                 <div className="h-[40px] w-[40px] sm:h-[56px] sm:w-[56px] bg-linear-to-br from-[#2d5bff] to-[#4a69ff] rounded-[12px] sm:rounded-[16px] flex items-center justify-center shadow-xl shadow-blue-500/20">
-                                    <FaBell className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
+                                    <FaBell className="h-[20px] w-[20px] sm:h-[28px] sm:w-[28px] text-white" />
                                 </div>
                             </div>
                             <div className="flex-1">
@@ -298,10 +298,10 @@ const Reminders = () => {
                                 <p className="text-[11px] sm:text-[14px] font-bold text-slate-500">
                                     You have <span className="text-[#2d5bff] font-black">{notifications.length} priorities</span> today.
                                 </p>
-                                <div className="mt-4 flex flex-col gap-2">
+                                <div className="mt-[16px] flex flex-col gap-[8px]">
                                     {notifications.slice(0, 3).map(n => (
-                                        <div key={n.id} className="flex items-center gap-2 text-xs font-bold text-slate-600">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                                        <div key={n.id} className="flex items-center gap-[8px] text-xs font-bold text-slate-600">
+                                            <div className="w-[6px] h-[6px] rounded-[9999px] bg-blue-400"></div>
                                             <span className="truncate">{n.title}</span>
                                         </div>
                                     ))}
@@ -318,7 +318,7 @@ const Reminders = () => {
                                 toast.dismiss(t.id);
                                 setHasShownAgenda(true);
                             }}
-                            className="w-full border border-transparent rounded-none rounded-r-[24px] sm:rounded-r-[32px] p-4 sm:p-6 flex items-center justify-center text-xs sm:text-sm font-black text-[#2d5bff] hover:bg-slate-50 transition-all uppercase tracking-widest cursor-pointer"
+                            className="w-full border border-transparent rounded-none rounded-r-[24px] sm:rounded-r-[32px] p-[16px] sm:p-[24px] flex items-center justify-center text-xs sm:text-sm font-black text-[#2d5bff] hover:bg-slate-50 transition-all uppercase tracking-widest cursor-pointer"
                         >
                             Got it
                         </button>
@@ -467,7 +467,7 @@ const Reminders = () => {
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#2d5bff]"></div>
+                <div className="animate-spin rounded-full h-[48px] w-[48px] border-t-[2px] border-[#2d5bff]"></div>
             </div>
         );
     }
@@ -488,16 +488,16 @@ const Reminders = () => {
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
                         </Link>
-                        <div className="flex bg-blue-700/30 rounded-xl p-1 border border-blue-400/30 backdrop-blur-sm">
+                        <div className="flex bg-blue-700/30 rounded-[12px] p-[4px] border border-blue-400/30 backdrop-blur-sm">
                             <button
                                 onClick={() => setActiveTab('tasks')}
-                                className={`px-4 py-2 rounded-lg text-[10px] sm:text-sm font-black uppercase tracking-widest transition-all ${activeTab === 'tasks' ? 'bg-white text-[#2d5bff] shadow-lg' : 'text-blue-100 hover:bg-white/10'}`}
+                                className={`px-[16px] py-[8px] rounded-[8px] text-[10px] sm:text-sm font-black uppercase tracking-widest transition-all ${activeTab === 'tasks' ? 'bg-white text-[#2d5bff] shadow-lg' : 'text-blue-100 hover:bg-white/10'}`}
                             >
                                 Tasks
                             </button>
                             <button
                                 onClick={() => setActiveTab('notes')}
-                                className={`px-4 py-2 rounded-lg text-[10px] sm:text-sm font-black uppercase tracking-widest transition-all ${activeTab === 'notes' ? 'bg-white text-[#2d5bff] shadow-lg' : 'text-blue-100 hover:bg-white/10'}`}
+                                className={`px-[16px] py-[8px] rounded-[8px] text-[10px] sm:text-sm font-black uppercase tracking-widest transition-all ${activeTab === 'notes' ? 'bg-white text-[#2d5bff] shadow-lg' : 'text-blue-100 hover:bg-white/10'}`}
                             >
                                 Notes
                             </button>
@@ -534,7 +534,7 @@ const Reminders = () => {
                                                         <p className="text-[12px] sm:text-[14px] font-semibold text-slate-800 mb-[4px] whitespace-normal">{notif.title}</p>
                                                         <p className="text-[10px] sm:text-[12px] text-slate-500 flex justify-between items-center">
                                                             <span className="font-medium text-slate-400">Due Today</span>
-                                                            <span className="bg-orange-100 text-orange-600 uppercase font-bold text-[7px] sm:text-[8px] tracking-widest px-[6px] sm:px-[8px] py-[2px] rounded-full">
+                                                            <span className="bg-orange-100 text-orange-600 uppercase font-bold text-[7px] sm:text-[8px] tracking-widest px-[6px] sm:px-[8px] py-[2px] rounded-[9999px]">
                                                                 Today
                                                             </span>
                                                         </p>
@@ -572,7 +572,7 @@ const Reminders = () => {
                         {selectedIds.length > 0 && (
                             <div className="bg-white/90 backdrop-blur-md border border-slate-200 p-[12px] rounded-[16px] mb-[16px] flex items-center justify-between shadow-lg animate-in slide-in-from-top-4 duration-300 sticky top-0 z-30">
                                 <div className="flex items-center gap-[12px]">
-                                    <span className="text-xs font-black text-slate-600 bg-slate-100 px-3 py-1 rounded-full">{selectedIds.length} Selected</span>
+                                    <span className="text-xs font-black text-slate-600 bg-slate-100 px-3 py-1 rounded-[9999px]">{selectedIds.length} Selected</span>
                                     <button
                                         onClick={() => setSelectedIds([])}
                                         className="text-xs font-bold text-slate-400 hover:text-slate-600"
@@ -582,9 +582,9 @@ const Reminders = () => {
                                 </div>
                                 <button
                                     onClick={() => setConfirmBulkDelete(true)}
-                                    className="px-4 py-2 bg-red-50 text-red-600 text-xs font-black rounded-xl hover:bg-red-100 transition-colors flex items-center gap-2"
+                                    className="px-[16px] py-[8px] bg-red-50 text-red-600 text-[12px] font-black rounded-[12px] hover:bg-red-100 transition-colors flex items-center gap-[8px]"
                                 >
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-[16px] h-[16px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
                                     Delete Tasks
@@ -599,7 +599,7 @@ const Reminders = () => {
                             <div className="w-full lg:w-[400px] xl:w-[448px] shrink-0">
                                 <div className="glass rounded-[16px] sm:rounded-[24px] md:rounded-[32px] p-[16px] sm:p-[20px] md:p-[24px] shadow-2xl h-auto transition-all">
                                     <h2 className="text-[14px] sm:text-[16px] md:text-[18px] font-black mb-[16px] sm:mb-[24px] text-slate-800 uppercase tracking-widest flex items-center gap-[8px]">
-                                        <div className="w-[4px] h-[16px] bg-blue-500 rounded-full"></div>
+                                        <div className="w-[4px] h-[16px] bg-blue-500 rounded-[9999px]"></div>
                                         New task
                                     </h2>
                                     <ReminderForm onAdd={handleAdd} categories={categories} onManageCategories={() => setShowCategoryManager(true)} />
@@ -612,10 +612,10 @@ const Reminders = () => {
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-[12px] sm:gap-[16px] mb-[16px] sm:mb-[24px] shrink-0">
                                         <div className="flex flex-wrap items-center gap-[8px] sm:gap-[16px]">
                                             <h2 className="text-[14px] sm:text-[16px] md:text-[18px] font-black text-slate-800 uppercase tracking-widest flex items-center gap-[8px]">
-                                                <div className="w-[4px] h-[16px] bg-[#2d5bff] rounded-full"></div>
+                                                <div className="w-[4px] h-[16px] bg-[#2d5bff] rounded-[9999px]"></div>
                                                 Your Timeline
                                             </h2>
-                                            <span className="text-[9px] sm:text-[10px] md:text-[12px] font-black px-[8px] sm:px-[12px] py-[2px] sm:py-[4px] rounded-full bg-slate-100 text-slate-600 border border-slate-200 uppercase tracking-widest shrink-0">
+                                            <span className="text-[9px] sm:text-[10px] md:text-[12px] font-black px-[8px] sm:px-[12px] py-[2px] sm:py-[4px] rounded-[9999px] bg-slate-100 text-slate-600 border border-slate-200 uppercase tracking-widest shrink-0">
                                                 {processedReminders.length} Tasks
                                             </span>
                                             <div className="flex flex-wrap items-center gap-[4px] sm:gap-[8px]">
@@ -632,8 +632,8 @@ const Reminders = () => {
                                                 {/* 📅 Date Search Filter */}
                                                 {/* 📅 Period Filter */}
                                                 <div className="relative shrink-0">
-                                                    <div className="flex items-center gap-2 bg-white border border-slate-200 p-1 rounded-xl shadow-sm">
-                                                        <span className="hidden sm:inline text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-wide ml-2">Period:</span>
+                                                    <div className="flex items-center gap-[8px] bg-white border border-slate-200 p-[4px] rounded-[12px] shadow-sm">
+                                                        <span className="hidden sm:inline text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-wide ml-[8px]">Period:</span>
                                                         <select
                                                             value={periodType}
                                                             onChange={(e) => {
@@ -654,24 +654,24 @@ const Reminders = () => {
                                                                 type="date"
                                                                 value={filterDate}
                                                                 onChange={(e) => setFilterDate(e.target.value)}
-                                                                className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-[10px] font-bold text-slate-600 outline-none"
+                                                                className="bg-slate-50 border border-slate-200 rounded-[8px] px-[8px] py-[4px] text-[10px] font-bold text-slate-600 outline-none"
                                                             />
                                                         )}
 
                                                         {periodType === 'range' && (
-                                                            <div className="flex items-center gap-1">
+                                                            <div className="flex items-center gap-[4px]">
                                                                 <input
                                                                     type="date"
                                                                     value={customRange.start}
                                                                     onChange={(e) => setCustomRange({ ...customRange, start: e.target.value })}
-                                                                    className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-[10px] font-bold text-slate-600 outline-none w-[90px]"
+                                                                    className="bg-slate-50 border border-slate-200 rounded-[8px] px-[8px] py-[4px] text-[10px] font-bold text-slate-600 outline-none w-[90px]"
                                                                 />
                                                                 <span className="text-slate-400 font-bold">-</span>
                                                                 <input
                                                                     type="date"
                                                                     value={customRange.end}
                                                                     onChange={(e) => setCustomRange({ ...customRange, end: e.target.value })}
-                                                                    className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-[10px] font-bold text-slate-600 outline-none w-[90px]"
+                                                                    className="bg-slate-50 border border-slate-200 rounded-[8px] px-[8px] py-[4px] text-[10px] font-bold text-slate-600 outline-none w-[90px]"
                                                                 />
                                                             </div>
                                                         )}

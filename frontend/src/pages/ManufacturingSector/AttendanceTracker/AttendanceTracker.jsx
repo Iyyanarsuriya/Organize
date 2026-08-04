@@ -714,7 +714,7 @@ const AttendanceTracker = () => {
 
     if (loading) return (
         <div className="h-screen flex items-center justify-center bg-slate-50">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-[9999px] h-[48px] w-[48px] border-t-2 border-b-2 border-blue-500"></div>
         </div>
     );
 
@@ -725,16 +725,16 @@ const AttendanceTracker = () => {
 
             {/* Header */}
             <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200 sticky top-0 z-40 transition-all duration-300">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-                    <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
-                        <div className="flex items-center gap-4">
+                <div className="max-w-7xl mx-auto px-[16px] sm:px-[24px] lg:px-[32px] py-[16px] sm:py-[24px]">
+                    <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-[24px]">
+                        <div className="flex items-center gap-[16px]">
                             <Link
                                 to="/manufacturing"
-                                className="w-10 h-10 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-slate-500 hover:text-[#2d5bff] hover:border-[#2d5bff] transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0"
+                                className="w-[40px] h-[40px] bg-white border border-slate-200 rounded-[12px] flex items-center justify-center text-slate-500 hover:text-[#2d5bff] hover:border-[#2d5bff] transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0"
                             >
-                                <FaChevronLeft className="w-4 h-4" />
+                                <FaChevronLeft className="w-[16px] h-[16px]" />
                             </Link>
-                            <div className="w-10 h-10 sm:w-[48px] sm:h-[48px] bg-linear-to-br from-blue-500 to-indigo-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
+                            <div className="w-[40px] h-[40px] sm:w-[48px] sm:h-[48px] bg-linear-to-br from-blue-500 to-indigo-600 rounded-[12px] sm:rounded-[16px] flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
                                 <FaUserCheck className="text-white text-lg sm:text-xl" />
                             </div>
                             <div>
@@ -743,9 +743,9 @@ const AttendanceTracker = () => {
                             </div>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                        <div className="flex flex-wrap items-center gap-[8px] sm:gap-[16px]">
                             {/* Period Selector - Now scrollable on mobile */}
-                            <div className="w-full lg:w-auto h-[38px] flex items-center p-1 bg-slate-50 border border-slate-200 rounded-xl shadow-sm overflow-x-auto no-scrollbar">
+                            <div className="w-full lg:w-auto h-[38px] flex items-center p-[4px] bg-slate-50 border border-slate-200 rounded-[12px] shadow-sm overflow-x-auto no-scrollbar">
                                 {['day', 'month', 'year', 'range'].map((type) => (
                                     <button
                                         key={type}
@@ -758,7 +758,7 @@ const AttendanceTracker = () => {
                             </div>
 
                             {/* Date Input - Balanced for mobile */}
-                            <div className="w-full lg:w-[180px] h-[38px] flex items-center bg-white border border-slate-200 px-3 rounded-xl shadow-sm hover:border-blue-500 transition-colors">
+                            <div className="w-full lg:w-[180px] h-[38px] flex items-center bg-white border border-slate-200 px-[12px] rounded-[12px] shadow-sm hover:border-blue-500 transition-colors">
                                 {periodType === 'day' ? (
                                     <input
                                         type="date"
@@ -783,7 +783,7 @@ const AttendanceTracker = () => {
                                         className="w-full text-[11px] font-bold text-slate-700 outline-none bg-transparent cursor-pointer"
                                     />
                                 ) : (
-                                    <div className="flex items-center gap-2 w-full">
+                                    <div className="flex items-center gap-[8px] w-full">
                                         <input
                                             type="date"
                                             value={customRange.start}
@@ -802,13 +802,13 @@ const AttendanceTracker = () => {
                             </div>
 
                             {/* Project & Member Selectors - Stacked nicely */}
-                            <div className="w-full sm:w-auto flex items-center gap-2">
+                            <div className="w-full sm:w-auto flex items-center gap-[8px]">
                                 <div className="flex-1 sm:w-[150px] relative">
                                     <FaFilter className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[10px]" />
                                     <select
                                         value={filterProject}
                                         onChange={(e) => setFilterProject(e.target.value)}
-                                        className="w-full h-[38px] pl-8 pr-3 bg-white border border-slate-200 rounded-xl text-[11px] font-bold text-slate-700 outline-none hover:border-blue-500 transition-all cursor-pointer appearance-none shadow-sm"
+                                        className="w-full h-[38px] pl-8 pr-3 bg-white border border-slate-200 rounded-[12px] text-[11px] font-bold text-slate-700 outline-none hover:border-blue-500 transition-all cursor-pointer appearance-none shadow-sm"
                                     >
                                         <option value="">All Projects</option>
                                         {(Array.isArray(projects) ? projects : []).map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
@@ -819,7 +819,7 @@ const AttendanceTracker = () => {
                                     <select
                                         value={filterMember}
                                         onChange={(e) => setFilterMember(e.target.value)}
-                                        className="w-full h-[38px] pl-8 pr-3 bg-white border border-slate-200 rounded-xl text-[11px] font-bold text-slate-700 outline-none hover:border-blue-500 transition-all cursor-pointer appearance-none shadow-sm"
+                                        className="w-full h-[38px] pl-8 pr-3 bg-white border border-slate-200 rounded-[12px] text-[11px] font-bold text-slate-700 outline-none hover:border-blue-500 transition-all cursor-pointer appearance-none shadow-sm"
                                     >
                                         <option value="">All Members</option>
                                         {(Array.isArray(members) ? members : []).slice().sort((a, b) => (a.name || '').localeCompare(b.name || '')).map(m => (
@@ -837,13 +837,13 @@ const AttendanceTracker = () => {
                             </div>
 
                             {/* Role Filter & Manager */}
-                            <div className="w-full sm:w-auto flex items-center gap-2">
+                            <div className="w-full sm:w-auto flex items-center gap-[8px]">
                                 <div className="flex-1 sm:w-[150px] relative">
                                     <FaTag className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[10px]" />
                                     <select
                                         value={filterRole}
                                         onChange={(e) => setFilterRole(e.target.value)}
-                                        className="w-full h-[38px] pl-8 pr-3 bg-white border border-slate-200 rounded-xl text-[11px] font-bold text-slate-700 outline-none hover:border-blue-500 transition-all cursor-pointer appearance-none shadow-sm"
+                                        className="w-full h-[38px] pl-8 pr-3 bg-white border border-slate-200 rounded-[12px] text-[11px] font-bold text-slate-700 outline-none hover:border-blue-500 transition-all cursor-pointer appearance-none shadow-sm"
                                     >
                                         <option value="">All Categories</option>
                                         {[...new Set([...(Array.isArray(roles) ? roles : []).map(r => r.name), ...uniqueRoles])].sort().map(role => (
@@ -853,7 +853,7 @@ const AttendanceTracker = () => {
                                 </div>
                                 <button
                                     onClick={() => setShowRoleManager(true)}
-                                    className="w-[38px] h-[38px] bg-slate-100 text-slate-500 rounded-xl flex items-center justify-center hover:bg-purple-50 hover:text-purple-600 transition-all shadow-sm border border-slate-200 shrink-0"
+                                    className="w-[38px] h-[38px] bg-slate-100 text-slate-500 rounded-[12px] flex items-center justify-center hover:bg-purple-50 hover:text-purple-600 transition-all shadow-sm border border-slate-200 shrink-0"
                                     title="Manage Categories"
                                 >
                                     <FaTag />
@@ -861,11 +861,11 @@ const AttendanceTracker = () => {
                             </div>
 
                             {/* Global Search & Mark Button */}
-                            <div className="w-full sm:w-auto flex items-center gap-2">
+                            <div className="w-full sm:w-auto flex items-center gap-[8px]">
                                 {/* Project Manager Button - NEW */}
                                 <button
                                     onClick={() => setShowProjectManager(true)}
-                                    className="h-[38px] w-[38px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20 transition-all active:scale-95 shrink-0"
+                                    className="h-[38px] w-[38px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-[12px] flex items-center justify-center shadow-lg shadow-indigo-500/20 transition-all active:scale-95 shrink-0"
                                     title="Manage Projects"
                                 >
                                     <FaFolderPlus className="text-xs" />
@@ -878,7 +878,7 @@ const AttendanceTracker = () => {
                                         placeholder="Search..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-full h-[38px] pl-8 pr-3 bg-white border border-slate-200 rounded-xl text-[11px] font-bold text-slate-700 outline-none focus:border-blue-500 transition-all shadow-sm"
+                                        className="w-full h-[38px] pl-8 pr-3 bg-white border border-slate-200 rounded-[12px] text-[11px] font-bold text-slate-700 outline-none focus:border-blue-500 transition-all shadow-sm"
                                     />
                                 </div>
 
@@ -895,10 +895,10 @@ const AttendanceTracker = () => {
                 </div>
             </header>
 
-            <main className="max-w-7xl mx-auto px-[16px] sm:px-6 lg:px-8 py-[16px] sm:py-8">
+            <main className="max-w-7xl mx-auto px-[16px] sm:px-[24px] lg:px-[32px] py-[16px] sm:py-[32px]">
                 {/* View Selector */}
-                <div className="flex bg-slate-100 p-1 rounded-xl shadow-inner border border-slate-200 w-full mb-[16px] sm:mb-8 overflow-x-auto no-scrollbar custom-scrollbar">
-                    <div className="flex flex-nowrap min-w-max gap-1">
+                <div className="flex bg-slate-100 p-[4px] rounded-[12px] shadow-inner border border-slate-200 w-full mb-[16px] sm:mb-[32px] overflow-x-auto no-scrollbar custom-scrollbar">
+                    <div className="flex flex-nowrap min-w-max gap-[4px]">
                         {[
                             { id: 'records', label: 'Records' },
                             { id: 'summary', label: 'Summary' },
@@ -919,10 +919,10 @@ const AttendanceTracker = () => {
                 </div>
 
                 {activeTab === 'records' ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-[16px] sm:gap-6 lg:gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-[16px] sm:gap-[24px] lg:gap-[32px]">
                         <div className="lg:col-span-1 space-y-[16px] sm:space-y-6">
-                            <div className="bg-white rounded-[20px] sm:rounded-3xl p-[16px] sm:p-8 shadow-xl border border-slate-100">
-                                <h3 className="text-lg font-black text-slate-900 mb-6 flex items-center gap-2 font-['Outfit']">
+                            <div className="bg-white rounded-[20px] sm:rounded-[24px] p-[16px] sm:p-[32px] shadow-xl border border-slate-100">
+                                <h3 className="text-lg font-black text-slate-900 mb-[24px] flex items-center gap-[8px] font-['Outfit']">
                                     <FaChartBar className="text-blue-500" />
                                     {periodType.charAt(0).toUpperCase() + periodType.slice(1)} Stats
                                 </h3>
@@ -956,7 +956,7 @@ const AttendanceTracker = () => {
                                         </ResponsiveContainer>
                                     ) : (
                                         <div className="h-full flex flex-col items-center justify-center text-slate-400">
-                                            <FaInbox className="text-4xl mb-4 opacity-20" />
+                                            <FaInbox className="text-4xl mb-[16px] opacity-20" />
                                             <p className="text-xs font-bold uppercase tracking-widest font-['Outfit']">No data available</p>
                                         </div>
                                     )}
@@ -965,60 +965,60 @@ const AttendanceTracker = () => {
                         </div>
 
                         <div className="lg:col-span-2">
-                            <div className="bg-white rounded-[20px] sm:rounded-3xl p-[16px] sm:p-8 shadow-xl border border-slate-100 min-h-[400px] sm:min-h-[500px]">
-                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                            <div className="bg-white rounded-[20px] sm:rounded-[24px] p-[16px] sm:p-[32px] shadow-xl border border-slate-100 min-h-[400px] sm:min-h-[500px]">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[16px] mb-[32px]">
                                     <h3 className="text-lg font-black text-slate-900 font-['Outfit']">Recent Records</h3>
                                     {/* Global search applies here */}
                                 </div>
                                 <div className="space-y-4">
                                     {Array.isArray(filteredAttendances) && filteredAttendances.length > 0 ? (
-                                        <div className="flex flex-col gap-3">
+                                        <div className="flex flex-col gap-[12px]">
                                             {filteredAttendances.map((item, idx) => {
                                                 const option = statusOptions.find(o => o.id === item.status);
                                                 return (
                                                     <div
                                                         key={item.id}
-                                                        className="group bg-white p-[12px] sm:p-4 rounded-[16px] sm:rounded-3xl border border-slate-100 hover:shadow-lg hover:border-blue-200 transition-all duration-300 animate-in fade-in slide-in-from-bottom-2"
+                                                        className="group bg-white p-[12px] sm:p-[16px] rounded-[16px] sm:rounded-[24px] border border-slate-100 hover:shadow-lg hover:border-blue-200 transition-all duration-300 animate-in fade-in slide-in-from-bottom-2"
                                                         style={{ animationDelay: `${idx * 50}ms` }}
                                                     >
-                                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                                            <div className="flex items-start gap-4">
+                                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[16px]">
+                                                            <div className="flex items-start gap-[16px]">
                                                                 <div className={`w-12 h-12 ${option?.bg} rounded-2xl flex items-center justify-center text-xl ${option?.color} shrink-0`}>
                                                                     {option && <option.icon />}
                                                                 </div>
                                                                 <div>
-                                                                    <div className="flex items-center gap-3 mb-1.5 align-middle h-full">
+                                                                    <div className="flex items-center gap-[12px] mb-[6px] align-middle h-full">
                                                                         <h4 className="font-black text-slate-900 text-base">Daily Attendance</h4>
                                                                         <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-widest ${option?.bg} ${option?.color} border ${option?.border}`}>
                                                                             {option?.label}
                                                                         </span>
                                                                     </div>
                                                                     <div className="flex flex-wrap items-center gap-x-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                                                                        <span className="flex items-center gap-1">
+                                                                        <span className="flex items-center gap-[4px]">
                                                                             <FaCalendarAlt /> {new Date(item.date).toLocaleDateString('en-GB')}
                                                                         </span>
-                                                                        <span className="w-[1px] h-[1px] rounded-full bg-slate-300" />
+                                                                        <span className="w-[1px] h-[1px] rounded-[9999px] bg-slate-300" />
                                                                         <span className="text-amber-500 font-black">{item.member_name}</span>
                                                                         {item.created_by && (
                                                                             <>
-                                                                                <span className="w-[1px] h-[1px] rounded-full bg-slate-300" />
+                                                                                <span className="w-[1px] h-[1px] rounded-[9999px] bg-slate-300" />
                                                                                 <span className="text-purple-400">CREATED: {item.created_by}</span>
                                                                             </>
                                                                         )}
                                                                     </div>
                                                                     {/* Work Mode Badge */}
-                                                                    <div className="mt-3">
-                                                                        <span className="px-3 py-1 bg-slate-100 text-slate-500 text-[9px] font-black uppercase tracking-widest rounded-lg">
+                                                                    <div className="mt-[12px]">
+                                                                        <span className="px-[12px] py-[4px] bg-slate-100 text-slate-500 text-[9px] font-black uppercase tracking-widest rounded-[8px]">
                                                                             {item.work_mode || 'OFFICE'}
                                                                         </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-1">
+                                                            <div className="flex flex-row sm:flex-col items-center sm:items-end gap-[12px] sm:gap-[4px]">
                                                                 {/* Timings */}
                                                                 {(item.check_in || item.check_out) && (
-                                                                    <div className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-xl flex items-center gap-2">
+                                                                    <div className="px-[12px] py-[6px] bg-slate-50 border border-slate-100 rounded-[12px] flex items-center gap-[8px]">
                                                                         <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">
                                                                             IN: {item.check_in?.substring(0, 5) || '--:--'}
                                                                         </span>
@@ -1030,7 +1030,7 @@ const AttendanceTracker = () => {
                                                                 )}
                                                                 {/* Duration */}
                                                                 {item.total_hours > 0 && (
-                                                                    <div className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-black uppercase tracking-widest">
+                                                                    <div className="px-[12px] py-[4px] bg-blue-50 text-blue-600 rounded-[8px] text-[10px] font-black uppercase tracking-widest">
                                                                         {item.total_hours} HRS
                                                                     </div>
                                                                 )}
@@ -1042,7 +1042,7 @@ const AttendanceTracker = () => {
                                         </div>
                                     ) : (
                                         <div className="py-20 flex flex-col items-center justify-center text-slate-300">
-                                            <FaInbox className="text-4xl mb-3 opacity-10" />
+                                            <FaInbox className="text-4xl mb-[12px] opacity-10" />
                                             <p className="text-[10px] font-black uppercase tracking-widest">No records found</p>
                                         </div>
                                     )}
@@ -1052,10 +1052,10 @@ const AttendanceTracker = () => {
                     </div>
                 ) : activeTab === 'summary' ? (
                     <div className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-100 overflow-hidden animate-in fade-in duration-500">
-                        <div className="p-[14px] sm:p-4 md:p-8 border-b border-slate-100 bg-slate-50/50">
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-center justify-center text-blue-600 text-xl shrink-0">
+                        <div className="p-[14px] sm:p-[16px] md:p-[32px] border-b border-slate-100 bg-slate-50/50">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[16px]">
+                                <div className="flex items-center gap-[16px]">
+                                    <div className="w-[48px] h-[48px] bg-white rounded-[16px] border border-slate-200 shadow-sm flex items-center justify-center text-blue-600 text-xl shrink-0">
                                         <FaChartBar />
                                     </div>
                                     <div>
@@ -1063,14 +1063,14 @@ const AttendanceTracker = () => {
                                         <p className="text-slate-400 text-[9px] font-black uppercase tracking-wider mt-0.5">Performance Analytics</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-[12px]">
                                     {/* Stats Badge */}
-                                    <div className="flex bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="px-4 py-2 border-r border-slate-100 flex flex-col items-center justify-center min-w-[70px]">
+                                    <div className="flex bg-white rounded-[12px] border border-slate-200 shadow-sm overflow-hidden">
+                                        <div className="px-[16px] py-[8px] border-r border-slate-100 flex flex-col items-center justify-center min-w-[70px]">
                                             <p className="text-[8px] font-black text-slate-400 uppercase tracking-wider">STAFF</p>
                                             <p className="text-sm font-black text-slate-900">{memberSummary.length}</p>
                                         </div>
-                                        <div className="px-4 py-2 flex flex-col items-center justify-center min-w-[70px]">
+                                        <div className="px-[16px] py-[8px] flex flex-col items-center justify-center min-w-[70px]">
                                             <p className="text-[8px] font-black text-slate-400 uppercase tracking-wider">AVG</p>
                                             <p className="text-sm font-black text-blue-600">
                                                 {(() => {
@@ -1093,10 +1093,10 @@ const AttendanceTracker = () => {
                             <table className="w-full min-w-[1000px] text-left border-collapse">
                                 <thead>
                                     <tr className="bg-slate-50/50">
-                                        <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">MEMBER</th>
-                                        <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center">STATS (D/P/A/L/H/HO/WO/Pr)</th>
-                                        <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center">UTIL. %</th>
-                                        <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-right">PROGRESS</th>
+                                        <th className="px-[24px] py-[20px] text-[10px] font-black uppercase tracking-widest text-slate-400">MEMBER</th>
+                                        <th className="px-[24px] py-[20px] text-[10px] font-black uppercase tracking-widest text-center">STATS (D/P/A/L/H/HO/WO/Pr)</th>
+                                        <th className="px-[24px] py-[20px] text-[10px] font-black uppercase tracking-widest text-center">UTIL. %</th>
+                                        <th className="px-[24px] py-[20px] text-[10px] font-black uppercase tracking-widest text-right">PROGRESS</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
@@ -1113,41 +1113,41 @@ const AttendanceTracker = () => {
                                             const rate = totalRelevantDays > 0 ? (presentValue / totalRelevantDays * 100) : 0;
                                             return (
                                                 <tr key={w.id} className="hover:bg-slate-50/80 transition-colors group">
-                                                    <td className="px-6 py-5">
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-xs shrink-0 shadow-md shadow-blue-500/20">
+                                                    <td className="px-[24px] py-[20px]">
+                                                        <div className="flex items-center gap-[12px]">
+                                                            <div className="w-[40px] h-[40px] bg-blue-600 rounded-[12px] flex items-center justify-center text-white font-black text-xs shrink-0 shadow-md shadow-blue-500/20">
                                                                 {w.name ? w.name.charAt(0) : '?'}
                                                             </div>
                                                             <div>
-                                                                <p className="font-black text-slate-900 leading-none mb-1.5">{w.name}</p>
-                                                                <div className="flex gap-1.5">
-                                                                    <div className="px-1.5 py-0.5 bg-slate-100 text-[6px] font-black text-slate-400 rounded flex items-center uppercase tracking-tighter">ID: #{w.id}</div>
-                                                                    <div className="px-1.5 py-0.5 bg-blue-50 text-[6px] font-black text-blue-500 rounded flex items-center uppercase tracking-tighter">{memberIdToRoleMap[w.id]}</div>
+                                                                <p className="font-black text-slate-900 leading-none mb-[6px]">{w.name}</p>
+                                                                <div className="flex gap-[6px]">
+                                                                    <div className="px-[6px] py-0.5 bg-slate-100 text-[6px] font-black text-slate-400 rounded flex items-center uppercase tracking-tighter">ID: #{w.id}</div>
+                                                                    <div className="px-[6px] py-0.5 bg-blue-50 text-[6px] font-black text-blue-500 rounded flex items-center uppercase tracking-tighter">{memberIdToRoleMap[w.id]}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td className="px-6 py-5 text-center">
-                                                        <div className="flex items-center justify-center gap-1.5 flex-wrap max-w-[320px] mx-auto">
-                                                            <span className="w-8 h-8 flex items-center justify-center bg-slate-900 text-white rounded-lg font-black text-[10px] shrink-0" title="Total Days">{w.total || 0}</span>
-                                                            <span className="w-8 h-8 flex items-center justify-center bg-emerald-50 text-emerald-600 rounded-lg font-black text-[10px] border border-emerald-100 shrink-0" title="Present">{w.present}</span>
-                                                            <span className="w-8 h-8 flex items-center justify-center bg-red-50 text-red-600 rounded-lg font-black text-[10px] border border-red-100 shrink-0" title="Absent">{w.absent}</span>
-                                                            <span className="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 rounded-lg font-black text-[10px] border border-amber-100 shrink-0" title="Late">{w.late}</span>
-                                                            <span className="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 rounded-lg font-black text-[10px] border border-blue-100 shrink-0" title="Half Day">{w.half_day}</span>
-                                                            <span className="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-600 rounded-lg font-black text-[10px] border border-rose-100 shrink-0" title="Holiday">{w.holiday || 0}</span>
-                                                            <span className="w-8 h-8 flex items-center justify-center bg-slate-50 text-slate-500 rounded-lg font-black text-[10px] border border-slate-100 shrink-0" title="Week Off/Weekend">{w.week_off || 0}</span>
-                                                            <span className="w-8 h-8 flex items-center justify-center bg-purple-50 text-purple-600 rounded-lg font-black text-[10px] border border-purple-100 shrink-0" title="Permission">{w.permission || 0}</span>
+                                                    <td className="px-[24px] py-[20px] text-center">
+                                                        <div className="flex items-center justify-center gap-[6px] flex-wrap max-w-[320px] mx-auto">
+                                                            <span className="w-[32px] h-[32px] flex items-center justify-center bg-slate-900 text-white rounded-[8px] font-black text-[10px] shrink-0" title="Total Days">{w.total || 0}</span>
+                                                            <span className="w-[32px] h-[32px] flex items-center justify-center bg-emerald-50 text-emerald-600 rounded-[8px] font-black text-[10px] border border-emerald-100 shrink-0" title="Present">{w.present}</span>
+                                                            <span className="w-[32px] h-[32px] flex items-center justify-center bg-red-50 text-red-600 rounded-[8px] font-black text-[10px] border border-red-100 shrink-0" title="Absent">{w.absent}</span>
+                                                            <span className="w-[32px] h-[32px] flex items-center justify-center bg-amber-50 text-amber-600 rounded-[8px] font-black text-[10px] border border-amber-100 shrink-0" title="Late">{w.late}</span>
+                                                            <span className="w-[32px] h-[32px] flex items-center justify-center bg-blue-50 text-blue-600 rounded-[8px] font-black text-[10px] border border-blue-100 shrink-0" title="Half Day">{w.half_day}</span>
+                                                            <span className="w-[32px] h-[32px] flex items-center justify-center bg-rose-50 text-rose-600 rounded-[8px] font-black text-[10px] border border-rose-100 shrink-0" title="Holiday">{w.holiday || 0}</span>
+                                                            <span className="w-[32px] h-[32px] flex items-center justify-center bg-slate-50 text-slate-500 rounded-[8px] font-black text-[10px] border border-slate-100 shrink-0" title="Week Off/Weekend">{w.week_off || 0}</span>
+                                                            <span className="w-[32px] h-[32px] flex items-center justify-center bg-purple-50 text-purple-600 rounded-[8px] font-black text-[10px] border border-purple-100 shrink-0" title="Permission">{w.permission || 0}</span>
                                                         </div>
                                                     </td>
-                                                    <td className="px-6 py-5 text-center">
+                                                    <td className="px-[24px] py-[20px] text-center">
                                                         <span className={`font-black text-xs ${rate >= 90 ? 'text-emerald-500' : rate >= 75 ? 'text-blue-500' : 'text-amber-500'}`}>
                                                             {rate.toFixed(0)}%
                                                         </span>
                                                     </td>
-                                                    <td className="px-6 py-5 text-right w-1/4">
-                                                        <div className="flex items-center justify-end gap-4">
-                                                            <div className="flex-1 h-3 bg-slate-100 rounded-full overflow-hidden">
-                                                                <div className={`h-full rounded-full transition-all duration-1000 ${rate >= 90 ? 'bg-emerald-500' : rate >= 75 ? 'bg-blue-500' : 'bg-amber-500'}`} style={{ width: `${rate}%` }} />
+                                                    <td className="px-[24px] py-[20px] text-right w-[25%]">
+                                                        <div className="flex items-center justify-end gap-[16px]">
+                                                            <div className="flex-1 h-[12px] bg-slate-100 rounded-[9999px] overflow-hidden">
+                                                                <div className={`h-full rounded-[9999px] transition-all duration-1000 ${rate >= 90 ? 'bg-emerald-500' : rate >= 75 ? 'bg-blue-500' : 'bg-amber-500'}`} style={{ width: `${rate}%` }} />
                                                             </div>
                                                             <span className={`text-xs font-black min-w-[32px] ${rate >= 90 ? 'text-emerald-600' : rate >= 75 ? 'text-blue-600' : 'text-amber-600'}`}>{rate.toFixed(0)}%</span>
                                                         </div>
@@ -1160,7 +1160,7 @@ const AttendanceTracker = () => {
                         </div>
 
                         {/* Mobile Summary View */}
-                        <div className="md:hidden space-y-3 p-4 bg-slate-50/50">
+                        <div className="md:hidden space-y-3 p-[16px] bg-slate-50/50">
                             {(Array.isArray(memberSummary) ? memberSummary : [])
                                 .filter(w => {
                                     const matchesRole = !filterRole || memberIdToRoleMap[w.id] === filterRole;
@@ -1173,61 +1173,61 @@ const AttendanceTracker = () => {
                                     const presentValue = (Number(w.present) || 0) + (Number(w.late) || 0) + (Number(w.permission) || 0) + (Number(w.OD) || 0) + (Number(w.holiday) || 0) + (Number(w.week_off) || 0) + (Number(w.half_day) || 0) * 0.5;
                                     const rate = totalRelevantDays > 0 ? (presentValue / totalRelevantDays * 100) : 0;
                                     return (
-                                        <div key={w.id} className="bg-white p-[14px] sm:p-5 rounded-[18px] sm:rounded-3xl border border-slate-100 shadow-sm">
-                                            <div className="flex items-center justify-between mb-5">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20">
+                                        <div key={w.id} className="bg-white p-[14px] sm:p-[20px] rounded-[18px] sm:rounded-[24px] border border-slate-100 shadow-sm">
+                                            <div className="flex items-center justify-between mb-[20px]">
+                                                <div className="flex items-center gap-[16px]">
+                                                    <div className="w-[48px] h-[48px] bg-blue-600 rounded-[16px] flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20">
                                                         {w.name ? w.name.charAt(0) : '?'}
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-black text-slate-900 text-base leading-tight mb-1">{w.name}</h4>
-                                                        <div className="flex gap-2">
-                                                            <div className="px-2 py-0.5 bg-slate-100 text-[10px] font-black text-slate-400 rounded flex items-center uppercase">ID: #{w.id}</div>
-                                                            <div className="px-2 py-0.5 bg-blue-50 text-[10px] font-black text-blue-500 rounded flex items-center uppercase">{memberIdToRoleMap[w.id]}</div>
+                                                        <h4 className="font-black text-slate-900 text-base leading-tight mb-[4px]">{w.name}</h4>
+                                                        <div className="flex gap-[8px]">
+                                                            <div className="px-[8px] py-0.5 bg-slate-100 text-[10px] font-black text-slate-400 rounded flex items-center uppercase">ID: #{w.id}</div>
+                                                            <div className="px-[8px] py-0.5 bg-blue-50 text-[10px] font-black text-blue-500 rounded flex items-center uppercase">{memberIdToRoleMap[w.id]}</div>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                             </div>
 
-                                            <div className="grid grid-cols-6 gap-2 p-3 bg-slate-50 rounded-2xl mb-4">
+                                            <div className="grid grid-cols-6 gap-[8px] p-[12px] bg-slate-50 rounded-[16px] mb-[16px]">
                                                 <div className="text-center">
-                                                    <p className="text-[9px] font-black text-slate-900 uppercase mb-1">D</p>
-                                                    <div className="w-full aspect-square bg-slate-900 rounded-lg flex items-center justify-center text-white text-xs font-black">{w.total || 0}</div>
+                                                    <p className="text-[9px] font-black text-slate-900 uppercase mb-[4px]">D</p>
+                                                    <div className="w-full aspect-square bg-slate-900 rounded-[8px] flex items-center justify-center text-white text-xs font-black">{w.total || 0}</div>
                                                 </div>
                                                 <div className="text-center">
-                                                    <p className="text-[9px] font-black text-emerald-500 uppercase mb-1">P</p>
-                                                    <div className="w-full aspect-square bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xs font-black">{w.present}</div>
+                                                    <p className="text-[9px] font-black text-emerald-500 uppercase mb-[4px]">P</p>
+                                                    <div className="w-full aspect-square bg-emerald-100 text-emerald-600 rounded-[8px] flex items-center justify-center text-xs font-black">{w.present}</div>
                                                 </div>
                                                 <div className="text-center">
-                                                    <p className="text-[9px] font-black text-red-500 uppercase mb-1">A</p>
-                                                    <div className="w-full aspect-square bg-red-100 text-red-600 rounded-lg flex items-center justify-center text-xs font-black">{w.absent}</div>
+                                                    <p className="text-[9px] font-black text-red-500 uppercase mb-[4px]">A</p>
+                                                    <div className="w-full aspect-square bg-red-100 text-red-600 rounded-[8px] flex items-center justify-center text-xs font-black">{w.absent}</div>
                                                 </div>
                                                 <div className="text-center">
-                                                    <p className="text-[9px] font-black text-amber-500 uppercase mb-1">L</p>
-                                                    <div className="w-full aspect-square bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xs font-black">{w.late}</div>
+                                                    <p className="text-[9px] font-black text-amber-500 uppercase mb-[4px]">L</p>
+                                                    <div className="w-full aspect-square bg-amber-100 text-amber-600 rounded-[8px] flex items-center justify-center text-xs font-black">{w.late}</div>
                                                 </div>
                                                 <div className="text-center">
-                                                    <p className="text-[9px] font-black text-blue-500 uppercase mb-1">H</p>
-                                                    <div className="w-full aspect-square bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xs font-black">{w.half_day}</div>
+                                                    <p className="text-[9px] font-black text-blue-500 uppercase mb-[4px]">H</p>
+                                                    <div className="w-full aspect-square bg-blue-100 text-blue-600 rounded-[8px] flex items-center justify-center text-xs font-black">{w.half_day}</div>
                                                 </div>
                                                 <div className="text-center">
-                                                    <p className="text-[9px] font-black text-rose-500 uppercase mb-1">Hol</p>
-                                                    <div className="w-full aspect-square bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center text-xs font-black">{w.holiday || 0}</div>
+                                                    <p className="text-[9px] font-black text-rose-500 uppercase mb-[4px]">Hol</p>
+                                                    <div className="w-full aspect-square bg-rose-100 text-rose-600 rounded-[8px] flex items-center justify-center text-xs font-black">{w.holiday || 0}</div>
                                                 </div>
                                             </div>
 
-                                            <div className="flex items-center gap-4">
+                                            <div className="flex items-center gap-[16px]">
                                                 <div className="flex-1">
-                                                    <div className="flex justify-between items-end mb-2">
+                                                    <div className="flex justify-between items-end mb-[8px]">
                                                         <span className="text-[10px] font-black uppercase text-slate-400">Progress</span>
                                                         <span className={`text-xs font-black ${rate >= 90 ? 'text-emerald-600' : rate >= 75 ? 'text-blue-600' : 'text-amber-600'}`}>{rate.toFixed(0)}%</span>
                                                     </div>
-                                                    <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div className="w-full h-[8px] bg-slate-100 rounded-[9999px] overflow-hidden">
                                                         <div className={`h-full rounded-full ${rate >= 90 ? 'bg-emerald-500' : rate >= 75 ? 'bg-blue-500' : 'bg-amber-500'}`} style={{ width: `${rate}%` }} />
                                                     </div>
                                                 </div>
-                                                <div className="text-center px-4 border-l border-slate-100">
+                                                <div className="text-center px-[16px] border-l border-slate-100">
                                                     <p className="text-[9px] font-black text-slate-400 uppercase mb-0.5">Util.</p>
                                                     <p className={`text-sm font-black ${rate >= 90 ? 'text-emerald-500' : rate >= 75 ? 'text-blue-500' : 'text-amber-500'}`}>{rate.toFixed(0)}%</p>
                                                 </div>
@@ -1237,7 +1237,7 @@ const AttendanceTracker = () => {
                                 })}
                             {memberSummary.length === 0 && (
                                 <div className="py-20 text-center text-slate-300">
-                                    <FaInbox className="text-4xl mb-3 opacity-10 mx-auto" strokeWidth={1} />
+                                    <FaInbox className="text-4xl mb-[12px] opacity-10 mx-auto" strokeWidth={1} />
                                     <p className="text-[10px] font-black uppercase tracking-widest">No statistics available</p>
                                 </div>
                             )}
@@ -1271,11 +1271,11 @@ const AttendanceTracker = () => {
                     />
                 ) : (
                     <div className="bg-white rounded-[24px] sm:rounded-[40px] shadow-xl border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="p-[14px] sm:p-6 md:p-10 border-b border-slate-100 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div className="p-[14px] sm:p-[24px] md:p-[40px] border-b border-slate-100 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[16px]">
                                 <div>
-                                    <h3 className="text-xl sm:text-2xl font-black mb-1.5 font-['Outfit']">Daily Attendance Sheet</h3>
-                                    <div className="flex flex-wrap items-center gap-2">
+                                    <h3 className="text-xl sm:text-2xl font-black mb-[6px] font-['Outfit']">Daily Attendance Sheet</h3>
+                                    <div className="flex flex-wrap items-center gap-[8px]">
                                         <FaCalendarAlt className="text-blue-400 text-[12px]" />
                                         <span className="text-slate-400 font-bold uppercase tracking-widest text-[9px] sm:text-[10px] font-['Outfit']">
                                             {(() => {
@@ -1285,7 +1285,7 @@ const AttendanceTracker = () => {
                                             })()}
                                         </span>
                                         {activeHoliday && (
-                                            <div className="flex items-center gap-2 px-3 py-1 bg-rose-500/20 border border-rose-500/30 rounded-full">
+                                            <div className="flex items-center gap-[8px] px-[12px] py-[4px] bg-rose-500/20 border border-rose-500/30 rounded-[9999px]">
                                                 <FaTag className="text-rose-400 text-[9px]" />
                                                 <span className="text-rose-200 text-[9px] font-black uppercase tracking-widest">{activeHoliday.name} (HOLIDAY)</span>
                                             </div>
@@ -1293,7 +1293,7 @@ const AttendanceTracker = () => {
                                     </div>
                                 </div>
                                 {periodType === 'day' && (
-                                    <div className="bg-white/10 px-4 py-2 sm:px-6 sm:py-3 rounded-2xl border border-white/10 backdrop-blur-md self-start sm:self-center">
+                                    <div className="bg-white/10 px-[16px] py-[8px] sm:px-[24px] sm:py-[12px] rounded-[16px] border border-white/10 backdrop-blur-md self-start sm:self-center">
                                         <p className="text-[9px] font-black uppercase tracking-widest text-blue-300 mb-0.5 font-['Outfit']">Marking Mode</p>
                                         <p className="text-xs sm:text-sm font-black font-['Outfit']">Quick Upsert</p>
                                     </div>
@@ -1302,25 +1302,25 @@ const AttendanceTracker = () => {
                         </div>
 
                         <div className="p-0">
-                            <div className="px-[14px] py-[10px] sm:px-6 sm:py-4 md:px-8 md:py-6 border-b border-slate-100 flex flex-wrap items-center gap-[8px] sm:gap-3 md:gap-4 bg-slate-50/30">
-                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mr-2">Quick Actions:</label>
+                            <div className="px-[14px] py-[10px] sm:px-[24px] sm:py-[16px] md:px-[32px] md:py-[24px] border-b border-slate-100 flex flex-wrap items-center gap-[8px] sm:gap-[12px] md:gap-[16px] bg-slate-50/30">
+                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mr-[8px]">Quick Actions:</label>
                                 <button
                                     id="mark-all-present"
                                     onClick={() => handleBulkMark('present')}
-                                    className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:bg-emerald-50 hover:border-emerald-200 shadow-sm transition-all flex items-center gap-2"
+                                    className="px-[16px] py-[8px] bg-white border border-slate-200 rounded-[12px] text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:bg-emerald-50 hover:border-emerald-200 shadow-sm transition-all flex items-center gap-[8px]"
                                 >
                                     <FaCheckCircle className="text-sm" /> MARK ALL PRESENT
                                 </button>
                                 <div className="w-[1px] h-[24px] bg-slate-200 hidden sm:block" />
                                 <button
                                     onClick={() => handleBulkMark('week_off')}
-                                    className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-100 hover:border-slate-300 shadow-sm transition-all flex items-center gap-2"
+                                    className="px-[16px] py-[8px] bg-white border border-slate-200 rounded-[12px] text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-100 hover:border-slate-300 shadow-sm transition-all flex items-center gap-[8px]"
                                 >
                                     <FaCalendarAlt className="text-sm" /> MARK WEEKEND
                                 </button>
                                 <button
                                     onClick={() => handleBulkMark('holiday')}
-                                    className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 hover:border-rose-200 shadow-sm transition-all flex items-center gap-2"
+                                    className="px-[16px] py-[8px] bg-white border border-slate-200 rounded-[12px] text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 hover:border-rose-200 shadow-sm transition-all flex items-center gap-[8px]"
                                 >
                                     <FaTag className="text-sm" /> MARK HOLIDAY
                                 </button>
@@ -1331,12 +1331,12 @@ const AttendanceTracker = () => {
                                 <table className="w-full min-w-[1024px] text-left">
                                     <thead>
                                         <tr className="bg-slate-50/50 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                                            <th className="px-6 py-5">Name</th>
-                                            <th className="px-6 py-5 text-center">Status</th>
-                                            <th className="px-6 py-5 text-center">Time Log</th>
-                                            <th className="px-6 py-5 text-center">Quick Extras</th>
-                                            <th className="px-6 py-5">Work Details</th>
-                                            <th className="px-6 py-5 text-right">Current</th>
+                                            <th className="px-[24px] py-[20px]">Name</th>
+                                            <th className="px-[24px] py-[20px] text-center">Status</th>
+                                            <th className="px-[24px] py-[20px] text-center">Time Log</th>
+                                            <th className="px-[24px] py-[20px] text-center">Quick Extras</th>
+                                            <th className="px-[24px] py-[20px]">Work Details</th>
+                                            <th className="px-[24px] py-[20px] text-right">Current</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-100">
@@ -1355,9 +1355,9 @@ const AttendanceTracker = () => {
 
                                                 return (
                                                     <tr key={w.id} className="hover:bg-slate-50/50 transition-colors group">
-                                                        <td className="px-6 py-6">
-                                                            <div className="flex items-center gap-4">
-                                                                <div className="w-10 h-10 bg-white rounded-xl border border-slate-100 items-center justify-center text-slate-400 group-hover:text-blue-500 shadow-sm transition-all shrink-0 flex">
+                                                        <td className="px-[24px] py-[24px]">
+                                                            <div className="flex items-center gap-[16px]">
+                                                                <div className="w-[40px] h-[40px] bg-white rounded-[12px] border border-slate-100 items-center justify-center text-slate-400 group-hover:text-blue-500 shadow-sm transition-all shrink-0 flex">
                                                                     <FaUserCheck />
                                                                 </div>
                                                                 <div className="min-w-0">
@@ -1366,8 +1366,8 @@ const AttendanceTracker = () => {
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-6 text-center">
-                                                            <div className="flex flex-col gap-2">
+                                                        <td className="px-[24px] py-[24px] text-center">
+                                                            <div className="flex flex-col gap-[8px]">
                                                                 <div className="flex flex-wrap items-center justify-center gap-[6px] max-w-[320px] mx-auto">
                                                                     {statusOptions.map(option => {
                                                                         const getDisplayLabel = (id) => {
@@ -1393,10 +1393,10 @@ const AttendanceTracker = () => {
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-6 text-center">
-                                                            <div className="flex items-center justify-center gap-2">
-                                                                <div className="flex flex-col items-center gap-1">
-                                                                    <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg p-1.5 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                                                        <td className="px-[24px] py-[24px] text-center">
+                                                            <div className="flex items-center justify-center gap-[8px]">
+                                                                <div className="flex flex-col items-center gap-[4px]">
+                                                                    <div className="flex items-center gap-[4px] bg-slate-50 border border-slate-200 rounded-[8px] p-[6px] focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
                                                                         <FaClock className="text-slate-300 text-[10px]" />
                                                                         <input
                                                                             type="time"
@@ -1413,8 +1413,8 @@ const AttendanceTracker = () => {
                                                                     <span className="text-[8px] font-black text-slate-300 uppercase tracking-widest">IN</span>
                                                                 </div>
                                                                 <div className="text-slate-300 text-[10px]">→</div>
-                                                                <div className="flex flex-col items-center gap-1">
-                                                                    <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg p-1.5 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                                                                <div className="flex flex-col items-center gap-[4px]">
+                                                                    <div className="flex items-center gap-[4px] bg-slate-50 border border-slate-200 rounded-[8px] p-[6px] focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
                                                                         <input
                                                                             type="time"
                                                                             disabled={!isPresentOrPerm}
@@ -1432,15 +1432,15 @@ const AttendanceTracker = () => {
                                                                 </div>
                                                             </div>
                                                             {attendance?.total_hours && (
-                                                                <div className="mt-2 text-center">
+                                                                <div className="mt-[8px] text-center">
                                                                     <span className={`text-[9px] font-black px-2 py-0.5 rounded-full ${parseFloat(attendance.total_hours) >= 8 ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
                                                                         TOTAL: {attendance.total_hours} Hrs
                                                                     </span>
                                                                 </div>
                                                             )}
                                                         </td>
-                                                        <td className="px-6 py-6">
-                                                            <div className="flex items-center justify-center gap-2">
+                                                        <td className="px-[24px] py-[24px]">
+                                                            <div className="flex items-center justify-center gap-[8px]">
                                                                 <button
                                                                     disabled={!canEdit || !isPresentOrPerm}
                                                                     onClick={() => {
@@ -1460,7 +1460,7 @@ const AttendanceTracker = () => {
                                                                         });
                                                                         setShowPermissionModal(true);
                                                                     }}
-                                                                    className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-2 transition-all ${currentStatus === 'permission' ? 'bg-purple-500 text-white shadow-md' : isPresentOrPerm ? 'bg-purple-50 text-purple-600 border border-purple-100 hover:bg-purple-100' : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
+                                                                    className={`px-[12px] py-[6px] rounded-[8px] text-[9px] font-black uppercase flex items-center gap-[8px] transition-all ${currentStatus === 'permission' ? 'bg-purple-500 text-white shadow-md' : isPresentOrPerm ? 'bg-purple-50 text-purple-600 border border-purple-100 hover:bg-purple-100' : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
                                                                     title={attendance?.permission_duration ? `Perm: ${attendance.permission_duration}` : 'Add Permission'}
                                                                 >
                                                                     <FaClock /> PER
@@ -1476,27 +1476,27 @@ const AttendanceTracker = () => {
                                                                         });
                                                                         setShowOvertimeModal(true);
                                                                     }}
-                                                                    className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-2 transition-all ${attendance?.overtime_duration ? 'bg-orange-500 text-white shadow-md' : isPresentOrPerm ? 'bg-orange-50 text-orange-600 border border-orange-100 hover:bg-orange-100' : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
+                                                                    className={`px-[12px] py-[6px] rounded-[8px] text-[9px] font-black uppercase flex items-center gap-[8px] transition-all ${attendance?.overtime_duration ? 'bg-orange-500 text-white shadow-md' : isPresentOrPerm ? 'bg-orange-50 text-orange-600 border border-orange-100 hover:bg-orange-100' : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
                                                                     title={attendance?.overtime_duration ? `OT: ${attendance.overtime_duration}` : 'Add Overtime'}
                                                                 >
                                                                     <FaBusinessTime /> OT
                                                                 </button>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-6">
+                                                        <td className="px-[24px] py-[24px]">
                                                             <div
                                                                 onClick={() => { if (!isPresentOrPerm || !canEdit) return; setWorkDoneModalData({ member_id: w.id, member_name: w.name, status: currentStatus || 'present', note: attendance?.note || '', attendance_id: attendance?.id }); setShowWorkDoneModal(true); }}
                                                                 className={`cursor-pointer transition-all duration-300 ${isPresentOrPerm ? (canEdit ? 'opacity-100' : 'opacity-70 cursor-not-allowed') : 'opacity-30 pointer-events-none'}`}
                                                             >
-                                                                <div className="w-full bg-slate-50 border border-slate-100 rounded-lg px-3 py-2 text-[10px] font-bold text-slate-500 flex items-center hover:border-blue-300">
+                                                                <div className="w-full bg-slate-50 border border-slate-100 rounded-[8px] px-[12px] py-[8px] text-[10px] font-bold text-slate-500 flex items-center hover:border-blue-300">
                                                                     <span className="truncate">{attendance?.note || "Work notes..."}</span>
                                                                     <FaEdit className="ml-auto text-[10px] text-slate-300" />
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-6 text-right">
+                                                        <td className="px-[24px] py-[24px] text-right">
                                                             {option && (
-                                                                <div className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${option.bg} ${option.color} border ${option.border}`}>
+                                                                <div className={`inline-flex items-center gap-[6px] px-[16px] py-[6px] rounded-[9999px] text-[10px] font-black uppercase tracking-widest ${option.bg} ${option.color} border ${option.border}`}>
                                                                     <option.icon className="text-xs" />
                                                                     {option.label}
                                                                 </div>
@@ -1510,7 +1510,7 @@ const AttendanceTracker = () => {
                             </div>
 
                             {/* Mobile Card View */}
-                            <div className="md:hidden space-y-3 p-4 bg-slate-50/50">
+                            <div className="md:hidden space-y-3 p-[16px] bg-slate-50/50">
                                 {((Array.isArray(members) ? members : []))
                                     .filter(m => {
                                         const matchesRole = !filterRole || m.role === filterRole;
@@ -1525,10 +1525,10 @@ const AttendanceTracker = () => {
                                         const isPresentOrPerm = currentStatus === 'present' || currentStatus === 'late' || currentStatus === 'half-day' || currentStatus === 'permission';
 
                                         return (
-                                            <div key={w.id} className="bg-white rounded-[24px] border border-slate-100 p-4 shadow-sm active:scale-[0.98] transition-all">
-                                                <div className="flex items-center justify-between mb-4">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="w-10 h-10 bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl flex items-center justify-center text-blue-600 border border-blue-100 font-black text-xs">
+                                            <div key={w.id} className="bg-white rounded-[24px] border border-slate-100 p-[16px] shadow-sm active:scale-[0.98] transition-all">
+                                                <div className="flex items-center justify-between mb-[16px]">
+                                                    <div className="flex items-center gap-[12px]">
+                                                        <div className="w-[40px] h-[40px] bg-linear-to-br from-blue-50 to-indigo-50 rounded-[12px] flex items-center justify-center text-blue-600 border border-blue-100 font-black text-xs">
                                                             {w.name.charAt(0)}
                                                         </div>
                                                         <div>
@@ -1537,45 +1537,45 @@ const AttendanceTracker = () => {
                                                         </div>
                                                     </div>
                                                     {option && (
-                                                        <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${option.bg} ${option.color} border ${option.border} flex items-center gap-1`}>
+                                                        <div className={`px-[12px] py-[4px] rounded-[9999px] text-[8px] font-black uppercase tracking-widest ${option.bg} ${option.color} border ${option.border} flex items-center gap-[4px]`}>
                                                             <option.icon /> {option.label}
                                                         </div>
                                                     )}
                                                 </div>
 
-                                                <div className="grid grid-cols-4 gap-1 mb-3">
+                                                <div className="grid grid-cols-4 gap-[4px] mb-[12px]">
                                                     <button
                                                         disabled={!canEdit}
                                                         onClick={(e) => { e.stopPropagation(); handleQuickMark(w.id, 'present'); }}
-                                                        className={`h-[42px] rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 transition-all ${!canEdit ? 'opacity-50 cursor-not-allowed bg-slate-50 border border-slate-100' : (currentStatus === 'present' || currentStatus === 'permission') ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
+                                                        className={`h-[42px] rounded-[12px] text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-[4px] transition-all ${!canEdit ? 'opacity-50 cursor-not-allowed bg-slate-50 border border-slate-100' : (currentStatus === 'present' || currentStatus === 'permission') ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
                                                     >
                                                         Pre
                                                     </button>
                                                     <button
                                                         disabled={!canEdit}
                                                         onClick={(e) => { e.stopPropagation(); handleQuickMark(w.id, 'absent'); }}
-                                                        className={`h-[42px] rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 transition-all ${!canEdit ? 'opacity-50 cursor-not-allowed bg-slate-50 border border-slate-100' : currentStatus === 'absent' ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
+                                                        className={`h-[42px] rounded-[12px] text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-[4px] transition-all ${!canEdit ? 'opacity-50 cursor-not-allowed bg-slate-50 border border-slate-100' : currentStatus === 'absent' ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
                                                     >
                                                         Abs
                                                     </button>
                                                     <button
                                                         disabled={!canEdit}
                                                         onClick={(e) => { e.stopPropagation(); handleQuickMark(w.id, 'holiday'); }}
-                                                        className={`h-[42px] rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 transition-all ${!canEdit ? 'opacity-50 cursor-not-allowed bg-slate-50 border border-slate-100' : currentStatus === 'holiday' ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/20' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
+                                                        className={`h-[42px] rounded-[12px] text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-[4px] transition-all ${!canEdit ? 'opacity-50 cursor-not-allowed bg-slate-50 border border-slate-100' : currentStatus === 'holiday' ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/20' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
                                                     >
                                                         HO
                                                     </button>
                                                     <button
                                                         disabled={!canEdit}
                                                         onClick={(e) => { e.stopPropagation(); handleQuickMark(w.id, 'week_off'); }}
-                                                        className={`h-[42px] rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1 transition-all ${!canEdit ? 'opacity-50 cursor-not-allowed bg-slate-50 border border-slate-100' : currentStatus === 'week_off' ? 'bg-slate-500 text-white shadow-lg shadow-slate-500/20' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
+                                                        className={`h-[42px] rounded-[12px] text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-[4px] transition-all ${!canEdit ? 'opacity-50 cursor-not-allowed bg-slate-50 border border-slate-100' : currentStatus === 'week_off' ? 'bg-slate-500 text-white shadow-lg shadow-slate-500/20' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
                                                     >
                                                         WO
                                                     </button>
                                                 </div>
 
-                                                <div className="flex flex-col gap-1">
-                                                    <div className="grid grid-cols-2 gap-1">
+                                                <div className="flex flex-col gap-[4px]">
+                                                    <div className="grid grid-cols-2 gap-[4px]">
                                                         <button
                                                             disabled={!canEdit || !isPresentOrPerm}
                                                             onClick={() => {
@@ -1595,9 +1595,9 @@ const AttendanceTracker = () => {
                                                                 });
                                                                 setShowPermissionModal(true);
                                                             }}
-                                                            className={`flex-1 py-2.5 rounded-xl text-[9px] font-black uppercase flex flex-col items-center justify-center gap-1 transition-all ${currentStatus === 'permission' ? 'bg-purple-500 text-white shadow-lg' : isPresentOrPerm ? 'bg-purple-50 text-purple-600 border border-purple-100' : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
+                                                            className={`flex-1 py-[10px] rounded-[12px] text-[9px] font-black uppercase flex flex-col items-center justify-center gap-[4px] transition-all ${currentStatus === 'permission' ? 'bg-purple-500 text-white shadow-lg' : isPresentOrPerm ? 'bg-purple-50 text-purple-600 border border-purple-100' : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
                                                         >
-                                                            <div className="flex items-center gap-1.5"><FaClock /> PERMISSION</div>
+                                                            <div className="flex items-center gap-[6px]"><FaClock /> PERMISSION</div>
                                                             {currentStatus === 'permission' && <div className="text-[8px] opacity-90 font-medium leading-none">{attendance?.permission_duration}</div>}
                                                         </button>
                                                         <button
@@ -1611,23 +1611,23 @@ const AttendanceTracker = () => {
                                                                 });
                                                                 setShowOvertimeModal(true);
                                                             }}
-                                                            className={`flex-1 py-2.5 rounded-xl text-[9px] font-black uppercase flex flex-col items-center justify-center gap-1 transition-all ${attendance?.overtime_duration ? 'bg-orange-500 text-white shadow-lg' : isPresentOrPerm ? 'bg-orange-50 text-orange-600 border border-orange-100' : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
+                                                            className={`flex-1 py-[10px] rounded-[12px] text-[9px] font-black uppercase flex flex-col items-center justify-center gap-[4px] transition-all ${attendance?.overtime_duration ? 'bg-orange-500 text-white shadow-lg' : isPresentOrPerm ? 'bg-orange-50 text-orange-600 border border-orange-100' : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
                                                         >
-                                                            <div className="flex items-center gap-1.5"><FaBusinessTime /> OT</div>
+                                                            <div className="flex items-center gap-[6px]"><FaBusinessTime /> OT</div>
                                                             {attendance?.overtime_duration && <div className="text-[8px] opacity-90 font-medium leading-none">{attendance?.overtime_duration}</div>}
                                                         </button>
                                                     </div>
 
                                                     {(attendance?.permission_reason || attendance?.overtime_reason) && (
-                                                        <div className="grid grid-cols-2 gap-1 mb-2">
+                                                        <div className="grid grid-cols-2 gap-[4px] mb-[8px]">
                                                             {attendance?.permission_reason && (
-                                                                <div className="bg-purple-50 border border-purple-100 rounded-xl px-3 py-2">
+                                                                <div className="bg-purple-50 border border-purple-100 rounded-[12px] px-[12px] py-[8px]">
                                                                     <p className="text-[8px] font-black uppercase text-purple-300 tracking-widest mb-0.5">Perm Reason</p>
                                                                     <p className="text-[10px] font-bold text-purple-700 leading-tight">{attendance.permission_reason}</p>
                                                                 </div>
                                                             )}
                                                             {attendance?.overtime_reason && (
-                                                                <div className="bg-orange-50 border border-orange-100 rounded-xl px-3 py-2">
+                                                                <div className="bg-orange-50 border border-orange-100 rounded-[12px] px-[12px] py-[8px]">
                                                                     <p className="text-[8px] font-black uppercase text-orange-300 tracking-widest mb-0.5">OT Reason</p>
                                                                     <p className="text-[10px] font-bold text-orange-700 leading-tight">{attendance.overtime_reason}</p>
                                                                 </div>
@@ -1636,7 +1636,7 @@ const AttendanceTracker = () => {
                                                     )}
                                                     <div
                                                         onClick={() => { if (!isPresentOrPerm || !canEdit) return; setWorkDoneModalData({ member_id: w.id, member_name: w.name, status: currentStatus || 'present', note: attendance?.note || '', attendance_id: attendance?.id }); setShowWorkDoneModal(true); }}
-                                                        className={`py-3 h-auto rounded-xl px-4 flex items-center gap-3 transition-all ${isPresentOrPerm ? (canEdit ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-slate-50 text-slate-300 border border-slate-100 cursor-not-allowed opacity-50') : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
+                                                        className={`py-[12px] h-auto rounded-[12px] px-[16px] flex items-center gap-[12px] transition-all ${isPresentOrPerm ? (canEdit ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-slate-50 text-slate-300 border border-slate-100 cursor-not-allowed opacity-50') : 'bg-slate-50 text-slate-300 border border-slate-50 cursor-not-allowed'}`}
                                                     >
                                                         <FaEdit className="text-[10px]" />
                                                         <span className="text-[10px] font-black uppercase truncate">{attendance?.note || "Add work details..."}</span>
@@ -1675,61 +1675,61 @@ const AttendanceTracker = () => {
             }
             {
                 showOvertimeModal && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
-                        <div className="bg-white rounded-[28px] w-full max-w-sm shadow-2xl p-6 relative animate-in zoom-in-95 duration-300">
-                            <h3 className="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center px-[16px] py-[24px] bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
+                        <div className="bg-white rounded-[28px] w-full max-w-sm shadow-2xl p-[24px] relative animate-in zoom-in-95 duration-300">
+                            <h3 className="text-lg font-black text-slate-800 mb-[16px] flex items-center gap-[8px]">
                                 <FaBusinessTime className="text-orange-500" /> Overtime Details
                             </h3>
                             <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-[16px]">
                                     <div>
-                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5 pl-1">Start Time</label>
-                                        <div className="flex bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
-                                            <select value={overtimeModalData.start_hour} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, start_hour: e.target.value })} className="w-full bg-transparent p-2 text-xs font-bold text-slate-700 outline-none"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
+                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-[6px] pl-1">Start Time</label>
+                                        <div className="flex bg-slate-50 rounded-[12px] border border-slate-200 overflow-hidden">
+                                            <select value={overtimeModalData.start_hour} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, start_hour: e.target.value })} className="w-full bg-transparent p-[8px] text-xs font-bold text-slate-700 outline-none"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
                                             <div className="w-px bg-slate-200"></div>
-                                            <select value={overtimeModalData.start_minute} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, start_minute: e.target.value })} className="w-full bg-transparent p-2 text-xs font-bold text-slate-700 outline-none">
+                                            <select value={overtimeModalData.start_minute} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, start_minute: e.target.value })} className="w-full bg-transparent p-[8px] text-xs font-bold text-slate-700 outline-none">
                                                 {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (
                                                     <option key={m} value={m}>{m}</option>
                                                 ))}
                                             </select>
                                             <div className="w-px bg-slate-200"></div>
-                                            <select value={overtimeModalData.start_period} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, start_period: e.target.value })} className="w-full bg-transparent p-2 text-[10px] font-black uppercase text-slate-500 outline-none"><option value="AM">AM</option><option value="PM">PM</option></select>
+                                            <select value={overtimeModalData.start_period} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, start_period: e.target.value })} className="w-full bg-transparent p-[8px] text-[10px] font-black uppercase text-slate-500 outline-none"><option value="AM">AM</option><option value="PM">PM</option></select>
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5 pl-1">End Time</label>
-                                        <div className="flex bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
-                                            <select value={overtimeModalData.end_hour} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, end_hour: e.target.value })} className="w-full bg-transparent p-2 text-xs font-bold text-slate-700 outline-none"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
+                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-[6px] pl-1">End Time</label>
+                                        <div className="flex bg-slate-50 rounded-[12px] border border-slate-200 overflow-hidden">
+                                            <select value={overtimeModalData.end_hour} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, end_hour: e.target.value })} className="w-full bg-transparent p-[8px] text-xs font-bold text-slate-700 outline-none"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
                                             <div className="w-px bg-slate-200"></div>
-                                            <select value={overtimeModalData.end_minute} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, end_minute: e.target.value })} className="w-full bg-transparent p-2 text-xs font-bold text-slate-700 outline-none">
+                                            <select value={overtimeModalData.end_minute} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, end_minute: e.target.value })} className="w-full bg-transparent p-[8px] text-xs font-bold text-slate-700 outline-none">
                                                 {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (
                                                     <option key={m} value={m}>{m}</option>
                                                 ))}
                                             </select>
                                             <div className="w-px bg-slate-200"></div>
-                                            <select value={overtimeModalData.end_period} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, end_period: e.target.value })} className="w-full bg-transparent p-2 text-[10px] font-black uppercase text-slate-500 outline-none"><option value="AM">AM</option><option value="PM">PM</option></select>
+                                            <select value={overtimeModalData.end_period} onChange={(e) => setOvertimeModalData({ ...overtimeModalData, end_period: e.target.value })} className="w-full bg-transparent p-[8px] text-[10px] font-black uppercase text-slate-500 outline-none"><option value="AM">AM</option><option value="PM">PM</option></select>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5 pl-1">Reason/Note</label>
+                                    <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-[6px] pl-1">Reason/Note</label>
                                     <textarea
                                         value={overtimeModalData.reason}
                                         onChange={(e) => setOvertimeModalData({ ...overtimeModalData, reason: e.target.value })}
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-700 resize-none outline-none focus:border-orange-500 transition-colors"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-[12px] p-[12px] text-xs font-bold text-slate-700 resize-none outline-none focus:border-orange-500 transition-colors"
                                         rows="3"
                                         placeholder="Enter overtime details..."
                                     ></textarea>
                                 </div>
-                                <div className="flex gap-3 mt-2">
-                                    <button onClick={() => setShowOvertimeModal(false)} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">Cancel</button>
+                                <div className="flex gap-[12px] mt-[8px]">
+                                    <button onClick={() => setShowOvertimeModal(false)} className="flex-1 py-2.5 rounded-[12px] border border-slate-200 text-slate-500 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">Cancel</button>
                                     <button
                                         onClick={() => {
                                             const duration = `${overtimeModalData.start_hour}:${overtimeModalData.start_minute} ${overtimeModalData.start_period} - ${overtimeModalData.end_hour}:${overtimeModalData.end_minute} ${overtimeModalData.end_period}`;
                                             handleQuickMark(overtimeModalData.member_id, null, null, null, null, null, null, { duration, reason: overtimeModalData.reason });
                                             setShowOvertimeModal(false);
                                         }}
-                                        className="flex-1 py-2.5 rounded-xl bg-orange-500 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-orange-500/20 hover:bg-orange-600 transition-colors"
+                                        className="flex-1 py-2.5 rounded-[12px] bg-orange-500 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-orange-500/20 hover:bg-orange-600 transition-colors"
                                     >
                                         Save OT
                                     </button>
@@ -1742,54 +1742,54 @@ const AttendanceTracker = () => {
 
             {
                 showPermissionModal && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
-                        <div className="bg-white rounded-[28px] w-full max-w-sm shadow-2xl p-6 relative animate-in zoom-in-95 duration-300">
-                            <h3 className="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center px-[16px] py-[24px] bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
+                        <div className="bg-white rounded-[28px] w-full max-w-sm shadow-2xl p-[24px] relative animate-in zoom-in-95 duration-300">
+                            <h3 className="text-lg font-black text-slate-800 mb-[16px] flex items-center gap-[8px]">
                                 <FaClock className="text-purple-500" /> Permission Details
                             </h3>
                             <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-[16px]">
                                     <div>
-                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5 pl-1">Start Time</label>
-                                        <div className="flex bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
-                                            <select value={permissionModalData.start_hour} onChange={(e) => setPermissionModalData({ ...permissionModalData, start_hour: e.target.value })} className="w-full bg-transparent p-2 text-xs font-bold text-slate-700 outline-none"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
+                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-[6px] pl-1">Start Time</label>
+                                        <div className="flex bg-slate-50 rounded-[12px] border border-slate-200 overflow-hidden">
+                                            <select value={permissionModalData.start_hour} onChange={(e) => setPermissionModalData({ ...permissionModalData, start_hour: e.target.value })} className="w-full bg-transparent p-[8px] text-xs font-bold text-slate-700 outline-none"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
                                             <div className="w-px bg-slate-200"></div>
-                                            <select value={permissionModalData.start_minute} onChange={(e) => setPermissionModalData({ ...permissionModalData, start_minute: e.target.value })} className="w-full bg-transparent p-2 text-xs font-bold text-slate-700 outline-none">
+                                            <select value={permissionModalData.start_minute} onChange={(e) => setPermissionModalData({ ...permissionModalData, start_minute: e.target.value })} className="w-full bg-transparent p-[8px] text-xs font-bold text-slate-700 outline-none">
                                                 {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (
                                                     <option key={m} value={m}>{m}</option>
                                                 ))}
                                             </select>
                                             <div className="w-px bg-slate-200"></div>
-                                            <select value={permissionModalData.start_period} onChange={(e) => setPermissionModalData({ ...permissionModalData, start_period: e.target.value })} className="w-full bg-transparent p-2 text-[10px] font-black uppercase text-slate-500 outline-none"><option value="AM">AM</option><option value="PM">PM</option></select>
+                                            <select value={permissionModalData.start_period} onChange={(e) => setPermissionModalData({ ...permissionModalData, start_period: e.target.value })} className="w-full bg-transparent p-[8px] text-[10px] font-black uppercase text-slate-500 outline-none"><option value="AM">AM</option><option value="PM">PM</option></select>
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5 pl-1">End Time</label>
-                                        <div className="flex bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
-                                            <select value={permissionModalData.end_hour} onChange={(e) => setPermissionModalData({ ...permissionModalData, end_hour: e.target.value })} className="w-full bg-transparent p-2 text-xs font-bold text-slate-700 outline-none"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
+                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-[6px] pl-1">End Time</label>
+                                        <div className="flex bg-slate-50 rounded-[12px] border border-slate-200 overflow-hidden">
+                                            <select value={permissionModalData.end_hour} onChange={(e) => setPermissionModalData({ ...permissionModalData, end_hour: e.target.value })} className="w-full bg-transparent p-[8px] text-xs font-bold text-slate-700 outline-none"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
                                             <div className="w-px bg-slate-200"></div>
-                                            <select value={permissionModalData.end_minute} onChange={(e) => setPermissionModalData({ ...permissionModalData, end_minute: e.target.value })} className="w-full bg-transparent p-2 text-xs font-bold text-slate-700 outline-none">
+                                            <select value={permissionModalData.end_minute} onChange={(e) => setPermissionModalData({ ...permissionModalData, end_minute: e.target.value })} className="w-full bg-transparent p-[8px] text-xs font-bold text-slate-700 outline-none">
                                                 {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0')).map(m => (
                                                     <option key={m} value={m}>{m}</option>
                                                 ))}
                                             </select>
                                             <div className="w-px bg-slate-200"></div>
-                                            <select value={permissionModalData.end_period} onChange={(e) => setPermissionModalData({ ...permissionModalData, end_period: e.target.value })} className="w-full bg-transparent p-2 text-[10px] font-black uppercase text-slate-500 outline-none"><option value="AM">AM</option><option value="PM">PM</option></select>
+                                            <select value={permissionModalData.end_period} onChange={(e) => setPermissionModalData({ ...permissionModalData, end_period: e.target.value })} className="w-full bg-transparent p-[8px] text-[10px] font-black uppercase text-slate-500 outline-none"><option value="AM">AM</option><option value="PM">PM</option></select>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5 pl-1">Reason</label>
+                                    <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-[6px] pl-1">Reason</label>
                                     <textarea
                                         value={permissionModalData.reason}
                                         onChange={(e) => setPermissionModalData({ ...permissionModalData, reason: e.target.value })}
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-700 resize-none outline-none focus:border-purple-500 transition-colors"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-[12px] p-[12px] text-xs font-bold text-slate-700 resize-none outline-none focus:border-purple-500 transition-colors"
                                         rows="3"
                                         placeholder="Enter permission reason..."
                                     ></textarea>
                                 </div>
-                                <div className="flex gap-3 mt-2">
-                                    <button onClick={() => setShowPermissionModal(false)} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">Cancel</button>
+                                <div className="flex gap-[12px] mt-[8px]">
+                                    <button onClick={() => setShowPermissionModal(false)} className="flex-1 py-2.5 rounded-[12px] border border-slate-200 text-slate-500 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">Cancel</button>
                                     <button
                                         onClick={() => {
                                             const duration = `${permissionModalData.start_hour}:${permissionModalData.start_minute} ${permissionModalData.start_period} - ${permissionModalData.end_hour}:${permissionModalData.end_minute} ${permissionModalData.end_period}`;
@@ -1798,7 +1798,7 @@ const AttendanceTracker = () => {
                                             handleQuickMark(permissionModalData.member_id, 'permission', duration, null, startTime, endTime, permissionModalData.reason);
                                             setShowPermissionModal(false);
                                         }}
-                                        className="flex-1 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-purple-500/20 hover:bg-purple-700 transition-colors"
+                                        className="flex-1 py-2.5 rounded-[12px] bg-purple-600 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-purple-500/20 hover:bg-purple-700 transition-colors"
                                     >
                                         Save
                                     </button>
@@ -1811,30 +1811,30 @@ const AttendanceTracker = () => {
 
             {
                 showWorkDoneModal && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
-                        <div className="bg-white rounded-[28px] w-full max-w-sm shadow-2xl p-6 relative animate-in zoom-in-95 duration-300">
-                            <h3 className="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center px-[16px] py-[24px] bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
+                        <div className="bg-white rounded-[28px] w-full max-w-sm shadow-2xl p-[24px] relative animate-in zoom-in-95 duration-300">
+                            <h3 className="text-lg font-black text-slate-800 mb-[16px] flex items-center gap-[8px]">
                                 <FaFileAlt className="text-blue-500" /> Work Details
                             </h3>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1.5 pl-1">Work Note</label>
+                                    <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-[6px] pl-1">Work Note</label>
                                     <textarea
                                         value={workDoneModalData.note}
                                         onChange={(e) => setWorkDoneModalData({ ...workDoneModalData, note: e.target.value })}
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-700 resize-none outline-none focus:border-blue-500 transition-colors"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-[12px] p-[12px] text-xs font-bold text-slate-700 resize-none outline-none focus:border-blue-500 transition-colors"
                                         rows="4"
                                         placeholder="Enter work details or subject..."
                                     ></textarea>
                                 </div>
-                                <div className="flex gap-3 mt-2">
-                                    <button onClick={() => setShowWorkDoneModal(false)} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">Cancel</button>
+                                <div className="flex gap-[12px] mt-[8px]">
+                                    <button onClick={() => setShowWorkDoneModal(false)} className="flex-1 py-2.5 rounded-[12px] border border-slate-200 text-slate-500 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">Cancel</button>
                                     <button
                                         onClick={() => {
                                             handleQuickMark(workDoneModalData.member_id, workDoneModalData.status, null, workDoneModalData.note);
                                             setShowWorkDoneModal(false);
                                         }}
-                                        className="flex-1 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-colors"
+                                        className="flex-1 py-2.5 rounded-[12px] bg-blue-600 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-colors"
                                     >
                                         Save Note
                                     </button>
@@ -1847,37 +1847,37 @@ const AttendanceTracker = () => {
 
             {
                 showHalfDayModal && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
-                        <div className="bg-white rounded-[28px] w-full max-w-sm shadow-2xl p-6 relative animate-in zoom-in-95 duration-300">
-                            <h3 className="text-lg font-black text-slate-800 mb-4 flex items-center gap-2">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center px-[16px] py-[24px] bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
+                        <div className="bg-white rounded-[28px] w-full max-w-sm shadow-2xl p-[24px] relative animate-in zoom-in-95 duration-300">
+                            <h3 className="text-lg font-black text-slate-800 mb-[16px] flex items-center gap-[8px]">
                                 <FaBusinessTime className="text-blue-500" /> Half Day Session
                             </h3>
                             <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-2 gap-[12px]">
                                     <button
                                         onClick={() => setHalfDayModalData({ ...halfDayModalData, period: 'AM' })}
-                                        className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all ${halfDayModalData.period === 'AM' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-blue-200'}`}
+                                        className={`p-[16px] rounded-[12px] border-[2px] flex flex-col items-center gap-[8px] transition-all ${halfDayModalData.period === 'AM' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-blue-200'}`}
                                     >
                                         <span className="text-xl font-black">AM</span>
                                         <span className="text-[10px] font-black uppercase tracking-widest">Morning</span>
                                     </button>
                                     <button
                                         onClick={() => setHalfDayModalData({ ...halfDayModalData, period: 'PM' })}
-                                        className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all ${halfDayModalData.period === 'PM' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-blue-200'}`}
+                                        className={`p-[16px] rounded-[12px] border-[2px] flex flex-col items-center gap-[8px] transition-all ${halfDayModalData.period === 'PM' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-slate-100 bg-slate-50 text-slate-400 hover:border-blue-200'}`}
                                     >
                                         <span className="text-xl font-black">PM</span>
                                         <span className="text-[10px] font-black uppercase tracking-widest">Afternoon</span>
                                     </button>
                                 </div>
-                                <div className="flex gap-3 mt-2">
-                                    <button onClick={() => setShowHalfDayModal(false)} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">Cancel</button>
+                                <div className="flex gap-[12px] mt-[8px]">
+                                    <button onClick={() => setShowHalfDayModal(false)} className="flex-1 py-2.5 rounded-[12px] border border-slate-200 text-slate-500 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-colors">Cancel</button>
                                     <button
                                         onClick={() => {
                                             const note = halfDayModalData.period === 'AM' ? 'Morning Half Day' : 'Afternoon Half Day';
                                             handleQuickMark(halfDayModalData.member_id, 'half-day', null, note);
                                             setShowHalfDayModal(false);
                                         }}
-                                        className="flex-1 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-colors"
+                                        className="flex-1 py-2.5 rounded-[12px] bg-blue-600 text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-colors"
                                     >
                                         Confirm
                                     </button>

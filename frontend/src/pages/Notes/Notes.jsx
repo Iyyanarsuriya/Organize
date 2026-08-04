@@ -278,11 +278,11 @@ const Notes = ({ isEmbedded = false, sector = 'personal' }) => {
             )}
 
             {isEmbedded && (
-                <div className="px-4 py-4 flex items-center justify-between shrink-0">
-                    <h2 className="text-[18px] sm:text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+                <div className="px-[16px] py-[16px] flex items-center justify-between shrink-0">
+                    <h2 className="text-[18px] sm:text-xl font-black text-slate-800 tracking-tight flex items-center gap-[8px]">
                         <span className="text-2xl">📝</span> My Notes
                     </h2>
-                    <div className="flex gap-2">
+                    <div className="flex gap-[8px]">
                         <ExportButtons
                             onExportCSV={handleExportCSV}
                             onExportPDF={handleExportPDF}
@@ -371,29 +371,29 @@ const Notes = ({ isEmbedded = false, sector = 'personal' }) => {
                 </div>
 
                 {/* Notes Grid */}
-                <div className={`grid grid-cols-1 ${isPersonal ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[16px] md:gap-[24px]' : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'} max-w-[1600px] mx-auto`}>
+                <div className={`grid grid-cols-1 ${isPersonal ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[16px] md:gap-[24px]' : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[16px] sm:gap-[24px]'} max-w-[1600px] mx-auto`}>
                     {/* Add New Note Card - Visible at start of grid on desktop */}
                     <button
                         onClick={handleCreate}
                         className={`hidden sm:flex flex-col items-center justify-center border-2 border-dashed border-slate-200 rounded-[24px] text-slate-400 hover:text-[#2d5bff] hover:border-[#2d5bff]/30 hover:bg-blue-50/50 transition-all group cursor-pointer ${isPersonal ? 'min-h-[200px] md:min-h-[240px]' : 'min-h-[200px]'}`}
                     >
-                        <div className="w-12 h-12 rounded-full bg-slate-50 group-hover:bg-white group-hover:shadow-md flex items-center justify-center mb-3 transition-all">
-                            <FaPlus className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        <div className="w-[48px] h-[48px] rounded-[9999px] bg-slate-50 group-hover:bg-white group-hover:shadow-md flex items-center justify-center mb-[12px] transition-all">
+                            <FaPlus className="w-[20px] h-[20px] group-hover:scale-110 transition-transform" />
                         </div>
                         <span className="font-bold text-sm">Create New Note</span>
                     </button>
 
                     {filteredNotes.length === 0 && searchQuery ? (
                         <div className="col-span-full flex flex-col items-center justify-center py-20 opacity-50">
-                            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-                                <FaSearch className="w-8 h-8 text-slate-300" />
+                            <div className="w-[80px] h-[80px] bg-slate-100 rounded-[9999px] flex items-center justify-center mb-[16px]">
+                                <FaSearch className="w-[32px] h-[32px] text-slate-300" />
                             </div>
                             <p className="text-lg font-black text-slate-400">No notes found</p>
                         </div>
                     ) : filteredNotes.length === 0 && !searchQuery ? (
                         // If no notes at all, the "Create New Note" button is the visual cue, but for mobile we might want a message
                         <div className="col-span-full sm:hidden flex flex-col items-center justify-center py-20 text-center">
-                            <p className="text-slate-400 font-medium mb-4">Tap the + button to create your first note!</p>
+                            <p className="text-slate-400 font-medium mb-[16px]">Tap the + button to create your first note!</p>
                         </div>
                     ) : (
                         filteredNotes.map(note => {
@@ -402,40 +402,48 @@ const Notes = ({ isEmbedded = false, sector = 'personal' }) => {
                                 <div
                                     key={note.id}
                                     onClick={() => handleEdit(note)}
-                                    className={`${style.bg} border-t-4 ${style.border} p-5 rounded-[24px] shadow-sm cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group flex flex-col ${isPersonal ? 'min-h-[180px] md:min-h-[200px]' : 'min-h-[180px]'}`}
+                                    className={`${style.bg} border-t-4 ${style.border} p-[20px] rounded-[24px] shadow-sm cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group flex flex-col ${isPersonal ? 'min-h-[180px] md:min-h-[200px]' : 'min-h-[180px]'}`}
                                 >
-                                    <div className="flex justify-between items-start mb-3">
+                                    <div className="flex justify-between items-start mb-[12px]">
                                         <h3 className={`text-[16px] sm:text-lg font-black ${style.text} pr-6 leading-tight line-clamp-2`}>{note.title}</h3>
                                         {note.is_pinned && (
                                             <FaThumbtack className="shrink-0 text-slate-900/40 rotate-45" />
                                         )}
                                     </div>
 
-                                    <div className={`flex-1 text-[12px] sm:text-sm font-medium ${style.text} opacity-80 line-clamp-5 whitespace-pre-wrap mb-4`}>
+                                    <div className={`flex-1 text-[12px] sm:text-sm font-medium ${style.text} opacity-80 line-clamp-5 whitespace-pre-wrap mb-[16px]`}>
                                         {note.content}
                                     </div>
 
-                                    <div className="flex justify-between items-center mt-auto pt-4 border-t border-black/5">
-                                        <span className={`text-[10px] font-bold ${style.text} opacity-60 uppercase tracking-wider`}>
-                                            {new Date(note.updated_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                                    <div className="flex justify-between items-center mt-[12px]">
+                                        <span className={`text-[9px] font-black uppercase ${style.text} opacity-50`}>
+                                            {note.date ? new Date(note.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'No Date'}
                                         </span>
-                                        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-200">
+                                        <div className="flex gap-[4px] opacity-0 group-hover:opacity-100 transition-opacity translate-y-[8px] group-hover:translate-y-0 duration-200">
                                             <button
-                                                onClick={(e) => { e.stopPropagation(); handleEdit(note); }}
-                                                className="p-2 rounded-full bg-white/60 hover:bg-white text-slate-700 transition-colors shadow-sm"
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handlePin(note.id, !note.is_pinned);
+                                                }}
+                                                className="p-[8px] rounded-[9999px] bg-white/60 hover:bg-white text-slate-700 transition-colors shadow-sm"
                                             >
-                                                <FaPen size={10} />
+                                                <FaThumbtack className={note.is_pinned ? 'text-[#2d5bff] -rotate-45' : 'text-slate-400'} />
                                             </button>
                                             <button
-                                                onClick={(e) => { e.stopPropagation(); handleDelete(note.id); }}
-                                                className="p-2 rounded-full bg-white/60 hover:bg-white text-rose-500 transition-colors shadow-sm"
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleDelete(note.id);
+                                                }}
+                                                className="p-[8px] rounded-[9999px] bg-white/60 hover:bg-white text-rose-500 transition-colors shadow-sm"
                                             >
-                                                <FaTrash size={10} />
+                                                <FaTrash />
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                            )
+                            );
                         })
                     )}
                 </div>
@@ -444,34 +452,32 @@ const Notes = ({ isEmbedded = false, sector = 'personal' }) => {
             {/* Mobile Floating Action Button (FAB) */}
             <button
                 onClick={handleCreate}
-                className="fixed sm:hidden bottom-6 right-6 w-[50px] h-[50px] bg-slate-900 text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform"
+                className="fixed sm:hidden bottom-6 right-6 w-[50px] h-[50px] bg-slate-900 text-white rounded-[9999px] shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform"
             >
                 <FaPlus size={20} />
             </button>
 
             {/* Modern Modal */}
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
-                    <div onClick={() => setShowModal(false)} className="absolute inset-0"></div>
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-[16px] bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
                     <form
                         onSubmit={handleSave}
-                        className={`bg-white rounded-[32px] p-[24px] sm:p-[32px] shadow-2xl shadow-slate-900/50 animate-in slide-in-from-bottom-10 zoom-in-95 duration-300 relative flex flex-col ${isPersonal ? 'w-[320px] md:w-[600px] h-[500px] md:h-auto md:max-h-[85vh]' : 'w-[350px] sm:w-[512px] h-[500px] sm:h-auto sm:max-h-[90vh]'}`}
+                        className="bg-white w-full max-w-[600px] rounded-[32px] p-[24px] sm:p-[32px] shadow-2xl relative animate-in zoom-in-95 duration-200"
                     >
-
-                        <div className="flex justify-between items-start mb-6 shrink-0">
+                        <div className="flex justify-between items-center mb-[24px]">
                             <div>
-                                <h2 className="text-[24px] sm:text-[32px] font-black text-slate-800 tracking-tight leading-none">
-                                    {editingNote ? 'Edit Note' : 'New Idea'}
+                                <h2 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">
+                                    {noteId ? 'Edit Note' : 'New Note'}
                                 </h2>
-                                <p className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest mt-2">
+                                <p className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-widest mt-[8px]">
                                     {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
                                 </p>
                             </div>
-                            <div className="flex gap-2">
+                            <div className="flex gap-[8px]">
                                 <button
                                     type="button"
                                     onClick={() => setIsPinned(!isPinned)}
-                                    className={`p-3 rounded-2xl transition-all ${isPinned ? 'bg-slate-900 text-white shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
+                                    className={`p-[12px] rounded-[16px] transition-all ${isPinned ? 'bg-slate-900 text-white shadow-lg' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
                                     title="Pin Note"
                                 >
                                     <FaThumbtack className={isPinned ? '-rotate-45' : ''} />
@@ -479,33 +485,33 @@ const Notes = ({ isEmbedded = false, sector = 'personal' }) => {
                                 <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
-                                    className="p-3 bg-slate-50 rounded-full text-slate-500 hover:bg-rose-50 hover:text-rose-500 transition-colors"
+                                    className="p-[12px] bg-slate-50 rounded-[9999px] text-slate-500 hover:bg-rose-50 hover:text-rose-500 transition-colors"
                                 >
                                     <FaTimes />
                                 </button>
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto custom-scrollbar -mx-2 px-2">
+                        <div className="flex-1 overflow-y-auto custom-scrollbar -mx-2 px-[8px]">
                             <input
                                 required
                                 type="text"
                                 placeholder="Give it a title..."
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                className="w-full text-[18px] sm:text-[24px] font-black text-slate-800 placeholder:text-slate-300 outline-none mb-4 bg-transparent border-none p-0"
+                                className="w-full text-[18px] sm:text-[24px] font-black text-slate-800 placeholder:text-slate-300 outline-none mb-[16px] bg-transparent border-none p-0"
                             />
 
                             <textarea
                                 placeholder="Start typing your thoughts..."
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
-                                className="w-full min-h-[140px] sm:min-h-[200px] resize-none text-[14px] sm:text-[16px] text-slate-600 font-medium placeholder:text-slate-300 outline-none bg-transparent mb-6 custom-scrollbar leading-relaxed"
+                                className="w-full min-h-[140px] sm:min-h-[200px] resize-none text-[14px] sm:text-[16px] text-slate-600 font-medium placeholder:text-slate-300 outline-none bg-transparent mb-[24px] custom-scrollbar leading-relaxed"
                             ></textarea>
                         </div>
 
                         <div className="pt-6 border-t border-slate-100 shrink-0">
-                            <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-2 no-scrollbar">
+                            <div className="flex items-center gap-[12px] mb-[24px] overflow-x-auto pb-2 no-scrollbar">
                                 {colors.map(c => (
                                     <button
                                         key={c.id}
@@ -516,17 +522,17 @@ const Notes = ({ isEmbedded = false, sector = 'personal' }) => {
                                 ))}
                             </div>
 
-                            <div className="flex gap-3">
+                            <div className="flex gap-[12px]">
                                 {editingNote && (
                                     <button
                                         type="button"
                                         onClick={() => handleDelete(editingNote.id)}
-                                        className="h-[52px] sm:h-[56px] px-6 bg-rose-50 text-rose-500 rounded-2xl font-bold text-[10px] sm:text-xs uppercase tracking-widest hover:bg-rose-100 transition-colors flex items-center justify-center"
+                                        className="h-[52px] sm:h-[56px] px-[24px] bg-rose-50 text-rose-500 rounded-[16px] font-bold text-[10px] sm:text-xs uppercase tracking-widest hover:bg-rose-100 transition-colors flex items-center justify-center"
                                     >
                                         <FaTrash size={16} />
                                     </button>
                                 )}
-                                <button type="submit" className="flex-1 h-[52px] sm:h-[56px] bg-slate-900 text-white rounded-2xl font-black text-[12px] sm:text-sm uppercase tracking-widest hover:bg-slate-800 hover:shadow-xl hover:shadow-slate-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                                <button type="submit" className="flex-1 h-[52px] sm:h-[56px] bg-slate-900 text-white rounded-[16px] font-black text-[12px] sm:text-sm uppercase tracking-widest hover:bg-slate-800 hover:shadow-xl hover:shadow-slate-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-[8px]">
                                     <FaPlus className={editingNote ? 'hidden' : ''} />
                                     {editingNote ? 'Save Changes' : 'Create Note'}
                                 </button>
@@ -538,26 +544,26 @@ const Notes = ({ isEmbedded = false, sector = 'personal' }) => {
 
             {/* Delete Confirmation Modal */}
             {showDeleteModal && (
-                <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
+                <div className="fixed inset-0 z-60 flex items-center justify-center p-[16px] bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
                     <div onClick={() => setShowDeleteModal(false)} className="absolute inset-0"></div>
-                    <div className="bg-white w-[300px] sm:w-[400px] rounded-[24px] p-6 sm:p-8 shadow-2xl relative flex flex-col items-center text-center animate-in zoom-in-95 duration-200">
-                        <div className="w-12 h-12 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center mb-4">
+                    <div className="bg-white w-[300px] sm:w-[400px] rounded-[24px] p-[24px] sm:p-[32px] shadow-2xl relative flex flex-col items-center text-center animate-in zoom-in-95 duration-200">
+                        <div className="w-[48px] h-[48px] rounded-[9999px] bg-rose-100 text-rose-500 flex items-center justify-center mb-[16px]">
                             <FaTrash size={20} />
                         </div>
-                        <h3 className="text-xl font-black text-slate-800 mb-2">Delete Note?</h3>
-                        <p className="text-sm text-slate-500 font-medium mb-6">
+                        <h3 className="text-xl font-black text-slate-800 mb-[8px]">Delete Note?</h3>
+                        <p className="text-sm text-slate-500 font-medium mb-[24px]">
                             Are you sure you want to delete this note? This action cannot be undone.
                         </p>
-                        <div className="flex gap-3 w-full">
+                        <div className="flex gap-[12px] w-full">
                             <button
                                 onClick={() => setShowDeleteModal(false)}
-                                className="flex-1 py-3 rounded-xl bg-slate-100 text-slate-600 font-bold text-sm hover:bg-slate-200 transition-colors"
+                                className="flex-1 py-[12px] rounded-[12px] bg-slate-100 text-slate-600 font-bold text-sm hover:bg-slate-200 transition-colors"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={confirmDelete}
-                                className="flex-1 py-3 rounded-xl bg-rose-500 text-white font-bold text-sm hover:bg-rose-600 shadow-lg shadow-rose-500/30 transition-all"
+                                className="flex-1 py-[12px] rounded-[12px] bg-rose-500 text-white font-bold text-sm hover:bg-rose-600 shadow-lg shadow-rose-500/30 transition-all"
                             >
                                 Delete
                             </button>

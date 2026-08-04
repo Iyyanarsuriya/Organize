@@ -417,54 +417,54 @@ const TeamManagement = () => {
 
             {/* Add Member Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl animate-fade-in relative">
-                        <h2 className="text-2xl font-black text-slate-800 mb-6">Add Team Member</h2>
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-[16px]">
+                    <div className="bg-white w-full max-w-[448px] rounded-[24px] p-[32px] shadow-2xl animate-fade-in relative">
+                        <h2 className="text-[24px] font-black text-slate-800 mb-[24px]">Add Team Member</h2>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-[16px]">
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Username</label>
+                                <label className="block text-[12px] font-bold text-slate-500 uppercase tracking-widest mb-[8px]">Username</label>
                                 <input
                                     type="text"
                                     required
                                     value={formData.username}
                                     onChange={e => setFormData({ ...formData, username: e.target.value })}
-                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#2d5bff] focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-bold text-slate-700"
+                                    className="w-full h-[48px] px-[16px] rounded-[12px] bg-slate-50 border border-slate-200 focus:border-[#2d5bff] focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-bold text-slate-700"
                                     placeholder="John Doe"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Email Address</label>
+                                <label className="block text-[12px] font-bold text-slate-500 uppercase tracking-widest mb-[8px]">Email Address</label>
                                 <input
                                     type="email"
                                     required
                                     value={formData.email}
                                     onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#2d5bff] focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-bold text-slate-700"
+                                    className="w-full h-[48px] px-[16px] rounded-[12px] bg-slate-50 border border-slate-200 focus:border-[#2d5bff] focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-bold text-slate-700"
                                     placeholder="john@example.com"
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-[16px]">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Password</label>
+                                    <label className="block text-[12px] font-bold text-slate-500 uppercase tracking-widest mb-[8px]">Password</label>
                                     <input
                                         type="password"
                                         required
                                         minLength={6}
                                         value={formData.password}
                                         onChange={e => setFormData({ ...formData, password: e.target.value })}
-                                        className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#2d5bff] focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-bold text-slate-700"
+                                        className="w-full h-[48px] px-[16px] rounded-[12px] bg-slate-50 border border-slate-200 focus:border-[#2d5bff] focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-bold text-slate-700"
                                         placeholder="••••••••"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Role</label>
+                                    <label className="block text-[12px] font-bold text-slate-500 uppercase tracking-widest mb-[8px]">Role</label>
                                     <select
                                         value={formData.role}
                                         onChange={e => setFormData({ ...formData, role: e.target.value })}
-                                        className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#2d5bff] focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-bold text-slate-700"
+                                        className="w-full h-[48px] px-[16px] rounded-[12px] bg-slate-50 border border-slate-200 focus:border-[#2d5bff] focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-bold text-slate-700"
                                     >
                                         <option value="staff">Staff</option>
                                         <option value="manager">Manager</option>
@@ -473,17 +473,17 @@ const TeamManagement = () => {
                                 </div>
                             </div>
 
-                            <div className="flex gap-3 mt-8">
+                            <div className="flex gap-[12px] mt-[32px]">
                                 <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
-                                    className="flex-1 h-12 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                                    className="flex-1 h-[48px] rounded-[12px] font-bold text-slate-500 hover:bg-slate-50 transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex-1 h-12 rounded-xl bg-[#2d5bff] text-white font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30"
+                                    className="flex-1 h-[48px] rounded-[12px] bg-[#2d5bff] text-white font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30"
                                 >
                                     Create Account
                                 </button>
