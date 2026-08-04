@@ -1,0 +1,105 @@
+const db = require('../config/db');
+
+exports.findByEmail = async (email) => {
+    const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+    return rows[0];
+};
+
+exports.findById = async (id) => {
+    const [rows] = await db.query('SELECT id, username, email, mobile_number, profile_image, google_refresh_token, role, owner_id, sector FROM users WHERE id = ?', [id]);
+    return rows[0];
+};
+
+exports.create = async (userData) => {
+    const { username, email, password, mobile_number, role, owner_id, local_id, sector, created_by } = userData;
+    const [result] = await db.query(
+        'INSERT INTO users (username, email, password, mobile_number, role, owner_id, local_id, sector, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [username, email, password, mobile_number || null, role || 'owner', owner_id || null, local_id || null, sector || null, created_by || null]
+    );
+    return result.insertId;
+};
+
+exports.findByOwnerId = async (ownerId, sector) => {
+    let query = 'SELECT id, local_id, username, email, mobile_number, role, sector, created_by, created_at FROM users WHERE owner_id = ?';
+    const params = [ownerId];
+
+    if (sector) {
+        query += ' AND sector = ?';
+        params.push(sector);
+    }
+
+    query += ' ORDER BY created_at DESC';
+
+    const [rows] = await db.query(query, params);
+    return rows;
+};
+
+exports.getNextLocalId = async (ownerId) => {
+    const [rows] = await db.query('SELECT MAX(local_id) as maxId FROM users WHERE owner_id = ?', [ownerId]);
+    return (rows[0].maxId || 0) + 1;
+};
+
+exports.delete = async (id, ownerId) => {
+    // Only allow deleting users that belong to this owner
+    const [result] = await db.query('DELETE FROM users WHERE id = ? AND owner_id = ?', [id, ownerId]);
+    return result.affectedRows > 0;
+};
+
+exports.update = async (id, userData) => {
+    const { username, email, mobile_number, profile_image, google_refresh_token, sector } = userData;
+    let query = 'UPDATE users SET ';
+    const updates = [];
+    const params = [];
+
+    if (username !== undefined) { updates.push('username = ?'); params.push(username); }
+    if (email !== undefined) { updates.push('email = ?'); params.push(email); }
+    if (mobile_number !== undefined) { updates.push('mobile_number = ?'); params.push(mobile_number); }
+    if (profile_image !== undefined) { updates.push('profile_image = ?'); params.push(profile_image); }
+    if (google_refresh_token !== undefined) { updates.push('google_refresh_token = ?'); params.push(google_refresh_token); }
+    if (sector !== undefined) { updates.push('sector = ?'); params.push(sector); }
+
+    if (updates.length === 0) return true;
+
+    query += updates.join(', ') + ' WHERE id = ?';
+    params.push(id);
+
+    const [result] = await db.query(query, params);
+    return result.affectedRows > 0;
+};
+
+exports.updatePassword = async (id, hashedPassword) => {
+    const [result] = await db.query(
+        'UPDATE users SET password = ? WHERE id = ?',
+        [hashedPassword, id]
+    );
+    return result.affectedRows > 0;
+};
+
+// OTP-based password reset methods
+exports.saveOTP = async (email, otp, expiry) => {
+    // Use Date object - mysql2 formats this correctly for DATETIME columns
+    const dateObj = expiry ? new Date(expiry) : null;
+    const finalExpiry = (dateObj && !isNaN(dateObj.getTime())) ? dateObj : null;
+
+    const [result] = await db.query(
+        'UPDATE users SET reset_otp = ?, reset_otp_expiry = ? WHERE email = ?',
+        [otp, finalExpiry, email]
+    );
+    return result.affectedRows > 0;
+};
+
+exports.findByEmailAndOTP = async (email, otp) => {
+    const [rows] = await db.query(
+        'SELECT * FROM users WHERE email = ? AND reset_otp = ? AND reset_otp_expiry > NOW()',
+        [email, otp]
+    );
+    return rows[0];
+};
+
+exports.clearOTP = async (email) => {
+    const [result] = await db.query(
+        'UPDATE users SET reset_otp = NULL, reset_otp_expiry = NULL WHERE email = ?',
+        [email]
+    );
+    return result.affectedRows > 0;
+};
