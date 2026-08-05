@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import * as personalApi from '../../api/Reminder/personalReminder';
-import * as itApi from '../../api/Reminder/itReminder';
 import * as mfgApi from '../../api/Reminder/mfgReminder';
 import { FaPlus, FaTrash, FaPen, FaThumbtack, FaArrowLeft, FaSearch, FaTimes } from 'react-icons/fa';
 import toast from 'react-hot-toast';
@@ -10,18 +8,9 @@ import { generateCSV, generatePDF, generateTXT } from '../../utils/exportUtils/b
 
 const activeRequests = {};
 
-const Notes = ({ isEmbedded = false, sector = 'personal' }) => {
-    const apiMap = {
-        personal: personalApi,
-        it: itApi,
-        manufacturing: mfgApi,
-        mfg: mfgApi, // Compatibility
-    };
-
-    const api = apiMap[sector] || personalApi;
-    const { getNotes, createNote, updateNote, deleteNote } = api;
-
-    const isPersonal = sector === 'personal';
+const Notes = ({ isEmbedded = false, sector = 'manufacturing' }) => {
+    const { getNotes, createNote, updateNote, deleteNote } = mfgApi;
+    const isPersonal = false;
 
     const navigate = useNavigate();
     const [notes, setNotes] = useState([]);

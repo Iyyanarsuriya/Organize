@@ -70,9 +70,7 @@ const Navbar = ({
                             {!isLandingPage && (
                                 <button
                                     onClick={() => {
-                                        const homePath = user?.sector === 'it' ? '/it-sector' :
-                                            user?.sector === 'manufacturing' ? '/manufacturing' :
-                                                user?.sector === 'personal' ? '/personal' : '/';
+                                        const homePath = '/manufacturing';
                                         navigate(homePath);
                                     }}
                                     className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] bg-white/10 hover:bg-white text-white hover:text-black rounded-[10px] sm:rounded-[12px] flex items-center justify-center transition-all duration-300 active:scale-90 shadow-lg shadow-white/5 group"
@@ -81,7 +79,6 @@ const Navbar = ({
                                     <Home className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:scale-110" />
                                 </button>
                             )}
-                            {/* Profile Icon (Before Bell) */}
                             {/* Profile Dropdown */}
                             <div
                                 className="relative"
@@ -98,23 +95,24 @@ const Navbar = ({
                             >
                                 <button
                                     onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-                                    className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-full bg-linear-to-br from-[#2d5bff] to-[#6366f1] border-2 border-white/10 overflow-hidden hover:border-white transition-all active:scale-90 cursor-pointer shadow-lg shadow-blue-500/20 flex items-center justify-center group shrink-0"
+                                    className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] rounded-[10px] sm:rounded-[12px] bg-[#2d5bff] text-white font-black flex items-center justify-center shadow-lg shadow-blue-500/20 hover:scale-105 transition-all text-xs sm:text-sm uppercase"
                                 >
-                                    <span className="text-white font-black text-[14px] sm:text-[15px] tracking-tight">
-                                        {user?.username ? user.username.charAt(0).toUpperCase() : '?'}
-                                    </span>
+                                    {user?.username ? user.username.charAt(0) : 'U'}
                                 </button>
 
+                                {/* Dropdown Menu */}
                                 {showProfileDropdown && (
-                                    <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-50">
-                                        <div className="p-4 border-b border-slate-50 bg-slate-50/50">
+                                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                        <div className="p-3 border-b border-slate-100">
+                                            <p className="text-xs font-black text-slate-400 uppercase tracking-wider">Signed in as</p>
                                             <p className="text-sm font-bold text-slate-800 truncate">{user?.username}</p>
                                             <p className="text-xs text-slate-500 truncate">{user?.email}</p>
                                         </div>
-                                        <div className="p-2">
+
+                                        <div className="py-1">
                                             <button
                                                 onClick={() => {
-                                                    onProfileClick();
+                                                    navigate('/profile');
                                                     setShowProfileDropdown(false);
                                                 }}
                                                 className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors"
@@ -123,11 +121,10 @@ const Navbar = ({
                                                 My Profile
                                             </button>
 
-                                            {(user?.role === 'admin' || user?.role === 'owner') && location.pathname !== '/' && user?.sector !== 'personal' && (
+                                            {(user?.role === 'admin' || user?.role === 'owner') && location.pathname !== '/' && (
                                                 <button
                                                     onClick={() => {
-                                                        const teamPath = user?.sector === 'it' ? '/it-sector/team' :
-                                                            user?.sector === 'manufacturing' ? '/manufacturing/team' : '/team';
+                                                        const teamPath = '/manufacturing/team';
 
                                                         navigate(teamPath);
                                                         setShowProfileDropdown(false);
@@ -139,74 +136,58 @@ const Navbar = ({
                                                 </button>
                                             )}
 
-                                            {user?.owner_id === null && location.pathname !== '/' && (
-                                                <button
-                                                    onClick={() => {
-                                                        navigate('/?switch=true');
-                                                        setShowProfileDropdown(false);
-                                                    }}
-                                                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors"
-                                                >
-                                                    <Home className="w-4 h-4" />
-                                                    Switch Workspace
-                                                </button>
-                                            )}
-
                                             <div className="h-px bg-slate-100 my-1"></div>
 
                                             <button
-                                                onClick={() => {
-                                                    onLogout();
-                                                    setShowProfileDropdown(false);
-                                                }}
-                                                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 transition-colors"
+                                                onClick={handleLogout}
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-red-600 hover:bg-red-50 transition-colors"
                                             >
                                                 <LogOut className="w-4 h-4" />
-                                                Log Out
+                                                Logout
                                             </button>
                                         </div>
                                     </div>
                                 )}
                             </div>
 
-                            {/* Notification Bell */}
-                            <div className="relative">
+                            {/* Notifications Dropdown */}
+                            <div className="relative" ref={notifDropdownRef}>
                                 <button
                                     onClick={() => setShowNotifDropdown(!showNotifDropdown)}
-                                    className={`relative p-2 rounded-[12px] transition-all active:scale-90 cursor-pointer ${showNotifDropdown
-                                        ? (isLandingPage ? 'bg-slate-100 text-black' : 'bg-white/10 text-white')
-                                        : (isLandingPage ? 'text-slate-500 hover:text-black hover:bg-slate-50' : 'text-white hover:bg-white/5')
-                                        }`}
+                                    className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] bg-white/10 hover:bg-white/20 text-white rounded-[10px] sm:rounded-[12px] flex items-center justify-center transition-all relative"
                                 >
-                                    <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
+                                    <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
                                     {todayReminders.length > 0 && (
-                                        <span className={`absolute top-[6px] right-[6px] w-[14px] h-[14px] sm:w-[18px] sm:h-[18px] bg-[#ff4d4d] border-2 rounded-full text-[8px] sm:text-[10px] font-black text-white flex items-center justify-center animate-pulse ${isLandingPage ? 'border-white' : 'border-black'}`}>
+                                        <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-[10px] font-black flex items-center justify-center animate-pulse">
                                             {todayReminders.length}
                                         </span>
                                     )}
                                 </button>
 
-                                {/* Notification Dropdown */}
                                 {showNotifDropdown && (
                                     <>
-                                        <div className="fixed inset-0 z-40" onClick={() => setShowNotifDropdown(false)}></div>
-                                        <div className="absolute right-0 mt-[16px] w-[280px] sm:w-[320px] bg-white rounded-[24px] shadow-2xl z-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200 border border-slate-100">
-                                            <div className="p-[20px] border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                                <h3 className="font-black text-[12px] sm:text-[14px] text-slate-800 uppercase tracking-widest">Today's Tasks</h3>
-                                                <button onClick={() => setShowNotifDropdown(false)} className="text-slate-400 hover:text-red-500 cursor-pointer p-1">
-                                                    <X className="w-4 h-4" />
-                                                </button>
+                                        {/* Backdrop for closing */}
+                                        <div className="fixed inset-0 z-40" onClick={() => setShowNotifDropdown(false)} />
+
+                                        <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-[24px] shadow-2xl border border-slate-100 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                            <div className="p-[20px] bg-slate-900 text-white flex items-center justify-between">
+                                                <div className="flex items-center gap-2">
+                                                    <Bell className="w-4 h-4 text-blue-400" />
+                                                    <h3 className="text-[14px] font-black tracking-wide uppercase">Notifications</h3>
+                                                </div>
+                                                <span className="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-[10px] font-black uppercase tracking-wider">
+                                                    {todayReminders.length} Due Today
+                                                </span>
                                             </div>
-                                            <div className="max-h-[320px] overflow-y-auto custom-scrollbar">
+
+                                            <div className="max-h-[360px] overflow-y-auto custom-scrollbar">
                                                 {todayReminders.length > 0 ? (
                                                     todayReminders.map(notif => (
                                                         <button
                                                             key={notif.id}
                                                             onClick={() => {
                                                                 setShowNotifDropdown(false);
-                                                                const path = user?.sector === 'personal' ? '/personal/reminders' :
-                                                                    user?.sector === 'it' ? '/it-sector/reminders' :
-                                                                        user?.sector === 'manufacturing' ? '/manufacturing/reminders' : '/reminders';
+                                                                const path = '/manufacturing/reminders';
                                                                 navigate(path);
                                                             }}
                                                             className="w-full text-left p-[16px] border-b border-slate-50 hover:bg-blue-50/50 transition-colors group cursor-pointer"
@@ -236,9 +217,7 @@ const Navbar = ({
                                                 <button
                                                     onClick={() => {
                                                         setShowNotifDropdown(false);
-                                                        const path = user?.sector === 'personal' ? '/personal/reminders' :
-                                                            user?.sector === 'it' ? '/it-sector/reminders' :
-                                                                user?.sector === 'manufacturing' ? '/manufacturing/reminders' : '/reminders';
+                                                        const path = '/manufacturing/reminders';
                                                         navigate(path);
                                                     }}
                                                     className="w-full py-4 text-center text-[11px] font-black text-blue-500 uppercase tracking-widest hover:bg-blue-50 transition-colors"
