@@ -18,6 +18,7 @@ const Navbar = ({
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const closeTimeout = useRef(null);
     const dropdownRef = useRef(null);
+    const notifDropdownRef = useRef(null);
     const [imageError, setImageError] = useState(false);
     const isLandingPage = location.pathname === '/';
 
@@ -112,7 +113,8 @@ const Navbar = ({
                                         <div className="py-1">
                                             <button
                                                 onClick={() => {
-                                                    navigate('/profile');
+                                                    if (onProfileClick) onProfileClick();
+                                                    else navigate('/profile');
                                                     setShowProfileDropdown(false);
                                                 }}
                                                 className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors"
@@ -139,7 +141,10 @@ const Navbar = ({
                                             <div className="h-px bg-slate-100 my-1"></div>
 
                                             <button
-                                                onClick={handleLogout}
+                                                onClick={() => {
+                                                    if (onLogout) onLogout();
+                                                    setShowProfileDropdown(false);
+                                                }}
                                                 className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-red-600 hover:bg-red-50 transition-colors"
                                             >
                                                 <LogOut className="w-4 h-4" />
