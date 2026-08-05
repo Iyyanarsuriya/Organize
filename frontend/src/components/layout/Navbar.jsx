@@ -71,10 +71,8 @@ const Navbar = ({
                                 <button
                                     onClick={() => {
                                         const homePath = user?.sector === 'it' ? '/it-sector' :
-                                            user?.sector === 'education' ? '/education-sector' :
-                                                user?.sector === 'hotel' ? '/hotel-sector' :
-                                                    user?.sector === 'manufacturing' ? '/manufacturing' :
-                                                        user?.sector === 'personal' ? '/personal' : '/';
+                                            user?.sector === 'manufacturing' ? '/manufacturing' :
+                                                user?.sector === 'personal' ? '/personal' : '/';
                                         navigate(homePath);
                                     }}
                                     className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] bg-white/10 hover:bg-white text-white hover:text-black rounded-[10px] sm:rounded-[12px] flex items-center justify-center transition-all duration-300 active:scale-90 shadow-lg shadow-white/5 group"
@@ -129,9 +127,7 @@ const Navbar = ({
                                                 <button
                                                     onClick={() => {
                                                         const teamPath = user?.sector === 'it' ? '/it-sector/team' :
-                                                            user?.sector === 'education' ? '/education-sector/team' :
-                                                                user?.sector === 'hotel' ? '/hotel-sector/team' :
-                                                                    user?.sector === 'manufacturing' ? '/manufacturing/team' : '/team';
+                                                            user?.sector === 'manufacturing' ? '/manufacturing/team' : '/team';
 
                                                         navigate(teamPath);
                                                         setShowProfileDropdown(false);
@@ -210,9 +206,7 @@ const Navbar = ({
                                                                 setShowNotifDropdown(false);
                                                                 const path = user?.sector === 'personal' ? '/personal/reminders' :
                                                                     user?.sector === 'it' ? '/it-sector/reminders' :
-                                                                        user?.sector === 'manufacturing' ? '/manufacturing/reminders' :
-                                                                            user?.sector === 'education' ? '/education-sector/reminders' :
-                                                                                user?.sector === 'hotel' ? '/hotel-sector/reminders' : '/reminders';
+                                                                        user?.sector === 'manufacturing' ? '/manufacturing/reminders' : '/reminders';
                                                                 navigate(path);
                                                             }}
                                                             className="w-full text-left p-[16px] border-b border-slate-50 hover:bg-blue-50/50 transition-colors group cursor-pointer"
@@ -244,9 +238,7 @@ const Navbar = ({
                                                         setShowNotifDropdown(false);
                                                         const path = user?.sector === 'personal' ? '/personal/reminders' :
                                                             user?.sector === 'it' ? '/it-sector/reminders' :
-                                                                user?.sector === 'manufacturing' ? '/manufacturing/reminders' :
-                                                                    user?.sector === 'education' ? '/education-sector/reminders' :
-                                                                        user?.sector === 'hotel' ? '/hotel-sector/reminders' : '/reminders';
+                                                                user?.sector === 'manufacturing' ? '/manufacturing/reminders' : '/reminders';
                                                         navigate(path);
                                                     }}
                                                     className="w-full py-4 text-center text-[11px] font-black text-blue-500 uppercase tracking-widest hover:bg-blue-50 transition-colors"

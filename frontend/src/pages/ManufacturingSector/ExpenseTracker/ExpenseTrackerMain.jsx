@@ -1002,9 +1002,6 @@ const ExpenseTrackerMain = () => {
 
             {/* Main Content */}
             <main className="flex-1 p-[16px] lg:p-[48px] h-screen overflow-y-auto custom-scrollbar">
-                <h1 className="text-[20px] sm:text-[24px] md:text-[30px] font-black text-slate-800 mb-[16px] sm:mb-[24px] uppercase tracking-widest text-center transition-all duration-300">
-                    Manufacturing Expense
-                </h1>
                 {['Dashboard', 'Reports'].includes(activeTab) && (
                     <div className="flex flex-col gap-[24px] mb-[32px] lg:mb-[48px]">
                         <div className="flex items-center justify-between">

@@ -17,8 +17,7 @@ import {
     CheckCircle,
     Clock,
     RotateCcw,
-    Loader2,
-    Info
+    Loader2
 } from 'lucide-react';
 import ExportButtons from '../../../components/Common/ExportButtons';
 import { generateCSV, generatePDF, generateTXT } from '../../../utils/exportUtils/base';
@@ -265,9 +264,7 @@ const ManufacturingPayroll = () => {
         <div className="min-h-screen bg-[#f8fafc] p-[16px] sm:p-[28px] md:p-[40px] font-['Outfit'] pb-[80px] sm:pb-[100px]">
             <div className="max-w-[1280px] mx-auto w-full">
 
-                <h1 className="text-[20px] sm:text-[24px] md:text-[30px] font-black text-slate-800 mb-[16px] sm:mb-[24px] uppercase tracking-widest text-center transition-all duration-300">
-                    Manufacturing Payroll
-                </h1>
+
 
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[16px] sm:gap-[24px] mb-[24px] sm:mb-[40px]">
@@ -384,14 +381,14 @@ const ManufacturingPayroll = () => {
                             <tbody className="divide-y divide-slate-100">
                                 {loading ? (
                                     <tr>
-                                        <td colSpan="6" className="py-[48px] sm:py-[60px] text-center text-slate-400 font-medium text-[13px] sm:text-[15px]">
+                                        <td colSpan="7" className="py-[48px] sm:py-[60px] text-center text-slate-400 font-medium text-[13px] sm:text-[15px]">
                                             <div className="flex justify-center mb-[12px]"><Loader2 className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] animate-spin text-rose-500" /></div>
                                             Loading payroll records...
                                         </td>
                                     </tr>
                                 ) : (Array.isArray(filteredPayrolls) && filteredPayrolls.length === 0) ? (
                                     <tr>
-                                        <td colSpan="6" className="py-[48px] sm:py-[60px] text-center text-slate-400 font-medium text-[13px] sm:text-[15px]">
+                                        <td colSpan="7" className="py-[48px] sm:py-[60px] text-center text-slate-400 font-medium text-[13px] sm:text-[15px]">
                                             {(Array.isArray(payrolls) && payrolls.length === 0) ? "No payroll generated for this month." : "No members found matching your search."}
                                         </td>
                                     </tr>

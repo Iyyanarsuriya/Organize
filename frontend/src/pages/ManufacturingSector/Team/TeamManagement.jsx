@@ -154,9 +154,6 @@ const TeamManagement = () => {
 
             <div className="max-w-[1280px] mx-auto px-[16px] sm:px-[24px] lg:px-[32px] py-[20px] sm:py-[40px] pb-[80px] sm:pb-[100px]">
 
-                <h1 className="text-[20px] sm:text-[24px] md:text-[30px] font-black text-slate-800 mb-[16px] sm:mb-[24px] uppercase tracking-widest text-center transition-all duration-300">
-                    Manufacturing Team Management
-                </h1>
 
                 {/* ── Header ── */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-[24px] sm:mb-[32px] gap-[14px] sm:gap-[16px]">

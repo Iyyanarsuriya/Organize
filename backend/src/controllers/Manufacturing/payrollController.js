@@ -66,7 +66,7 @@ const getAttendanceSummary = async (memberId, month, year, userId) => {
         // Count status
         if (status === 'present') summary.days_present++;
         else if (status === 'absent') summary.days_absent++;
-        else if (status === 'half_day') summary.days_half++;
+        else if (status === 'half-day') summary.days_half++;
         else if (['CL', 'SL', 'EL'].includes(status)) summary.days_leave++;
         else if (status === 'holiday') summary.days_holiday++;
         else if (status === 'week_off') summary.days_weekend++;
