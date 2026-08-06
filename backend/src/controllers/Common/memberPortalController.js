@@ -9,7 +9,7 @@ const memberPortalController = {
                 return res.status(400).json({ success: false, message: 'Please provide phone number or name to login' });
             }
 
-            let query = `SELECT * FROM manufacturing_members WHERE status = 'active' AND (phone = ? OR name = ?) LIMIT 1`;
+            let query = `SELECT * FROM operations_members WHERE status = 'active' AND (phone = ? OR name = ?) LIMIT 1`;
             const [rows] = await db.query(query, [phone || '', name || '']);
 
             if (rows.length === 0) {
@@ -51,7 +51,7 @@ const memberPortalController = {
             }
 
             // 1. Fetch Member Profile
-            const [members] = await db.query(`SELECT * FROM manufacturing_members WHERE id = ?`, [memberId]);
+            const [members] = await db.query(`SELECT * FROM operations_members WHERE id = ?`, [memberId]);
             if (members.length === 0) {
                 return res.status(404).json({ success: false, message: 'Member not found' });
             }
@@ -59,7 +59,7 @@ const memberPortalController = {
 
             // 2. Fetch Attendance Records for this member
             const [attendance] = await db.query(
-                `SELECT * FROM manufacturing_attendance WHERE member_id = ? ORDER BY date DESC LIMIT 100`,
+                `SELECT * FROM operations_attendance WHERE member_id = ? ORDER BY date DESC LIMIT 100`,
                 [memberId]
             );
 
@@ -76,7 +76,7 @@ const memberPortalController = {
 
             // 4. Fetch Financial Transactions / Salary Ledger
             const [transactions] = await db.query(
-                `SELECT * FROM manufacturing_transactions WHERE member_id = ? ORDER BY date DESC LIMIT 50`,
+                `SELECT * FROM operations_transactions WHERE member_id = ? ORDER BY date DESC LIMIT 50`,
                 [memberId]
             );
 

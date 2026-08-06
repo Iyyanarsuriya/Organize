@@ -3,12 +3,13 @@ const db = require('../config/db');
 // --- SECTOR CONFIGURATIONS (for Holiday/Shift Management) ---
 const TABLE_MAP = {
     it: { holidays: 'it_holidays', shifts: 'it_shifts' },
-    manufacturing: { holidays: 'manufacturing_holidays', shifts: 'manufacturing_shifts' },
+    operations: { holidays: 'operations_holidays', shifts: 'operations_shifts' },
+    manufacturing: { holidays: 'operations_holidays', shifts: 'operations_shifts' },
     hotel: { holidays: 'hotel_holidays', shifts: 'hotel_shifts' },
     education: { holidays: 'education_holidays', shifts: 'education_shifts' }
 };
 
-const getTables = (sector) => TABLE_MAP[sector] || TABLE_MAP.manufacturing;
+const getTables = (sector) => TABLE_MAP[sector] || TABLE_MAP.operations;
 
 // --- CALCULATION HELPERS ---
 const calculateDuration = (checkIn, checkOut) => {
@@ -782,12 +783,7 @@ const EducationAttendanceModel = {
 
 // --- DISPATCHER HELPERS ---
 const getSectorModel = (sector) => {
-    switch (sector) {
-        case 'hotel': return HotelAttendanceModel;
-        case 'it': return ITAttendanceModel;
-        case 'education': return EducationAttendanceModel;
-        default: return ManufacturingAttendanceModel;
-    }
+    return ManufacturingAttendanceModel;
 };
 
 // --- CORE ATTENDANCE FUNCTIONS (DISPATCHERS) ---

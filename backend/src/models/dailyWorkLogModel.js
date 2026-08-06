@@ -2,15 +2,16 @@ const db = require('../config/db');
 
 // --- SECTOR MAP ---
 const TABLE_MAP = {
-    manufacturing: 'manufacturing_work_logs'
+    operations: 'operations_work_logs',
+    manufacturing: 'operations_work_logs'
 };
 
-// --- MANUFACTURING SECTOR ---
-const ManufacturingWorkLogModel = {
+// --- OPERATIONS SECTOR ---
+const OperationsWorkLogModel = {
     create: async (data) => {
         const { user_id, member_id, guest_name, date, units_produced, rate_per_unit, work_type, notes } = data;
         const [res] = await db.query(
-            `INSERT INTO manufacturing_work_logs (user_id, member_id, guest_name, date, units_produced, rate_per_unit, work_type, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO operations_work_logs (user_id, member_id, guest_name, date, units_produced, rate_per_unit, work_type, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
             [user_id, member_id || null, guest_name || null, date, units_produced || 0, rate_per_unit || 0, work_type || 'production', notes || null]
         );
         return { id: res.insertId, ...data };
@@ -20,8 +21,8 @@ const ManufacturingWorkLogModel = {
             SELECT dwl.*, 
             CASE WHEN dwl.member_id IS NOT NULL THEN m.name ELSE dwl.guest_name END as member_name,
             m.wage_type 
-            FROM manufacturing_work_logs dwl
-            LEFT JOIN manufacturing_members m ON dwl.member_id = m.id
+            FROM operations_work_logs dwl
+            LEFT JOIN operations_members m ON dwl.member_id = m.id
             WHERE dwl.user_id = ?
         `;
         const params = [userId];
@@ -36,8 +37,8 @@ const ManufacturingWorkLogModel = {
             SELECT dwl.member_id, dwl.guest_name,
             CASE WHEN dwl.member_id IS NOT NULL THEN m.name ELSE dwl.guest_name END as member_name,
             SUM(dwl.units_produced) as total_units, SUM(dwl.total_amount) as total_earnings, COUNT(*) as days_worked
-            FROM manufacturing_work_logs dwl
-            LEFT JOIN manufacturing_members m ON dwl.member_id = m.id
+            FROM operations_work_logs dwl
+            LEFT JOIN operations_members m ON dwl.member_id = m.id
             WHERE dwl.user_id = ? AND YEAR(dwl.date) = ? AND MONTH(dwl.date) = ?
         `;
         const params = [userId, year, month];
@@ -50,39 +51,38 @@ const ManufacturingWorkLogModel = {
 
 // --- DISPATCHER HELPERS ---
 const getSectorModel = (sector) => {
-    // Currently only manufacturing has piece-rate work logs
-    return ManufacturingWorkLogModel;
+    return OperationsWorkLogModel;
 };
 
 // --- CORE WORK LOG FUNCTIONS (DISPATCHERS) ---
 const create = async (data) => {
-    return getSectorModel(data.sector || 'manufacturing').create(data);
+    return getSectorModel(data.sector || 'operations').create(data);
 };
 
-const getByUserIdAndDateRange = async (userId, startDate, endDate, memberId = null, sector = 'manufacturing') => {
+const getByUserIdAndDateRange = async (userId, startDate, endDate, memberId = null, sector = 'operations') => {
     return getSectorModel(sector).getByRange(userId, startDate, endDate, memberId);
 };
 
-const getMonthlyTotal = async (userId, year, month, memberId = null, sector = 'manufacturing') => {
+const getMonthlyTotal = async (userId, year, month, memberId = null, sector = 'operations') => {
     return getSectorModel(sector).getMonthlyTotal(userId, year, month, memberId);
 };
 
 const update = async (id, userId, data) => {
     const { units_produced, rate_per_unit, work_type, notes } = data;
     const [result] = await db.query(
-        `UPDATE manufacturing_work_logs SET units_produced = ?, rate_per_unit = ?, work_type = ?, notes = ? WHERE id = ? AND user_id = ?`,
+        `UPDATE operations_work_logs SET units_produced = ?, rate_per_unit = ?, work_type = ?, notes = ? WHERE id = ? AND user_id = ?`,
         [units_produced, rate_per_unit, work_type || 'production', notes || null, id, userId]
     );
     return result.affectedRows > 0;
 };
 
 const deleteResult = async (id, userId) => {
-    const [result] = await db.query(`DELETE FROM manufacturing_work_logs WHERE id = ? AND user_id = ?`, [id, userId]);
+    const [result] = await db.query(`DELETE FROM operations_work_logs WHERE id = ? AND user_id = ?`, [id, userId]);
     return result.affectedRows > 0;
 };
 
 const getByMemberAndDate = async (memberId, date, userId) => {
-    const [rows] = await db.query(`SELECT * FROM manufacturing_work_logs WHERE member_id = ? AND date = ? AND user_id = ?`, [memberId, date, userId]);
+    const [rows] = await db.query(`SELECT * FROM operations_work_logs WHERE member_id = ? AND date = ? AND user_id = ?`, [memberId, date, userId]);
     return rows[0];
 };
 

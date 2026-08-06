@@ -23,15 +23,15 @@ const HotelAttendanceController = {
     }
 };
 
-const ManufacturingAttendanceController = {
+const OperationsAttendanceController = {
     checkLock: async (userId, date) => {
         const month = new Date(date).getMonth() + 1;
         const year = new Date(date).getFullYear();
-        const [locks] = await db.query(`SELECT id FROM manufacturing_attendance_locks WHERE user_id = ? AND month = ? AND year = ? AND unlocked_at IS NULL`, [userId, month, year]);
+        const [locks] = await db.query(`SELECT id FROM operations_attendance_locks WHERE user_id = ? AND month = ? AND year = ? AND unlocked_at IS NULL`, [userId, month, year]);
         return locks.length > 0;
     },
     create: async (req, res) => {
-        if (await ManufacturingAttendanceController.checkLock(req.user.data_owner_id, req.body.date)) return res.status(403).json({ success: false, message: "Attendance is locked." });
+        if (await OperationsAttendanceController.checkLock(req.user.data_owner_id, req.body.date)) return res.status(403).json({ success: false, message: "Attendance is locked." });
         const attendance = await Attendance.create({ ...req.body, user_id: req.user.data_owner_id, created_by: req.user.username });
         res.status(201).json({ success: true, data: attendance });
     },
@@ -41,13 +41,13 @@ const ManufacturingAttendanceController = {
 
         try {
             // 1. Check if attendance is locked for this date
-            if (await ManufacturingAttendanceController.checkLock(userId, date)) {
+            if (await OperationsAttendanceController.checkLock(userId, date)) {
                 return res.status(403).json({ success: false, message: "Attendance is locked for this period." });
             }
 
             // 2. Get existing record to handle balance adjustments
             const [existing] = await db.query(
-                `SELECT status FROM manufacturing_attendance WHERE user_id = ? AND member_id = ? AND DATE(date) = ?`,
+                `SELECT status FROM operations_attendance WHERE user_id = ? AND member_id = ? AND DATE(date) = ?`,
                 [userId, member_id, date]
             );
 
@@ -60,20 +60,18 @@ const ManufacturingAttendanceController = {
                 // Reverse old leave balance if applicable
                 if (leaveTypes.includes(oldStatus)) {
                     const oldField = `${oldStatus.toLowerCase()}_balance`;
-                    await db.query(`UPDATE manufacturing_members SET ${oldField} = ${oldField} + 1 WHERE id = ?`, [member_id]);
+                    await db.query(`UPDATE operations_members SET ${oldField} = ${oldField} + 1 WHERE id = ?`, [member_id]);
                 }
 
                 // Apply new leave balance if applicable
                 if (leaveTypes.includes(status)) {
-                    const [member] = await db.query('SELECT cl_balance, sl_balance, el_balance FROM manufacturing_members WHERE id = ?', [member_id]);
+                    const [member] = await db.query('SELECT cl_balance, sl_balance, el_balance FROM operations_members WHERE id = ?', [member_id]);
                     if (member.length > 0) {
                         const newField = `${status.toLowerCase()}_balance`;
                         if (member[0][newField] <= 0) {
-                            // If we reversed an old status, we should probably roll it back? 
-                            // But usually, the user is fixing a mistake.
                             return res.status(200).json({ success: false, message: `Insufficient ${status} balance.` });
                         }
-                        await db.query(`UPDATE manufacturing_members SET ${newField} = ${newField} - 1 WHERE id = ?`, [member_id]);
+                        await db.query(`UPDATE operations_members SET ${newField} = ${newField} - 1 WHERE id = ?`, [member_id]);
                     }
                 }
             }
@@ -142,12 +140,7 @@ const ITAttendanceController = {
 
 // --- DISPATCHER HELPERS ---
 const getSectorController = (sector) => {
-    switch (sector) {
-        case 'hotel': return HotelAttendanceController;
-        case 'it': return ITAttendanceController;
-        case 'education': return EducationAttendanceController;
-        default: return ManufacturingAttendanceController;
-    }
+    return OperationsAttendanceController;
 };
 
 // --- CORE CONTROLLER FUNCTIONS (DISPATCHERS) ---
@@ -157,12 +150,7 @@ const createAttendance = async (req, res) => {
         const restriction = checkPastDateRestriction(req, req.body.date);
         if (restriction) return res.status(403).json({ success: false, message: restriction });
 
-        const sector = req.body.sector || (
-            req.baseUrl.includes('education') ? 'education' :
-            req.baseUrl.includes('manufacturing') ? 'manufacturing' :
-            req.baseUrl.includes('it') ? 'it' :
-            req.baseUrl.includes('hotel') ? 'hotel' : 'manufacturing'
-        );
+        const sector = req.body.sector || 'operations';
 
         return getSectorController(sector).create(req, res);
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
@@ -170,10 +158,7 @@ const createAttendance = async (req, res) => {
 
 const getAttendances = async (req, res) => {
     try {
-        const sector = req.query.sector || (req.baseUrl.includes('education') ? 'education' :
-            req.baseUrl.includes('manufacturing') ? 'manufacturing' :
-                req.baseUrl.includes('it') ? 'it' :
-                    req.baseUrl.includes('hotel') ? 'hotel' : 'manufacturing');
+        const sector = req.query.sector || 'operations';
 
         const data = await Attendance.getAllByUserId(req.user.data_owner_id, { ...req.query, sector });
         res.status(200).json({ success: true, data });
@@ -289,9 +274,9 @@ const lockAttendance = async (req, res) => {
             // If ignore didn't insert, update
             await db.query('UPDATE education_attendance_locks SET is_locked = 1 WHERE user_id = ? AND date = ?', [userId, date]);
         }
-        else if (sector === 'manufacturing') {
+        else if (sector === 'operations' || sector === 'manufacturing') {
             await db.query(`
-                INSERT INTO manufacturing_attendance_locks (user_id, month, year, locked_by, status, unlocked_at) 
+                INSERT INTO operations_attendance_locks (user_id, month, year, locked_by, status, unlocked_at) 
                 VALUES (?, ?, ?, ?, 'locked', NULL)
                 ON DUPLICATE KEY UPDATE locked_by = VALUES(locked_by), status = 'locked', unlocked_at = NULL, locked_at = NOW()
             `, [userId, month, year, req.user.id]);
@@ -303,9 +288,9 @@ const lockAttendance = async (req, res) => {
 const unlockAttendance = async (req, res) => {
     try {
         const sector = req.body.sector || (req.baseUrl.includes('education') ? 'education' :
-            req.baseUrl.includes('manufacturing') ? 'manufacturing' :
+            req.baseUrl.includes('operations') || req.baseUrl.includes('manufacturing') ? 'operations' :
                 req.baseUrl.includes('it') ? 'it' :
-                    req.baseUrl.includes('hotel') ? 'hotel' : 'manufacturing');
+                    req.baseUrl.includes('hotel') ? 'hotel' : 'operations');
 
         const { month, year, date, reason } = req.body;
         // Note: requireOwner middleware already restricts this route to owners only
@@ -313,10 +298,10 @@ const unlockAttendance = async (req, res) => {
         if (sector === 'education') {
             await db.query(`UPDATE education_attendance_locks SET is_locked = 0 WHERE user_id = ? AND date = ?`, [req.user.data_owner_id, date]);
         } else {
-            if (sector !== 'manufacturing') {
+            if (sector !== 'operations' && sector !== 'manufacturing') {
                 return res.status(400).json({ success: false, message: "Sector not supported for locking yet" });
             }
-            const table = 'manufacturing_attendance_locks';
+            const table = 'operations_attendance_locks';
             await db.query(`UPDATE ${table} SET unlocked_by = ?, unlocked_at = NOW(), unlock_reason = ?, status = 'unlocked' WHERE user_id = ? AND month = ? AND year = ?`, [req.user.id, reason, req.user.data_owner_id, month, year]);
         }
         res.json({ success: true });
@@ -326,18 +311,18 @@ const unlockAttendance = async (req, res) => {
 const getLockStatus = async (req, res) => {
     try {
         const sector = req.query.sector || (req.baseUrl.includes('education') ? 'education' :
-            req.baseUrl.includes('manufacturing') ? 'manufacturing' :
+            req.baseUrl.includes('operations') || req.baseUrl.includes('manufacturing') ? 'operations' :
                 req.baseUrl.includes('it') ? 'it' :
-                    req.baseUrl.includes('hotel') ? 'hotel' : 'manufacturing');
+                    req.baseUrl.includes('hotel') ? 'hotel' : 'operations');
 
         const { month, year } = req.query; // Extract month and year from query
-        const table = sector === 'education' ? 'education_attendance_locks' : 'manufacturing_attendance_locks';
+        const table = sector === 'education' ? 'education_attendance_locks' : 'operations_attendance_locks';
         let locks;
         if (sector === 'education') {
             [locks] = await db.query(`SELECT * FROM ${table} WHERE user_id = ? AND MONTH(date) = ? AND YEAR(date) = ? AND is_locked = 1`, [req.user.data_owner_id, month, year]);
         } else {
             // For now default other sectors might attempt this, but let's be safe
-            if (sector !== 'manufacturing') {
+            if (sector !== 'operations' && sector !== 'manufacturing') {
                 // Other sectors might not have locks yet
                 return res.json({ success: true, data: [] });
             }

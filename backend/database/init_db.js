@@ -29,7 +29,7 @@ async function initDatabase() {
         console.log(`Using database \`${dbName}\`.`);
 
         // Read schema file
-        const schemaPath = path.join(__dirname, "schema_manufacturing.sql");
+        const schemaPath = path.join(__dirname, "schema_operations.sql");
         if (!fs.existsSync(schemaPath)) {
             throw new Error(`Schema file not found at ${schemaPath}`);
         }

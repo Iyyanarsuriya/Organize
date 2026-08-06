@@ -1,7 +1,6 @@
 // ============================================
-// MANUFACTURING PAYROLL CONTROLLER
+// OPERATIONS PAYROLL CONTROLLER
 // Handles wage calculation and payroll management
-// Date: February 2, 2026
 // ============================================
 
 const db = require('../../config/db');
@@ -15,7 +14,7 @@ const db = require('../../config/db');
  */
 const getPayrollSettings = async (userId) => {
     const [settings] = await db.query(
-        'SELECT * FROM manufacturing_payroll_settings WHERE user_id = ?',
+        'SELECT * FROM operations_payroll_settings WHERE user_id = ?',
         [userId]
     );
 
@@ -43,7 +42,7 @@ const getAttendanceSummary = async (memberId, month, year, userId) => {
     // Fetch all attendance records for the month
     const [records] = await db.query(`
         SELECT status, overtime_duration
-        FROM manufacturing_attendance
+        FROM operations_attendance
         WHERE member_id = ?
         AND MONTH(date) = ?
         AND YEAR(date) = ?
@@ -72,7 +71,6 @@ const getAttendanceSummary = async (memberId, month, year, userId) => {
         else if (status === 'week_off') summary.days_weekend++;
 
         // Parse overtime
-        // Handles formats like: "2", "2.5", "2 hours", "02:30" (simplified to hours)
         if (overtime_duration) {
             const str = overtime_duration.toString();
             // Check for HH:MM format first
@@ -100,7 +98,7 @@ const getAttendanceSummary = async (memberId, month, year, userId) => {
 const getActiveAdvances = async (memberId, userId) => {
     const [advances] = await db.query(`
         SELECT id, balance, monthly_deduction
-        FROM manufacturing_advances
+        FROM operations_advances
         WHERE member_id = ?
         AND user_id = ?
         AND status = 'active'
@@ -116,7 +114,7 @@ const getActiveAdvances = async (memberId, userId) => {
 const getWorkLogEarnings = async (memberId, month, year, userId) => {
     const [result] = await db.query(`
         SELECT SUM(total_amount) as total
-        FROM manufacturing_work_logs
+        FROM operations_work_logs
         WHERE member_id = ?
         AND MONTH(date) = ?
         AND YEAR(date) = ?
@@ -137,46 +135,29 @@ const calculateWage = async (member, attendanceSummary, settings) => {
     let overtimeAmount = 0;
 
     if (wage_type === 'daily') {
-        // Daily wage calculation
         baseAmount = (days_present * daily_wage) + (days_half * daily_wage * 0.5);
-
-        // Overtime: hourly rate × hours × multiplier
         const hourlyRate = daily_wage / settings.working_hours_per_day;
         overtimeAmount = overtime_hours * hourlyRate * settings.overtime_multiplier;
 
     } else if (wage_type === 'piece_rate') {
-        // Piece Rate calculation (Sum of work logs)
-        // For piece_rate, baseAmount comes seamlessly from work logs
-        // We can pass the pre-calculated workLogTotal here
         baseAmount = member.workLogTotal || 0;
-
-        // Overtime for piece rate? 
-        // Usually piece rate workers don't get OT hours, but if they do, 
-        // valid logic might be needed. For now, we assume 0 or standard calculation if specific rate provided.
-        // If daily_wage is set as a "base rate" for OT calc:
         if (daily_wage > 0) {
             const hourlyRate = daily_wage / settings.working_hours_per_day;
             overtimeAmount = overtime_hours * hourlyRate * settings.overtime_multiplier;
         }
 
     } else if (wage_type === 'monthly') {
-        // Monthly salary calculation (Positive attendance basis)
         const monthlySalary = daily_wage; 
         
-        // Total "paid" days including worked days, paid leaves, holidays, and weekends
         const totalPaidDays = attendanceSummary.days_present + 
                               (attendanceSummary.days_half * 0.5) + 
                               attendanceSummary.days_leave + 
                               attendanceSummary.days_holiday + 
                               attendanceSummary.days_weekend;
 
-        // Calculate proportional salary based on working days setting
         let calculatedBase = (monthlySalary / settings.working_days_per_month) * totalPaidDays;
-        
-        // Cap at monthly salary to prevent overpayment in long months
         baseAmount = Math.min(calculatedBase, monthlySalary);
 
-        // Overtime: hourly rate × hours × multiplier
         const hourlyRate = monthlySalary / settings.working_hours_per_month;
         overtimeAmount = overtime_hours * hourlyRate * settings.overtime_multiplier;
     }
@@ -203,7 +184,6 @@ const generateMonthlyPayroll = async (req, res) => {
         const userId = req.user.data_owner_id;
         const username = req.user.username;
 
-        // Validate month and year
         if (!month || !year || month < 1 || month > 12) {
             return res.status(400).json({
                 success: false,
@@ -211,10 +191,9 @@ const generateMonthlyPayroll = async (req, res) => {
             });
         }
 
-        // Check if payroll already exists for this month
         const [existing] = await db.query(`
             SELECT COUNT(*) as count
-            FROM manufacturing_payroll
+            FROM operations_payroll
             WHERE month = ? AND year = ? AND user_id = ?
         `, [month, year, userId]);
 
@@ -225,13 +204,11 @@ const generateMonthlyPayroll = async (req, res) => {
             });
         }
 
-        // Get payroll settings
         const settings = await getPayrollSettings(userId);
 
-        // Get all active members
         const [members] = await db.query(`
             SELECT id, name, role, wage_type, daily_wage, project_id
-            FROM manufacturing_members
+            FROM operations_members
             WHERE user_id = ?
             AND status = 'active'
         `, [userId]);
@@ -245,25 +222,18 @@ const generateMonthlyPayroll = async (req, res) => {
 
         const payrollRecords = [];
 
-        // Calculate payroll for each member
         for (const member of members) {
-            // Get attendance summary
             const attendanceSummary = await getAttendanceSummary(
                 member.id, month, year, userId
             );
 
-            // Get work log earnings (for piece_rate)
             const workLogTotal = await getWorkLogEarnings(member.id, month, year, userId);
-
-            // Calculate wage
-            // Pass workLogTotal to the member object temporarily for calculation
             const memberForCalc = { ...member, workLogTotal };
 
             const { baseAmount, overtimeAmount, grossAmount } = await calculateWage(
                 memberForCalc, attendanceSummary, settings
             );
 
-            // Get active advances
             const advances = await getActiveAdvances(member.id, userId);
             let advanceDeducted = 0;
 
@@ -276,9 +246,8 @@ const generateMonthlyPayroll = async (req, res) => {
             const totalDeductions = advanceDeducted;
             const netAmount = grossAmount - totalDeductions;
 
-            // Insert payroll record
             const [result] = await db.query(`
-                INSERT INTO manufacturing_payroll (
+                INSERT INTO operations_payroll (
                     member_id, month, year,
                     days_present, days_absent, days_half, days_leave,
                     days_holiday, days_weekend, overtime_hours,
@@ -343,9 +312,9 @@ const getPayrollList = async (req, res) => {
                 m.role as member_role,
                 m.wage_type,
                 proj.name as project_name
-            FROM manufacturing_payroll p
-            LEFT JOIN manufacturing_members m ON p.member_id = m.id
-            LEFT JOIN manufacturing_projects proj ON p.project_id = proj.id
+            FROM operations_payroll p
+            LEFT JOIN operations_members m ON p.member_id = m.id
+            LEFT JOIN operations_projects proj ON p.project_id = proj.id
             WHERE p.user_id = ?
         `;
 
@@ -408,10 +377,10 @@ const getPayrollDetails = async (req, res) => {
                 proj.name as project_name,
                 e.id as expense_id,
                 e.title as expense_title
-            FROM manufacturing_payroll p
-            LEFT JOIN manufacturing_members m ON p.member_id = m.id
-            LEFT JOIN manufacturing_projects proj ON p.project_id = proj.id
-            LEFT JOIN manufacturing_transactions e ON p.expense_id = e.id
+            FROM operations_payroll p
+            LEFT JOIN operations_members m ON p.member_id = m.id
+            LEFT JOIN operations_projects proj ON p.project_id = proj.id
+            LEFT JOIN operations_transactions e ON p.expense_id = e.id
             WHERE p.id = ? AND p.user_id = ?
         `, [id, userId]);
 
@@ -445,11 +414,10 @@ const approvePayroll = async (req, res) => {
         const userId = req.user.data_owner_id;
         const username = req.user.username;
 
-        // Get payroll details
         const [payrolls] = await db.query(`
             SELECT p.*, m.name as member_name, m.wage_type
-            FROM manufacturing_payroll p
-            LEFT JOIN manufacturing_members m ON p.member_id = m.id
+            FROM operations_payroll p
+            LEFT JOIN operations_members m ON p.member_id = m.id
             WHERE p.id = ? AND p.user_id = ?
         `, [id, userId]);
 
@@ -469,12 +437,11 @@ const approvePayroll = async (req, res) => {
             });
         }
 
-        // Auto-generate expense entry
         const expenseTitle = `${payroll.wage_type === 'monthly' ? 'Salary' : 'Wages'} - ${payroll.member_name} - ${payroll.month}/${payroll.year}`;
         const expenseCategory = payroll.wage_type === 'monthly' ? 'Salary' : 'Wages';
 
         const [expenseResult] = await db.query(`
-            INSERT INTO manufacturing_transactions (
+            INSERT INTO operations_transactions (
                 title, amount, type, category, date,
                 member_id, project_id, payroll_id,
                 payment_mode, payment_status, auto_generated,
@@ -492,9 +459,8 @@ const approvePayroll = async (req, res) => {
             userId
         ]);
 
-        // Update payroll status
         await db.query(`
-            UPDATE manufacturing_payroll
+            UPDATE operations_payroll
             SET status = 'approved',
                 expense_id = ?,
                 approved_by = ?,
@@ -502,10 +468,9 @@ const approvePayroll = async (req, res) => {
             WHERE id = ?
         `, [expenseResult.insertId, username, id]);
 
-        // Update advance balances
         if (payroll.advance_deducted > 0) {
             await db.query(`
-                UPDATE manufacturing_advances
+                UPDATE operations_advances
                 SET total_deducted = total_deducted + monthly_deduction,
                     balance = balance - monthly_deduction,
                     status = CASE WHEN balance - monthly_deduction <= 0 THEN 'fully_paid' ELSE 'active' END
@@ -535,16 +500,14 @@ const approvePayroll = async (req, res) => {
 
 /**
  * Revert approved payroll back to draft
- * Deletes associated transaction and reverts advance balances
  */
 const revertPayroll = async (req, res) => {
     try {
         const { id } = req.params;
         const userId = req.user.data_owner_id;
 
-        // Get payroll details
         const [payrolls] = await db.query(`
-            SELECT * FROM manufacturing_payroll
+            SELECT * FROM operations_payroll
             WHERE id = ? AND user_id = ?
         `, [id, userId]);
 
@@ -564,15 +527,13 @@ const revertPayroll = async (req, res) => {
             });
         }
 
-        // 1. Delete associated transaction if exists
         if (payroll.expense_id) {
-            await db.query(`DELETE FROM manufacturing_transactions WHERE id = ? AND user_id = ?`, [payroll.expense_id, userId]);
+            await db.query(`DELETE FROM operations_transactions WHERE id = ? AND user_id = ?`, [payroll.expense_id, userId]);
         }
 
-        // 2. Revert advance balance if deducted
         if (payroll.advance_deducted > 0) {
             await db.query(`
-                UPDATE manufacturing_advances
+                UPDATE operations_advances
                 SET total_deducted = total_deducted - monthly_deduction,
                     balance = balance + monthly_deduction,
                     status = 'active'
@@ -582,9 +543,8 @@ const revertPayroll = async (req, res) => {
             `, [payroll.member_id, userId]);
         }
 
-        // 3. Update payroll status back to draft
         await db.query(`
-            UPDATE manufacturing_payroll
+            UPDATE operations_payroll
             SET status = 'draft',
                 expense_id = NULL,
                 approved_by = NULL,
@@ -614,9 +574,8 @@ const deletePayroll = async (req, res) => {
         const { id } = req.params;
         const userId = req.user.data_owner_id;
 
-        // Check if payroll exists and is draft
         const [payrolls] = await db.query(`
-            SELECT status FROM manufacturing_payroll
+            SELECT status FROM operations_payroll
             WHERE id = ? AND user_id = ?
         `, [id, userId]);
 
@@ -634,7 +593,7 @@ const deletePayroll = async (req, res) => {
             });
         }
 
-        await db.query('DELETE FROM manufacturing_payroll WHERE id = ?', [id]);
+        await db.query('DELETE FROM operations_payroll WHERE id = ?', [id]);
 
         res.status(200).json({
             success: true,
@@ -658,10 +617,9 @@ const deleteMonthlyPayroll = async (req, res) => {
         const { month, year } = req.body;
         const userId = req.user.data_owner_id;
 
-        // Check if any payroll is approved/paid
         const [approved] = await db.query(`
             SELECT COUNT(*) as count
-            FROM manufacturing_payroll
+            FROM operations_payroll
             WHERE month = ? AND year = ? AND user_id = ?
             AND status != 'draft'
         `, [month, year, userId]);
@@ -674,7 +632,7 @@ const deleteMonthlyPayroll = async (req, res) => {
         }
 
         const [result] = await db.query(`
-            DELETE FROM manufacturing_payroll
+            DELETE FROM operations_payroll
             WHERE month = ? AND year = ? AND user_id = ? AND status = 'draft'
         `, [month, year, userId]);
 
