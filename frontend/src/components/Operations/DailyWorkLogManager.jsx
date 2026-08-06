@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getWorkLogs, createWorkLog, updateWorkLog, deleteWorkLog, getMonthlyTotal } from '../../api/Attendance/mfgAttendance';
-import { getActiveMembers } from '../../api/TeamManagement/mfgTeam';
+import { getWorkLogs, createWorkLog, updateWorkLog, deleteWorkLog, getMonthlyTotal } from '../../api/Attendance/opsAttendance';
+import { getActiveMembers } from '../../api/TeamManagement/opsTeam';
 import toast from 'react-hot-toast';
 import { FaPlus, FaEdit, FaTrash, FaCalendarAlt, FaMoneyBillWave, FaBoxes, FaStickyNote, FaSearch } from 'react-icons/fa';
 import ConfirmModal from '../modals/ConfirmModal';

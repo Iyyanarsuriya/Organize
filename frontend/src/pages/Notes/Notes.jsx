@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import * as mfgApi from '../../api/Reminder/mfgReminder';
+import * as opsApi from '../../api/Reminder/opsReminder';
 import { FaPlus, FaTrash, FaPen, FaThumbtack, FaArrowLeft, FaSearch, FaTimes } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { generateCSV, generatePDF, generateTXT } from '../../utils/exportUtils/b
 const activeRequests = {};
 
 const Notes = ({ isEmbedded = false, sector = 'manufacturing' }) => {
-    const { getNotes, createNote, updateNote, deleteNote } = mfgApi;
+    const { getNotes, createNote, updateNote, deleteNote } = opsApi;
     const isPersonal = false;
 
     const navigate = useNavigate();

@@ -19,8 +19,8 @@ import {
     getProjects,
     createProject,
     deleteProject
-} from '../../../api/Attendance/mfgAttendance';
-import { getActiveMembers } from '../../../api/TeamManagement/mfgTeam';
+} from '../../../api/Attendance/opsAttendance';
+import { getActiveMembers } from '../../../api/TeamManagement/opsTeam';
 import toast from 'react-hot-toast';
 import {
     FaCheckCircle, FaTimesCircle, FaClock, FaExclamationCircle,
@@ -34,10 +34,10 @@ import {
 } from 'recharts';
 import { exportAttendanceToCSV, exportAttendanceToTXT, exportAttendanceToPDF, processAttendanceExportData } from '../../../utils/exportUtils/index.js';
 import ExportButtons from '../../../components/Common/ExportButtons';
-import ProjectManager from '../../../components/Manufacturing/ProjectManager';
-import MemberManager from '../../../components/Manufacturing/MemberManager';
-import RoleManager from '../../../components/Manufacturing/RoleManager';
-import { getMemberRoles, createMemberRole, deleteMemberRole } from '../../../api/TeamManagement/mfgTeam';
+import ProjectManager from '../../../components/Operations/ProjectManager';
+import MemberManager from '../../../components/Operations/MemberManager';
+import RoleManager from '../../../components/Operations/RoleManager';
+import { getMemberRoles, createMemberRole, deleteMemberRole } from '../../../api/TeamManagement/opsTeam';
 import CalendarManager from './CalendarManager';
 import ShiftManager from './ShiftManager';
 
@@ -738,7 +738,7 @@ const AttendanceTracker = () => {
                                 <FaUserCheck className="text-white text-lg sm:text-xl" />
                             </div>
                             <div>
-                                <h1 className="text-[18px] sm:text-xl md:text-2xl font-black text-slate-900 tracking-tight">Manufacturing Attendance</h1>
+                                <h1 className="text-[18px] sm:text-xl md:text-2xl font-black text-slate-900 tracking-tight">Attendance Tracker</h1>
                                 <p className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest leading-none">Consistency is key</p>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster, useToasterStore, toast } from 'react-hot-toast';
-import { getReminders as getMfgReminders } from './api/Reminder/mfgReminder';
+import { getReminders as getOpsReminders } from './api/Reminder/opsReminder';
 import { updateProfile, getMe } from './api/authApi';
 
 // Components
@@ -10,13 +10,13 @@ import GlobalModals from './components/modals/GlobalModals';
 
 // Pages (Lazy Loaded)
 const LandingPage = lazy(() => import('./pages/LandingPage'));
-const ManufacturingHome = lazy(() => import('./pages/ManufacturingSector/ManufacturingHome'));
-const Reminders = lazy(() => import('./pages/ManufacturingSector/ReminderTracker/Reminders'));
-const MfgReminderDashboard = lazy(() => import('./pages/ManufacturingSector/ReminderTracker/MfgReminderDashboard'));
-const ExpenseTracker = lazy(() => import('./pages/ManufacturingSector/ExpenseTracker/ExpenseTrackerMain'));
-const AttendanceTracker = lazy(() => import('./pages/ManufacturingSector/AttendanceTracker/AttendanceTracker'));
-const TeamManagement = lazy(() => import('./pages/ManufacturingSector/Team/TeamManagement'));
-const ManufacturingPayroll = lazy(() => import('./pages/ManufacturingSector/Payroll/ManufacturingPayroll'));
+const OperationsHome = lazy(() => import('./pages/OperationsSector/OperationsHome'));
+const Reminders = lazy(() => import('./pages/OperationsSector/ReminderTracker/Reminders'));
+const OperationsReminderDashboard = lazy(() => import('./pages/OperationsSector/ReminderTracker/OperationsReminderDashboard'));
+const ExpenseTracker = lazy(() => import('./pages/OperationsSector/ExpenseTracker/ExpenseTrackerMain'));
+const AttendanceTracker = lazy(() => import('./pages/OperationsSector/AttendanceTracker/AttendanceTracker'));
+const TeamManagement = lazy(() => import('./pages/OperationsSector/Team/TeamManagement'));
+const OperationsPayroll = lazy(() => import('./pages/OperationsSector/Payroll/OperationsPayroll'));
 const Notes = lazy(() => import('./pages/Notes/Notes'));
 const ForgotPassword = lazy(() => import('./pages/Authentication/ForgotPassword'));
 
@@ -81,7 +81,7 @@ const AppContent = () => {
     if (!token || fetchInProgress.current.reminders) return;
     fetchInProgress.current.reminders = true;
     try {
-      const res = await getMfgReminders();
+      const res = await getOpsReminders();
       setReminders(Array.isArray(res?.data) ? res.data : []);
     } catch (error) {
       console.error("Failed to fetch reminders for header", error);
@@ -246,14 +246,14 @@ const AppContent = () => {
               )
             } />
 
-            {/* Manufacturing Sector Routes */}
-            <Route path="/manufacturing" element={<ProtectedRoute><ManufacturingHome /></ProtectedRoute>} />
+            {/* Operations Sector Routes */}
+            <Route path="/manufacturing" element={<ProtectedRoute><OperationsHome /></ProtectedRoute>} />
             <Route path="/manufacturing/reminders" element={<ProtectedRoute><Reminders /></ProtectedRoute>} />
-            <Route path="/manufacturing/reminder-dashboard" element={<ProtectedRoute><MfgReminderDashboard /></ProtectedRoute>} />
+            <Route path="/manufacturing/reminder-dashboard" element={<ProtectedRoute><OperationsReminderDashboard /></ProtectedRoute>} />
             <Route path="/manufacturing/expenses" element={<ProtectedRoute><ExpenseTracker /></ProtectedRoute>} />
             <Route path="/manufacturing/attendance" element={<ProtectedRoute><AttendanceTracker /></ProtectedRoute>} />
             <Route path="/manufacturing/team" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
-            <Route path="/manufacturing/payroll" element={<ProtectedRoute><ManufacturingPayroll /></ProtectedRoute>} />
+            <Route path="/manufacturing/payroll" element={<ProtectedRoute><OperationsPayroll /></ProtectedRoute>} />
 
             <Route path="/notes" element={<ProtectedRoute><Notes /></ProtectedRoute>} />
             <Route path="/forgot-password" element={<ForgotPassword />} />

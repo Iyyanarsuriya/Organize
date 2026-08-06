@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { getReminders, createReminder, updateReminder, deleteReminder, getCategories, createCategory, deleteCategory } from '../../../api/Reminder/mfgReminder';
+import { getReminders, createReminder, updateReminder, deleteReminder, getCategories, createCategory, deleteCategory } from '../../../api/Reminder/opsReminder';
 import { getMe } from '../../../api/authApi';
 import { API_URL } from '../../../api/axiosInstance';
 import ReminderForm from '../../../components/Common/ReminderForm';
@@ -293,7 +293,7 @@ const Reminders = () => {
                             </div>
                             <div className="flex-1">
                                 <p className="text-lg sm:text-xl font-black text-slate-800 tracking-tight">
-                                    Your Manufacturing Brief
+                                    Your Operations Brief
                                 </p>
                                 <p className="text-[11px] sm:text-[14px] font-bold text-slate-500">
                                     You have <span className="text-[#2d5bff] font-black">{notifications.length} priorities</span> today.
@@ -481,7 +481,7 @@ const Reminders = () => {
                         <Link
                             to="/manufacturing"
                             className="bg-white/10 hover:bg-white/20 text-white p-[8px] rounded-[8px] transition-all active:scale-95 flex items-center justify-center shrink-0"
-                            title="Back to Manufacturing"
+                            title="Back to Operations Hub"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
                         </Link>

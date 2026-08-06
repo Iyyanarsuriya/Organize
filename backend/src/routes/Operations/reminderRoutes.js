@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const reminderController = require('../../controllers/Manufacturing/reminderController');
+const reminderController = require('../../controllers/Operations/reminderController');
 const { authenticateToken, requireOwner } = require('../../middlewares/authMiddleware');
 
 router.use(authenticateToken);

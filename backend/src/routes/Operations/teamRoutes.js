@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const teamController = require('../../controllers/Manufacturing/teamController');
+const teamController = require('../../controllers/Operations/teamController');
 const { authenticateToken, requireOwner } = require('../../middlewares/authMiddleware');
 
 router.get('/', authenticateToken, teamController.getSubUsers);

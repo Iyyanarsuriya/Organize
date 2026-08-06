@@ -27,7 +27,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
                         <div className="animate-in fade-in slide-in-from-left-10 duration-700 text-center lg:text-left">
                             <h1 className="text-[42px] sm:text-[48px] md:text-[60px] lg:text-[72px] font-black text-[#1a1c21] leading-[1.1] mb-[16px] tracking-tight">
                                 {isLoggedIn ? (
-                                    <>Welcome Back to <span className="text-blue-600">Manufacturing Hub</span></>
+                                    <>Welcome Back to <span className="text-blue-600">Operations Hub</span></>
                                 ) : (
                                     <>Your Sector <span className="text-blue-600">Organizer</span></>
                                 )}
@@ -43,7 +43,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
                                         to="/manufacturing"
                                         className="inline-flex items-center gap-[12px] bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-[12px] tracking-widest px-[32px] py-[20px] rounded-[24px] shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all hover:-translate-y-[2px]"
                                     >
-                                        Enter Manufacturing Hub <ArrowRight className="w-[16px] h-[16px]" />
+                                        Enter Operations Hub <ArrowRight className="w-[16px] h-[16px]" />
                                     </Link>
                                 </div>
                             ) : (
@@ -104,7 +104,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
                                     <div className="bg-[#1a1c21] rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-2xl p-[16px] flex flex-col items-center justify-center text-center text-white min-h-[300px]">
                                         <Factory className="w-[96px] h-[96px] text-blue-500 mb-[24px] animate-pulse" />
                                         <h3 className="text-2xl font-black mb-[8px]">OrganizerPro</h3>
-                                        <p className="text-slate-400 text-sm max-w-[300px]">Standalone Portal for Manufacturing Sector Management</p>
+                                        <p className="text-slate-400 text-sm max-w-[300px]">Standalone Portal for Operations & Business Management</p>
                                     </div>
                                 </div>
                             </div>

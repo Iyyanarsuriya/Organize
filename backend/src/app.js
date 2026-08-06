@@ -41,19 +41,19 @@ const withSector = (sector) => (req, res, next) => {
 // ==========================================
 const mfgRouter = express.Router();
 mfgRouter.use(withSector('manufacturing'));
-mfgRouter.use('/reminders', require("./routes/Manufacturing/reminderRoutes"));
-mfgRouter.use('/reminder-categories', require("./routes/Manufacturing/reminderCategoryRoutes"));
+mfgRouter.use('/reminders', require("./routes/Operations/reminderRoutes"));
+mfgRouter.use('/reminder-categories', require("./routes/Operations/reminderCategoryRoutes"));
 mfgRouter.use('/transactions', transactionRoutes);
 mfgRouter.use('/members', require("./routes/Common/memberRoutes"));
 mfgRouter.use('/member-roles', require("./routes/Common/memberRoleRoutes"));
-mfgRouter.use('/attendance', require("./routes/Manufacturing/attendanceRoutes"));
+mfgRouter.use('/attendance', require("./routes/Operations/attendanceRoutes"));
 mfgRouter.use('/projects', require("./routes/Common/projectRoutes"));
-mfgRouter.use('/work-logs', require("./routes/Manufacturing/dailyWorkLogRoutes"));
-mfgRouter.use('/vehicle-logs', require("./routes/Manufacturing/vehicleLogRoutes"));
-mfgRouter.use('/team', require("./routes/Manufacturing/teamRoutes"));
-mfgRouter.use('/notes', require("./routes/Manufacturing/noteRoutes"));
-mfgRouter.use('/expense-categories', require("./routes/Manufacturing/mfgExpenseCategoryRoutes"));
-mfgRouter.use('/payroll', require("./routes/Manufacturing/payrollRoutes"));
+mfgRouter.use('/work-logs', require("./routes/Operations/dailyWorkLogRoutes"));
+mfgRouter.use('/vehicle-logs', require("./routes/Operations/vehicleLogRoutes"));
+mfgRouter.use('/team', require("./routes/Operations/teamRoutes"));
+mfgRouter.use('/notes', require("./routes/Operations/noteRoutes"));
+mfgRouter.use('/expense-categories', require("./routes/Operations/opsExpenseCategoryRoutes"));
+mfgRouter.use('/payroll', require("./routes/Operations/payrollRoutes"));
 
 app.use('/api/manufacturing-sector', mfgRouter);
 

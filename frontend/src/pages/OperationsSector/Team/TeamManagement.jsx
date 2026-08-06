@@ -110,7 +110,7 @@ const TeamManagement = () => {
             u.role,
             new Date(u.created_at).toLocaleDateString()
         ]);
-        generateCSV(headers, rows, 'Manufacturing_Team_Members');
+        generateCSV(headers, rows, 'Team_Members');
     };
 
     const handleExportPDF = () => {
@@ -122,12 +122,12 @@ const TeamManagement = () => {
             new Date(u.created_at).toLocaleDateString()
         ]);
         generatePDF({
-            title: 'Manufacturing Team Members',
+            title: 'Team Members Report',
             period: 'All Time',
             stats: [{ label: 'Total Members', value: team.length }],
             tableHeaders: headers,
             tableRows: rows,
-            filename: 'Manufacturing_Team_Report'
+            filename: 'Team_Report'
         });
     };
 
@@ -140,12 +140,12 @@ const TeamManagement = () => {
             new Date(u.created_at).toLocaleDateString()
         ]);
         generateTXT({
-            title: 'Manufacturing Team Report',
+            title: 'Team Report',
             period: 'All Time',
             stats: [{ label: 'Total', value: team.length }],
             logHeaders: headers,
             logRows: rows,
-            filename: 'Manufacturing_Team_Report'
+            filename: 'Team_Report'
         });
     };
 

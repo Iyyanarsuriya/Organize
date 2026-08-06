@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaCalendarAlt, FaGoogle, FaTimes } from 'react-icons/fa';
 import { IoArrowBack } from "react-icons/io5";
-import { getReminders } from '../../../api/Reminder/mfgReminder'; // Manufacturing sector context
+import { getReminders } from '../../../api/Reminder/opsReminder';
 import { getGoogleAuthUrl, disconnectGoogle } from '../../../api/authApi';
 
 import toast from 'react-hot-toast';

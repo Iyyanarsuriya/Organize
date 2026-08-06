@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../../controllers/Manufacturing/mfgExpenseCategoryController');
+const controller = require('../../controllers/Operations/opsExpenseCategoryController');
 const { authenticateToken } = require('../../middlewares/authMiddleware');
 
 router.use(authenticateToken);

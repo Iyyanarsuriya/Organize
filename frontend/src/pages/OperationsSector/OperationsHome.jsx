@@ -15,9 +15,9 @@ const ManufacturingHome = () => {
                 {/* Header Section */}
                 <div className="text-center mb-[40px] sm:mb-[64px]">
                     <h1 className="text-[32px] sm:text-[48px] font-black text-slate-800 tracking-tight mb-[16px]">
-                        Manufacturing <span className="text-blue-600">Hub</span>
+                        Operations <span className="text-blue-600">Hub</span>
                     </h1>
-                    <p className="text-slate-500 font-medium text-[14px] sm:text-[16px]">Select a module to manage your production sector</p>
+                    <p className="text-slate-500 font-medium text-[14px] sm:text-[16px]">Select a module to manage your business operations</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[20px] sm:gap-[32px] justify-center">

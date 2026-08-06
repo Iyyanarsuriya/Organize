@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const categoryController = require('../../controllers/Manufacturing/reminderCategoryController');
+const categoryController = require('../../controllers/Operations/reminderCategoryController');
 const { authenticateToken, requireOwner } = require('../../middlewares/authMiddleware');
 
 router.use(authenticateToken); // Protect all category routes

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, requireOwner } = require('../../middlewares/authMiddleware');
-const dailyWorkLogController = require('../../controllers/Manufacturing/dailyWorkLogController');
+const dailyWorkLogController = require('../../controllers/Operations/dailyWorkLogController');
 
 
 

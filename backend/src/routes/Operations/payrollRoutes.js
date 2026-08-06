@@ -16,7 +16,7 @@ const {
     revertPayroll,
     deletePayroll,
     deleteMonthlyPayroll
-} = require('../../controllers/Manufacturing/payrollController');
+} = require('../../controllers/Operations/payrollController');
 
 // ============================================
 // PAYROLL ROUTES

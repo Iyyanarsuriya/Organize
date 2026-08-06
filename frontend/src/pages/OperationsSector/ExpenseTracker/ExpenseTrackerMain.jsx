@@ -13,10 +13,10 @@ import {
     deleteExpenseCategory,
     // Vehicle Logs
     getVehicleLogs
-} from '../../../api/Expense/mfgExpense';
+} from '../../../api/Expense/opsExpense';
 // import { getVehicleLogs } from '../../../api/Expense/personalExpense'; // Removed
-import { getProjects, createProject, deleteProject, getAttendanceStats } from '../../../api/Attendance/mfgAttendance';
-import { getMembers, getActiveMembers, getGuests, getMemberRoles } from '../../../api/TeamManagement/mfgTeam';
+import { getProjects, createProject, deleteProject, getAttendanceStats } from '../../../api/Attendance/opsAttendance';
+import { getMembers, getActiveMembers, getGuests, getMemberRoles } from '../../../api/TeamManagement/opsTeam';
 import toast from 'react-hot-toast';
 import {
     FaWallet, FaPlus, FaTrash, FaChartBar, FaExchangeAlt, FaFileAlt, FaEdit, FaTimes,
@@ -29,9 +29,9 @@ import { formatAmount } from '../../../utils/formatUtils';
 
 
 import CategoryManager from '../../../components/Common/CategoryManager';
-import ProjectManager from '../../../components/Manufacturing/ProjectManager';
-import MemberManager from '../../../components/Manufacturing/MemberManager';
-import DailyWorkLogManager from '../../../components/Manufacturing/DailyWorkLogManager';
+import ProjectManager from '../../../components/Operations/ProjectManager';
+import MemberManager from '../../../components/Operations/MemberManager';
+import DailyWorkLogManager from '../../../components/Operations/DailyWorkLogManager';
 import VehicleTrackerManager from '../../../components/Common/VehicleTrackerManager';
 import ExportButtons from '../../../components/Common/ExportButtons';
 

@@ -7,7 +7,7 @@ import {
     approveMfgPayroll,
     revertMfgPayroll,
     deleteMfgPayroll
-} from '../../../api/Payroll/mfgPayroll';
+} from '../../../api/Payroll/opsPayroll';
 import {
     Banknote,
     Calendar,
@@ -194,7 +194,7 @@ const ManufacturingPayroll = () => {
             p.status
         ]);
         const monthYear = selectedDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-        generateCSV(headers, rows, `Manufacturing_Payroll_${monthYear.replace(' ', '_')}`);
+        generateCSV(headers, rows, `Payroll_${monthYear.replace(' ', '_')}`);
     };
 
     const handleExportPDF = () => {
@@ -210,7 +210,7 @@ const ManufacturingPayroll = () => {
         ]);
         const monthYear = selectedDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
         generatePDF({
-            title: `Manufacturing Payroll - ${monthYear}`,
+            title: `Payroll Report - ${monthYear}`,
             period: monthYear,
             stats: [
                 { label: 'Total Amount', value: `₹${summary.total_amount?.toLocaleString() || 0}` },
@@ -218,7 +218,7 @@ const ManufacturingPayroll = () => {
             ],
             tableHeaders: headers,
             tableRows: rows,
-            filename: `Manufacturing_Payroll_${monthYear.replace(' ', '_')}`
+            filename: `Payroll_${monthYear.replace(' ', '_')}`
         });
     };
 
@@ -232,12 +232,12 @@ const ManufacturingPayroll = () => {
         ]);
         const monthYear = selectedDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
         generateTXT({
-            title: `Manufacturing Payroll - ${monthYear}`,
+            title: `Payroll Report - ${monthYear}`,
             period: monthYear,
             stats: [{ label: 'Total Amount', value: `₹${summary.total_amount?.toLocaleString() || 0}` }],
             logHeaders: headers,
             logRows: rows,
-            filename: `Manufacturing_Payroll_${monthYear.replace(' ', '_')}`
+            filename: `Payroll_${monthYear.replace(' ', '_')}`
         });
     };
 

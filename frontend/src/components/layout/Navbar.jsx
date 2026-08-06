@@ -75,7 +75,7 @@ const Navbar = ({
                                         navigate(homePath);
                                     }}
                                     className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] bg-white/10 hover:bg-white text-white hover:text-black rounded-[10px] sm:rounded-[12px] flex items-center justify-center transition-all duration-300 active:scale-90 shadow-lg shadow-white/5 group"
-                                    title="Sector Home"
+                                    title="Operations Hub"
                                 >
                                     <Home className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:scale-110" />
                                 </button>
