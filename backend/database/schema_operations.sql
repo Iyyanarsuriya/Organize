@@ -2,6 +2,9 @@
 -- Operations Sector Database Schema
 -- ==========================================
 
+CREATE DATABASE IF NOT EXISTS `organize_operations`;
+USE `organize_operations`;
+
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS `users`;

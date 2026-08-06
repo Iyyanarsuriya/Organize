@@ -236,8 +236,8 @@ const AttendanceTracker = () => {
             getProjects(),
             getActiveMembers(),
             getMemberRoles(),
-            getHolidays({ sector: 'manufacturing' }),
-            getShifts({ sector: 'manufacturing' })
+            getHolidays({ sector: 'operations' }),
+            getShifts({ sector: 'operations' })
         ]);
 
         if (!force) {
@@ -352,7 +352,7 @@ const AttendanceTracker = () => {
                 permission_start_time,
                 permission_end_time,
                 permission_reason,
-                sector: 'manufacturing',
+                sector: 'operations',
                 check_in: finalCheckIn,
                 check_out: finalCheckOut,
                 total_hours: finalTotalHours,
@@ -445,7 +445,7 @@ const AttendanceTracker = () => {
                     date,
                     subject: status === 'week_off' ? 'Weekend' : status === 'holiday' ? 'Holiday' : 'Daily Attendance',
                     note: '',
-                    sector: 'manufacturing',
+                    sector: 'operations',
                     check_in: m_check_in,
                     check_out: m_check_out,
                     total_hours: m_total_hours
@@ -455,7 +455,7 @@ const AttendanceTracker = () => {
             await bulkMarkAttendance({
                 user_id: currentUser.id,
                 payloads: bulkPayloads,
-                sector: 'manufacturing'
+                sector: 'operations'
             });
 
             toast.success("Bulk update successful");
@@ -1244,12 +1244,12 @@ const AttendanceTracker = () => {
                         </div>
                     </div>
                 ) : activeTab === 'members' ? (
-                    <MemberManager onClose={() => setActiveTab('records')} onUpdate={() => fetchData(true)} roles={roles} shifts={shifts} sector="manufacturing" />
+                    <MemberManager onClose={() => setActiveTab('records')} onUpdate={() => fetchData(true)} roles={roles} shifts={shifts} sector="operations" />
                 ) : activeTab === 'shifts' ? (
                     <ShiftManager
                         shifts={shifts}
                         onAdd={async (data) => {
-                            await createShift({ ...data, sector: 'manufacturing' });
+                            await createShift({ ...data, sector: 'operations' });
                             fetchData(true);
                         }}
                         onDelete={async (id) => {
@@ -1261,7 +1261,7 @@ const AttendanceTracker = () => {
                     <CalendarManager
                         holidays={holidays}
                         onAdd={async (data) => {
-                            await createHoliday({ ...data, sector: 'manufacturing' });
+                            await createHoliday({ ...data, sector: 'operations' });
                             fetchData(true);
                         }}
                         onDelete={async (id) => {

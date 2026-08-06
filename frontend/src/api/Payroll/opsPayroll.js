@@ -1,21 +1,21 @@
 import axiosInstance from '../axiosInstance';
 
 export const getMfgPayroll = (params) => {
-    return axiosInstance.get('/manufacturing-sector/payroll', { params });
+    return axiosInstance.get('/operations-sector/payroll', { params });
 };
 
 export const generateMfgPayroll = (data) => {
-    return axiosInstance.post('/manufacturing-sector/payroll/generate', data);
+    return axiosInstance.post('/operations-sector/payroll/generate', data);
 };
 
 export const approveMfgPayroll = (id) => {
-    return axiosInstance.post(`/manufacturing-sector/payroll/${id}/approve`);
+    return axiosInstance.post(`/operations-sector/payroll/${id}/approve`);
 };
 
 export const deleteMfgPayroll = (id) => {
-    return axiosInstance.delete(`/manufacturing-sector/payroll/${id}`);
+    return axiosInstance.delete(`/operations-sector/payroll/${id}`);
 };
 
 export const revertMfgPayroll = (id) => {
-    return axiosInstance.post(`/manufacturing-sector/payroll/${id}/revert`);
+    return axiosInstance.post(`/operations-sector/payroll/${id}/revert`);
 };

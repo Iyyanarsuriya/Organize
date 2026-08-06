@@ -4,7 +4,7 @@ const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 async function initDatabase() {
-    const dbName = process.env.DB_NAME || "organizemfg";
+    const dbName = process.env.DB_NAME || "organize_operations";
     console.log(`Starting database initialization for database: ${dbName}...`);
 
     let connection;

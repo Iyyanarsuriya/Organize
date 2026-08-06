@@ -214,7 +214,7 @@ const ExpenseTrackerMain = () => {
                 period: isRange ? null : currentPeriod,
                 startDate: rangeStart,
                 endDate: rangeEnd,
-                sector: 'manufacturing'
+                sector: 'operations'
             };
 
             if (force) {
@@ -224,7 +224,7 @@ const ExpenseTrackerMain = () => {
             const fetchPromise = Promise.all([
                 getTransactions(params),
                 getTransactionStats({ ...params, excludeCategory: !filterMember ? 'Salary Pot' : null }),
-                getExpenseCategories({ sector: 'manufacturing' }),
+                getExpenseCategories({ sector: 'operations' }),
                 getProjects(),
                 getMembers(),
                 getMemberRoles(),
@@ -431,7 +431,7 @@ const ExpenseTrackerMain = () => {
                 ...formData,
                 member_id: finalMemberId || null,
                 guest_name: finalGuestName,
-                sector: 'manufacturing'
+                sector: 'operations'
             };
             if (editingId) {
                 await updateTransaction(editingId, payload);
@@ -493,7 +493,7 @@ const ExpenseTrackerMain = () => {
 
     const handleDelete = async (id) => {
         try {
-            await deleteTransaction(id, 'manufacturing');
+            await deleteTransaction(id, 'operations');
             toast.success("Transaction deleted");
             setDeleteModalOuter({ show: false, id: null });
             fetchData();
@@ -710,7 +710,7 @@ const ExpenseTrackerMain = () => {
                 endDate: endDateInclusive,
                 category: customReportForm.category === 'all' ? null : customReportForm.category,
                 type: customReportForm.type === 'all' ? null : customReportForm.type,
-                sector: 'manufacturing'
+                sector: 'operations'
             };
 
             const fetchPromises = [getTransactions(params), getTransactionStats(params), getVehicleLogs()];
@@ -1144,7 +1144,7 @@ const ExpenseTrackerMain = () => {
                         setActiveTab={setActiveTab} formatCurrency={formatCurrency}
                     />
                 ) : activeTab === 'Members' ? (
-                    <MemberManager onUpdate={fetchData} members={members} roles={roles} sector="manufacturing" />
+                    <MemberManager onUpdate={fetchData} members={members} roles={roles} sector="operations" />
                 ) : activeTab === 'Transactions' ? (
                     <Transactions
                         filteredTransactions={filteredTransactions} searchQuery={searchQuery} setSearchQuery={setSearchQuery}
@@ -1359,7 +1359,7 @@ const ExpenseTrackerMain = () => {
                 </div>
             )}
 
-            {showCategoryManager && <CategoryManager categories={categories} onUpdate={() => getExpenseCategories({ sector: 'manufacturing' }).then(res => setCategories(res.data.data || []))} onCreate={(data) => createExpenseCategory({ ...data, sector: 'manufacturing' })} onDelete={(id) => deleteExpenseCategory(id, 'manufacturing')} onClose={() => setShowCategoryManager(false)} />}
+            {showCategoryManager && <CategoryManager categories={categories} onUpdate={() => getExpenseCategories({ sector: 'operations' }).then(res => setCategories(res.data.data || []))} onCreate={(data) => createExpenseCategory({ ...data, sector: 'operations' })} onDelete={(id) => deleteExpenseCategory(id, 'operations')} onClose={() => setShowCategoryManager(false)} />}
             {showProjectManager && <ProjectManager projects={projects} onCreate={createProject} onDelete={deleteProject} onRefresh={fetchData} onClose={() => setShowProjectManager(false)} />}
 
             {showCustomReportModal && (

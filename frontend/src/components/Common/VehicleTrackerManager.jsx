@@ -136,7 +136,7 @@ const VehicleTrackerManager = ({ data: externalData, onUpdate, members = [] }) =
                 driver_name: finalDriverName,
                 member_id: (finalMemberId && String(finalMemberId).startsWith('guest-')) ? null : finalMemberId,
                 guest_name: (finalMemberId && String(finalMemberId).startsWith('guest-')) ? finalDriverName : (formData.guest_name || null),
-                sector: 'manufacturing',
+                sector: 'operations',
                 start_km: parseFloat(formData.start_km) || 0,
                 end_km: parseFloat(formData.end_km) || 0,
                 expense_amount: parseFloat(formData.expense_amount) || 0,

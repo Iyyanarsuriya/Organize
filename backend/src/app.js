@@ -7,8 +7,6 @@ require("dotenv").config();
 const authRoutes = require("./routes/Common/authRoutes");
 const pushRoutes = require("./routes/Common/pushRoutes");
 const transactionRoutes = require("./routes/Common/transactionRoutes");
-const categoryRoutes = require("./routes/Common/categoryRoutes");
-const expenseCategoryRoutes = require("./routes/Common/expenseCategoryRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -41,7 +39,7 @@ const withSector = (sector) => (req, res, next) => {
 // OPERATIONS SECTOR ROUTES
 // ==========================================
 const opsRouter = express.Router();
-opsRouter.use(withSector('manufacturing'));
+opsRouter.use(withSector('operations'));
 opsRouter.use('/reminders', require("./routes/Operations/reminderRoutes"));
 opsRouter.use('/reminder-categories', require("./routes/Operations/reminderCategoryRoutes"));
 opsRouter.use('/transactions', transactionRoutes);
@@ -61,7 +59,7 @@ app.use('/api/operations-sector', opsRouter);
 app.use('/api/manufacturing-sector', opsRouter);
 
 // Health check
-app.get('/api/health', (req, res) => res.json({ status: 'ok', sector: 'manufacturing', timestamp: new Date() }));
+app.get('/api/health', (req, res) => res.json({ status: 'ok', sector: 'operations', timestamp: new Date() }));
 
 // 404 Handler
 app.use((req, res) => {

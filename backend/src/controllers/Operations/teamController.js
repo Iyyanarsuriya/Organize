@@ -4,17 +4,11 @@ const bcrypt = require('bcryptjs');
 
 exports.getSubUsers = async (req, res) => {
     try {
-        // Only owners (or those with an implied usage of this endpoint) can see their team
-        // If I am a sub-user, my owner_id is set.
-        // If I am an owner, my owner_id is null.
-
-        // Strategy: Only 'owner' role can list users? or anyone in the team?
-        // Let's assume only the Owner (the one who pays/registered) can manage the team.
         if (req.user.role !== 'admin' && req.user.role !== 'owner') {
             return res.status(403).json({ error: 'Only the Workspace Owner can manage team members.' });
         }
 
-        const subUsers = await User.findByOwnerId(req.user.data_owner_id, 'manufacturing');
+        const subUsers = await User.findByOwnerId(req.user.data_owner_id, 'operations');
         res.json(subUsers);
     } catch (error) {
         console.error('getSubUsers error:', error);
@@ -45,22 +39,21 @@ exports.createSubUser = async (req, res) => {
             username,
             email,
             password: hashedPassword,
-            role: role || 'user', // Default to user (child)
-            owner_id: req.user.data_owner_id, // This links them to the Workspace Owner
+            role: role || 'user',
+            owner_id: req.user.data_owner_id,
             local_id: localId,
-            sector: 'manufacturing',
+            sector: 'operations',
             created_by: req.user.username
         });
 
-        // Automatically create a Member entry for Attendance tracking
         try {
             await Member.create({
-                user_id: req.user.data_owner_id, // Linked to the Workspace Owner
+                user_id: req.user.data_owner_id,
                 name: username,
                 role: role || 'worker',
                 email: email,
                 status: 'active',
-                sector: 'manufacturing',
+                sector: 'operations',
                 member_type: 'worker',
                 created_by: req.user.username
             });

@@ -2,10 +2,10 @@ const ExpenseCategory = require('../../models/expenseCategoryModel');
 
 exports.getExpenseCategories = async (req, res) => {
     try {
-        const categories = await ExpenseCategory.getAllByUserId(req.user.data_owner_id, 'manufacturing');
+        const categories = await ExpenseCategory.getAllByUserId(req.user.data_owner_id, 'operations');
         res.json({ data: categories });
     } catch (error) {
-        console.error("Error fetching manufacturing expense categories:", error);
+        console.error("Error fetching operations expense categories:", error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
@@ -19,14 +19,14 @@ exports.createExpenseCategory = async (req, res) => {
             user_id: req.user.data_owner_id,
             name,
             type,
-            sector: 'manufacturing'
+            sector: 'operations'
         });
         res.status(201).json({ data: newCategory });
     } catch (error) {
         if (error.code === 'ER_DUP_ENTRY') {
             return res.status(400).json({ error: 'Category already exists' });
         }
-        console.error("Error creating manufacturing expense category:", error);
+        console.error("Error creating operations expense category:", error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
@@ -34,11 +34,11 @@ exports.createExpenseCategory = async (req, res) => {
 exports.deleteExpenseCategory = async (req, res) => {
     try {
         const { id } = req.params;
-        const success = await ExpenseCategory.delete(id, req.user.data_owner_id, 'manufacturing');
+        const success = await ExpenseCategory.delete(id, req.user.data_owner_id, 'operations');
         if (!success) return res.status(404).json({ error: 'Category not found' });
         res.json({ message: 'Category deleted' });
     } catch (error) {
-        console.error("Error deleting manufacturing expense category:", error);
+        console.error("Error deleting operations expense category:", error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };

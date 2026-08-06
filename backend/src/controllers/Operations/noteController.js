@@ -2,7 +2,7 @@ const Note = require('../../models/noteModel');
 
 exports.getNotes = async (req, res) => {
     try {
-        const sector = 'manufacturing';
+        const sector = 'operations';
         const notes = await Note.findAllByUserId(req.user.data_owner_id, sector);
         res.json({ success: true, data: notes });
     } catch (error) {
@@ -12,7 +12,7 @@ exports.getNotes = async (req, res) => {
 
 exports.createNote = async (req, res) => {
     try {
-        const sector = 'manufacturing';
+        const sector = 'operations';
         const { title, content, color, is_pinned } = req.body;
         if (!title) return res.status(400).json({ success: false, message: 'Title is required' });
 
@@ -32,7 +32,7 @@ exports.createNote = async (req, res) => {
 
 exports.updateNote = async (req, res) => {
     try {
-        const sector = 'manufacturing';
+        const sector = 'operations';
         const { id } = req.params;
         const { title, content, color, is_pinned } = req.body;
 
@@ -55,7 +55,7 @@ exports.updateNote = async (req, res) => {
 
 exports.deleteNote = async (req, res) => {
     try {
-        const sector = 'manufacturing';
+        const sector = 'operations';
         const { id } = req.params;
         const existing = await Note.findById(id, sector);
         if (!existing || existing.user_id !== req.user.data_owner_id) {

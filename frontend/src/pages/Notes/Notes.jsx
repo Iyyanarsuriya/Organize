@@ -8,7 +8,7 @@ import { generateCSV, generatePDF, generateTXT } from '../../utils/exportUtils/b
 
 const activeRequests = {};
 
-const Notes = ({ isEmbedded = false, sector = 'manufacturing' }) => {
+const Notes = ({ isEmbedded = false, sector = 'operations' }) => {
     const { getNotes, createNote, updateNote, deleteNote } = opsApi;
     const isPersonal = false;
 
