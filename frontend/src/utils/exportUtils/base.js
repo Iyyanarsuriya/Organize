@@ -84,6 +84,50 @@ export const generateTXT = ({ title, period, stats, additionalContent, logHeader
     URL.revokeObjectURL(url);
 };
 
+const getStatColors = (label = '', value = '', themeColor = [45, 91, 255]) => {
+    const text = (String(label) + ' ' + String(value)).toLowerCase();
+
+    if (text.includes('completed') || text.includes('paid') || text.includes('present') || text.includes('income') || text.includes('approved') || text.includes('success')) {
+        return {
+            bg: [236, 253, 245],     // Emerald Light
+            border: [167, 243, 208], // Emerald Border
+            accent: [16, 185, 129],  // Emerald Accent
+            text: [6, 78, 59]        // Emerald Text
+        };
+    }
+    if (text.includes('pending') || text.includes('draft') || text.includes('half') || text.includes('medium') || text.includes('progress') || text.includes('late')) {
+        return {
+            bg: [254, 243, 199],     // Amber Light
+            border: [253, 230, 138], // Amber Border
+            accent: [245, 158, 11],  // Amber Accent
+            text: [120, 53, 15]      // Amber Text
+        };
+    }
+    if (text.includes('absent') || text.includes('overdue') || text.includes('expense') || text.includes('failed') || text.includes('rejected') || text.includes('unpaid') || text.includes('high')) {
+        return {
+            bg: [254, 226, 226],     // Red Light
+            border: [254, 202, 202], // Red Border
+            accent: [239, 68, 68],   // Red Accent
+            text: [127, 29, 29]      // Red Text
+        };
+    }
+    if (text.includes('holiday') || text.includes('leave') || text.includes('week off') || text.includes('off')) {
+        return {
+            bg: [243, 232, 255],     // Purple Light
+            border: [233, 213, 255], // Purple Border
+            accent: [168, 85, 247],  // Purple Accent
+            text: [88, 28, 135]      // Purple Text
+        };
+    }
+    // Default Blue / Theme Color Card
+    return {
+        bg: [239, 246, 255],         // Blue Light
+        border: [191, 219, 254],     // Blue Border
+        accent: themeColor,          // Theme color
+        text: [30, 58, 138]          // Blue Text
+    };
+};
+
 export const applyStatusCellColor = (data) => {
     if (data.section === 'body') {
         const rawVal = String(data.cell.raw || '').trim();
@@ -95,7 +139,7 @@ export const applyStatusCellColor = (data) => {
         const infoStatus = ['low', 'open', 'processing'];
         const purpleStatus = ['holiday', 'week_off', 'week-off', 'week off', 'off', 'leave'];
 
-        // Color label text values without cell background fill
+        // Color text of status values directly (no background fill in table cells)
         if (successStatus.includes(val)) {
             data.cell.styles.textColor = [16, 185, 129]; // Emerald Green text
             data.cell.styles.fontStyle = 'bold';
@@ -159,48 +203,54 @@ export const generatePDF = ({ title, period, subHeader, stats, tableHeaders, tab
 
     let startY = subHeader ? 55 : 48;
     if (stats && stats.length > 0) {
-        const itemsPerRow = 4;
-        const rowHeight = 12;
-        const totalRows = Math.ceil(stats.length / itemsPerRow);
-        const boxHeight = 10 + (totalRows * rowHeight);
+        const gap = 10;
+        const totalWidth = pageWidth - 30;
+        const itemsPerRow = Math.min(stats.length, 4);
+        const cardWidth = (totalWidth - (gap * (itemsPerRow - 1))) / itemsPerRow;
+        const cardHeight = 20;
 
-        // Container with accent border and top line
-        doc.setDrawColor(226, 232, 240);
-        doc.setFillColor(248, 250, 252);
-        doc.roundedRect(15, startY, pageWidth - 30, boxHeight, 4, 4, 'F');
-        doc.roundedRect(15, startY, pageWidth - 30, boxHeight, 4, 4, 'S');
-
-        // Top accent line
-        doc.setFillColor(themeColor[0], themeColor[1], themeColor[2]);
-        doc.rect(15, startY, pageWidth - 30, 2, 'F');
-
-        doc.setFontSize(9);
+        let currentY = startY;
 
         stats.forEach((s, i) => {
             const col = i % itemsPerRow;
             const row = Math.floor(i / itemsPerRow);
-            const x = 25 + (col * (pageWidth - 60) / itemsPerRow);
-            const y = startY + 12 + (row * rowHeight);
 
+            if (col === 0 && row > 0) {
+                currentY += cardHeight + gap;
+            }
+
+            const x = 15 + col * (cardWidth + gap);
+            const y = currentY;
+
+            const colors = getStatColors(s.label, s.value, themeColor);
+
+            // Card Background fill
+            doc.setFillColor(colors.bg[0], colors.bg[1], colors.bg[2]);
+            doc.roundedRect(x, y, cardWidth, cardHeight, 3, 3, 'F');
+
+            // Card Border stroke
+            doc.setDrawColor(colors.border[0], colors.border[1], colors.border[2]);
+            doc.roundedRect(x, y, cardWidth, cardHeight, 3, 3, 'S');
+
+            // Left vertical accent bar
+            doc.setFillColor(colors.accent[0], colors.accent[1], colors.accent[2]);
+            doc.roundedRect(x, y + 2, 3.5, cardHeight - 4, 1.5, 1.5, 'F');
+
+            // Label text
+            doc.setFontSize(8);
             doc.setFont('helvetica', 'bold');
             doc.setTextColor(100, 116, 139);
-            doc.text(`${s.label}:`, x, y);
+            doc.text(String(s.label).toUpperCase(), x + 8, y + 8);
 
-            const labelWidth = doc.getTextWidth(`${s.label}: `);
+            // Value text
+            doc.setFontSize(11);
             doc.setFont('helvetica', 'bold');
-            
-            const valStr = String(s.value);
-            if (valStr.includes('Rs.') || valStr.includes('₹') || valStr.toLowerCase().includes('paid') || valStr.toLowerCase().includes('present')) {
-                doc.setTextColor(16, 185, 129);
-            } else if (valStr.toLowerCase().includes('absent') || valStr.toLowerCase().includes('overdue') || valStr.toLowerCase().includes('expense')) {
-                doc.setTextColor(239, 68, 68);
-            } else {
-                doc.setTextColor(themeColor[0], themeColor[1], themeColor[2]);
-            }
-            doc.text(`${s.value}`, x + labelWidth, y);
+            doc.setTextColor(colors.accent[0], colors.accent[1], colors.accent[2]);
+            doc.text(String(s.value), x + 8, y + 16);
         });
 
-        startY = startY + boxHeight + 10;
+        const totalRows = Math.ceil(stats.length / itemsPerRow);
+        startY = currentY + (totalRows > 1 ? (totalRows - 1) * (cardHeight + gap) : 0) + cardHeight + 12;
     }
 
     // Default Alignment logic
