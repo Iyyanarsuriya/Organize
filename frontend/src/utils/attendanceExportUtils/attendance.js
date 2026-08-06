@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { generateCSV, generateTXT } from '../exportUtils/base.js';
+import { generateCSV, generateTXT, applyStatusCellColor } from '../exportUtils/base.js';
 import toast from 'react-hot-toast';
 
 const calculateAttendanceSummary = (data) => {
@@ -340,7 +340,8 @@ export const exportAttendanceToPDF = ({ data, period, subHeader, filename, theme
         theme: 'grid',
         headStyles: { fillColor: [248, 250, 252], textColor: themeColor, fontSize: 9, halign: 'center' },
         bodyStyles: { fontSize: 8, halign: 'center' },
-        margin: { left: 15, right: 15 }
+        margin: { left: 15, right: 15 },
+        didParseCell: applyStatusCellColor
     });
 
     doc.setTextColor(themeColor[0], themeColor[1], themeColor[2]);
@@ -372,7 +373,8 @@ export const exportAttendanceToPDF = ({ data, period, subHeader, filename, theme
         columnStyles: {
             0: { cellWidth: 22 }, 2: { cellWidth: 15 }, 3: { cellWidth: 25 }, 4: { cellWidth: 25 }
         },
-        margin: { left: 15, right: 15 }
+        margin: { left: 15, right: 15 },
+        didParseCell: applyStatusCellColor
     });
 
     doc.save(`${filename}.pdf`);

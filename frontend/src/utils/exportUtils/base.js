@@ -84,6 +84,48 @@ export const generateTXT = ({ title, period, stats, additionalContent, logHeader
     URL.revokeObjectURL(url);
 };
 
+export const applyStatusCellColor = (data) => {
+    if (data.section === 'body') {
+        const rawVal = String(data.cell.raw || '').trim();
+        const val = rawVal.toLowerCase();
+
+        const successStatus = ['paid', 'approved', 'completed', 'present', 'active', 'success', 'income', 'yes'];
+        const warningStatus = ['pending', 'draft', 'half day', 'half-day', 'half_day', 'medium', 'in progress', 'in-progress', 'reverted', 'permission', 'late', 'partially paid', 'partial'];
+        const dangerStatus = ['absent', 'overdue', 'rejected', 'failed', 'expense', 'inactive', 'cancelled', 'canceled', 'unpaid', 'high', 'no'];
+        const infoStatus = ['low', 'open', 'processing'];
+        const purpleStatus = ['holiday', 'week_off', 'week-off', 'week off', 'off', 'leave'];
+
+        // Color label text values without cell background fill
+        if (successStatus.includes(val)) {
+            data.cell.styles.textColor = [16, 185, 129]; // Emerald Green text
+            data.cell.styles.fontStyle = 'bold';
+        } else if (warningStatus.includes(val)) {
+            data.cell.styles.textColor = [217, 119, 6];   // Amber text
+            data.cell.styles.fontStyle = 'bold';
+        } else if (dangerStatus.includes(val)) {
+            data.cell.styles.textColor = [239, 68, 68];   // Rose Red text
+            data.cell.styles.fontStyle = 'bold';
+        } else if (infoStatus.includes(val)) {
+            data.cell.styles.textColor = [37, 99, 235];   // Royal Blue text
+            data.cell.styles.fontStyle = 'bold';
+        } else if (purpleStatus.includes(val)) {
+            data.cell.styles.textColor = [147, 51, 234];  // Purple text
+            data.cell.styles.fontStyle = 'bold';
+        } else {
+            // Apply vibrant text colors to numeric financial amounts
+            if (val.startsWith('rs.') || val.startsWith('₹') || val.startsWith('+') || val.startsWith('-')) {
+                if (val.includes('+') || val.toLowerCase().includes('income')) {
+                    data.cell.styles.textColor = [16, 185, 129];
+                    data.cell.styles.fontStyle = 'bold';
+                } else if (val.includes('-') || val.toLowerCase().includes('expense')) {
+                    data.cell.styles.textColor = [239, 68, 68];
+                    data.cell.styles.fontStyle = 'bold';
+                }
+            }
+        }
+    }
+};
+
 export const generatePDF = ({ title, period, subHeader, stats, tableHeaders, tableRows, filename, themeColor = [45, 91, 255], columnStyles = {} }) => {
     const doc = new jsPDF('landscape'); // Landscape for better column visibility
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -118,16 +160,21 @@ export const generatePDF = ({ title, period, subHeader, stats, tableHeaders, tab
     let startY = subHeader ? 55 : 48;
     if (stats && stats.length > 0) {
         const itemsPerRow = 4;
-        const rowHeight = 10;
+        const rowHeight = 12;
         const totalRows = Math.ceil(stats.length / itemsPerRow);
         const boxHeight = 10 + (totalRows * rowHeight);
 
-        doc.setDrawColor(240);
+        // Container with accent border and top line
+        doc.setDrawColor(226, 232, 240);
         doc.setFillColor(248, 250, 252);
-        doc.roundedRect(15, startY, pageWidth - 30, boxHeight, 3, 3, 'F');
+        doc.roundedRect(15, startY, pageWidth - 30, boxHeight, 4, 4, 'F');
+        doc.roundedRect(15, startY, pageWidth - 30, boxHeight, 4, 4, 'S');
 
-        doc.setFontSize(10);
-        doc.setTextColor(themeColor[0], themeColor[1], themeColor[2]);
+        // Top accent line
+        doc.setFillColor(themeColor[0], themeColor[1], themeColor[2]);
+        doc.rect(15, startY, pageWidth - 30, 2, 'F');
+
+        doc.setFontSize(9);
 
         stats.forEach((s, i) => {
             const col = i % itemsPerRow;
@@ -136,13 +183,21 @@ export const generatePDF = ({ title, period, subHeader, stats, tableHeaders, tab
             const y = startY + 12 + (row * rowHeight);
 
             doc.setFont('helvetica', 'bold');
+            doc.setTextColor(100, 116, 139);
             doc.text(`${s.label}:`, x, y);
 
             const labelWidth = doc.getTextWidth(`${s.label}: `);
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(60, 60, 60);
+            doc.setFont('helvetica', 'bold');
+            
+            const valStr = String(s.value);
+            if (valStr.includes('Rs.') || valStr.includes('₹') || valStr.toLowerCase().includes('paid') || valStr.toLowerCase().includes('present')) {
+                doc.setTextColor(16, 185, 129);
+            } else if (valStr.toLowerCase().includes('absent') || valStr.toLowerCase().includes('overdue') || valStr.toLowerCase().includes('expense')) {
+                doc.setTextColor(239, 68, 68);
+            } else {
+                doc.setTextColor(themeColor[0], themeColor[1], themeColor[2]);
+            }
             doc.text(`${s.value}`, x + labelWidth, y);
-            doc.setTextColor(themeColor[0], themeColor[1], themeColor[2]);
         });
 
         startY = startY + boxHeight + 10;
@@ -182,6 +237,7 @@ export const generatePDF = ({ title, period, subHeader, stats, tableHeaders, tab
         columnStyles: finalColumnStyles,
         styles: { overflow: 'linebreak' },
         margin: { left: 15, right: 15 },
+        didParseCell: applyStatusCellColor,
         didDrawPage: (data) => {
             const str = 'Page ' + doc.internal.getNumberOfPages();
             doc.setFontSize(8);

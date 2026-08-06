@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { generateCSV, generateTXT, generatePDF } from '../exportUtils/base.js';
+import { generateCSV, generateTXT, generatePDF, applyStatusCellColor } from '../exportUtils/base.js';
 import { formatAmount } from '../formatUtils.js';
 import toast from 'react-hot-toast';
 
@@ -258,7 +258,8 @@ export const exportMemberPayslipToPDF = ({
         body: tableRows,
         theme: 'striped',
         headStyles: { fillColor: primaryColor, fontSize: 9 },
-        bodyStyles: { fontSize: 8 }
+        bodyStyles: { fontSize: 8 },
+        didParseCell: applyStatusCellColor
     });
 
     // Footer
