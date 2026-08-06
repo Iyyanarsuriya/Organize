@@ -22,7 +22,7 @@ import {
 import ExportButtons from '../../../components/Common/ExportButtons';
 import { generateCSV, generatePDF, generateTXT } from '../../../utils/exportUtils/base';
 
-const ManufacturingPayroll = () => {
+const OperationsPayroll = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
@@ -269,7 +269,7 @@ const ManufacturingPayroll = () => {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[16px] sm:gap-[24px] mb-[24px] sm:mb-[40px]">
                     <div className="flex items-center gap-[12px] sm:gap-[16px]">
-                        <Link to="/manufacturing" className="w-[40px] h-[40px] sm:w-[48px] sm:h-[48px] bg-white border border-slate-200 rounded-[16px] sm:rounded-[20px] flex items-center justify-center text-slate-500 hover:text-rose-600 hover:border-rose-200 transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0">
+                        <Link to="/operations" className="w-[40px] h-[40px] sm:w-[48px] sm:h-[48px] bg-white border border-slate-200 rounded-[16px] sm:rounded-[20px] flex items-center justify-center text-slate-500 hover:text-rose-600 hover:border-rose-200 transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0">
                             <ChevronLeft className="w-[18px] h-[18px] sm:w-[24px] sm:h-[24px]" />
                         </Link>
                         <div>
@@ -481,5 +481,5 @@ const ManufacturingPayroll = () => {
     );
 };
 
-export default ManufacturingPayroll;
+export default OperationsPayroll;
 

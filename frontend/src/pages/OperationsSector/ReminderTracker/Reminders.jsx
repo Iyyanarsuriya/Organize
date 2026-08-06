@@ -479,7 +479,7 @@ const Reminders = () => {
                 <div className="flex justify-between items-center mb-[16px] sm:mb-[24px] shrink-0 bg-linear-to-r from-[#2d5bff] via-[#4a69ff] to-[#6366f1] p-[10px] sm:p-[16px] rounded-[12px] sm:rounded-[16px] border border-blue-400/30 shadow-xl shadow-blue-500/20 relative z-20">
                     <div className="flex items-center gap-[12px] sm:gap-[16px]">
                         <Link
-                            to="/manufacturing"
+                            to="/operations"
                             className="bg-white/10 hover:bg-white/20 text-white p-[8px] rounded-[8px] transition-all active:scale-95 flex items-center justify-center shrink-0"
                             title="Back to Operations Hub"
                         >
@@ -552,7 +552,7 @@ const Reminders = () => {
 
                         {/* 📊 Dashboard Shortcut Button */}
                         <Link
-                            to="/manufacturing/reminder-dashboard"
+                            to="/operations/reminder-dashboard"
 
                             title="Go to Dashboard"
                             className="bg-white/10 hover:bg-white/20 text-white p-[8px] rounded-[8px] transition-all active:scale-95 flex items-center justify-center shrink-0"
@@ -792,7 +792,7 @@ const Reminders = () => {
 
                 {activeTab === 'notes' && (
                     <div className="flex-1 mt-[16px] overflow-hidden">
-                        <Notes isEmbedded={true} sector="manufacturing" />
+                        <Notes isEmbedded={true} sector="operations" />
                     </div>
                 )}
 

@@ -17,6 +17,7 @@ const ExpenseTracker = lazy(() => import('./pages/OperationsSector/ExpenseTracke
 const AttendanceTracker = lazy(() => import('./pages/OperationsSector/AttendanceTracker/AttendanceTracker'));
 const TeamManagement = lazy(() => import('./pages/OperationsSector/Team/TeamManagement'));
 const OperationsPayroll = lazy(() => import('./pages/OperationsSector/Payroll/OperationsPayroll'));
+const EmployeePortal = lazy(() => import('./pages/OperationsSector/EmployeePortal/EmployeePortal'));
 const Notes = lazy(() => import('./pages/Notes/Notes'));
 const ForgotPassword = lazy(() => import('./pages/Authentication/ForgotPassword'));
 
@@ -235,7 +236,7 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={
               token ? (
-                <Navigate to="/manufacturing" replace />
+                <Navigate to="/operations" replace />
               ) : (
                 <LandingPage
                   token={token}
@@ -247,13 +248,14 @@ const AppContent = () => {
             } />
 
             {/* Operations Sector Routes */}
-            <Route path="/manufacturing" element={<ProtectedRoute><OperationsHome /></ProtectedRoute>} />
-            <Route path="/manufacturing/reminders" element={<ProtectedRoute><Reminders /></ProtectedRoute>} />
-            <Route path="/manufacturing/reminder-dashboard" element={<ProtectedRoute><OperationsReminderDashboard /></ProtectedRoute>} />
-            <Route path="/manufacturing/expenses" element={<ProtectedRoute><ExpenseTracker /></ProtectedRoute>} />
-            <Route path="/manufacturing/attendance" element={<ProtectedRoute><AttendanceTracker /></ProtectedRoute>} />
-            <Route path="/manufacturing/team" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
-            <Route path="/manufacturing/payroll" element={<ProtectedRoute><OperationsPayroll /></ProtectedRoute>} />
+            <Route path="/operations" element={<ProtectedRoute><OperationsHome /></ProtectedRoute>} />
+            <Route path="/operations/reminders" element={<ProtectedRoute><Reminders /></ProtectedRoute>} />
+            <Route path="/operations/reminder-dashboard" element={<ProtectedRoute><OperationsReminderDashboard /></ProtectedRoute>} />
+            <Route path="/operations/expenses" element={<ProtectedRoute><ExpenseTracker /></ProtectedRoute>} />
+            <Route path="/operations/attendance" element={<ProtectedRoute><AttendanceTracker /></ProtectedRoute>} />
+            <Route path="/operations/team" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
+            <Route path="/operations/payroll" element={<ProtectedRoute><OperationsPayroll /></ProtectedRoute>} />
+            <Route path="/operations/my-portal" element={<EmployeePortal user={user} onLogout={handleLogout} />} />
 
             <Route path="/notes" element={<ProtectedRoute><Notes /></ProtectedRoute>} />
             <Route path="/forgot-password" element={<ForgotPassword />} />

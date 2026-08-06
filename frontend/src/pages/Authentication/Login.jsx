@@ -73,7 +73,7 @@ const Login = ({ setToken, setUser, onClose, onSwitch }) => {
       // Handle Redirection: If user has a sector, go there. Otherwise, go to hub.
       if (user.sector) {
         if (user.sector === 'personal') navigate("/personal");
-        else if (user.sector === 'manufacturing') navigate("/manufacturing");
+        else if (user.sector === 'manufacturing' || user.sector === 'operations') navigate("/operations");
         else if (user.sector === 'it') navigate("/it-sector");
         else navigate("/");
       } else {
@@ -195,6 +195,19 @@ const Login = ({ setToken, setUser, onClose, onSwitch }) => {
           Register Now
         </button>
       </p>
+
+      <div className="mt-4 pt-4 border-t border-slate-100 text-center">
+        <button
+          type="button"
+          onClick={() => {
+            if (onClose) onClose();
+            navigate('/operations/my-portal');
+          }}
+          className="text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2.5 rounded-xl transition-all inline-flex items-center gap-2"
+        >
+          Staff / Employee Portal Access
+        </button>
+      </div>
     </div>
   );
 };

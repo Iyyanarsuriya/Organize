@@ -16,7 +16,7 @@ const TeamManagement = () => {
     const location = useLocation();
 
     const token = localStorage.getItem('token');
-    const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/manufacturing-sector/team`;
+    const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/operations-sector/team`;
 
     const lastFetchRef = useRef(0);
 
@@ -159,7 +159,7 @@ const TeamManagement = () => {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-[24px] sm:mb-[32px] gap-[14px] sm:gap-[16px]">
                     <div className="flex items-center gap-[12px] sm:gap-[16px]">
                         <Link
-                            to="/manufacturing"
+                            to="/operations"
                             className="w-[40px] h-[40px] sm:w-[48px] sm:h-[48px] bg-white border border-slate-200 rounded-[14px] sm:rounded-[18px] flex items-center justify-center text-slate-500 hover:text-[#2d5bff] hover:border-[#2d5bff] transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0"
                         >
                             <FaChevronLeft className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]" />

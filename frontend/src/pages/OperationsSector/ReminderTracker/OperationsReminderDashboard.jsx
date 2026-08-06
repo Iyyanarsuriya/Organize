@@ -53,7 +53,7 @@ const MfgReminderDashboard = () => {
             return;
         }
 
-        const fetchPromise = getReminders({ sector: 'manufacturing' });
+        const fetchPromise = getReminders({ sector: 'operations' });
 
         if (!force) {
             window._mfgDashboardFetchPromise = fetchPromise;
@@ -158,7 +158,7 @@ const MfgReminderDashboard = () => {
                 {/* Header Row */}
                 <div className="flex items-center gap-[12px] sm:gap-[16px]">
                     <button
-                        onClick={() => navigate('/manufacturing/reminders')}
+                        onClick={() => navigate('/operations/reminders')}
                         className="w-[40px] h-[40px] sm:w-[48px] sm:h-[48px] bg-white border border-slate-200 rounded-[14px] sm:rounded-[18px] flex items-center justify-center text-slate-500 hover:text-blue-500 hover:border-blue-200 transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0"
                     >
                         <IoArrowBack className="text-[16px] sm:text-[20px]" />

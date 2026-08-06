@@ -37,25 +37,28 @@ const withSector = (sector) => (req, res, next) => {
 };
 
 // ==========================================
-// MANUFACTURING SECTOR ROUTES
 // ==========================================
-const mfgRouter = express.Router();
-mfgRouter.use(withSector('manufacturing'));
-mfgRouter.use('/reminders', require("./routes/Operations/reminderRoutes"));
-mfgRouter.use('/reminder-categories', require("./routes/Operations/reminderCategoryRoutes"));
-mfgRouter.use('/transactions', transactionRoutes);
-mfgRouter.use('/members', require("./routes/Common/memberRoutes"));
-mfgRouter.use('/member-roles', require("./routes/Common/memberRoleRoutes"));
-mfgRouter.use('/attendance', require("./routes/Operations/attendanceRoutes"));
-mfgRouter.use('/projects', require("./routes/Common/projectRoutes"));
-mfgRouter.use('/work-logs', require("./routes/Operations/dailyWorkLogRoutes"));
-mfgRouter.use('/vehicle-logs', require("./routes/Operations/vehicleLogRoutes"));
-mfgRouter.use('/team', require("./routes/Operations/teamRoutes"));
-mfgRouter.use('/notes', require("./routes/Operations/noteRoutes"));
-mfgRouter.use('/expense-categories', require("./routes/Operations/opsExpenseCategoryRoutes"));
-mfgRouter.use('/payroll', require("./routes/Operations/payrollRoutes"));
+// OPERATIONS SECTOR ROUTES
+// ==========================================
+const opsRouter = express.Router();
+opsRouter.use(withSector('manufacturing'));
+opsRouter.use('/reminders', require("./routes/Operations/reminderRoutes"));
+opsRouter.use('/reminder-categories', require("./routes/Operations/reminderCategoryRoutes"));
+opsRouter.use('/transactions', transactionRoutes);
+opsRouter.use('/members', require("./routes/Common/memberRoutes"));
+opsRouter.use('/member-roles', require("./routes/Common/memberRoleRoutes"));
+opsRouter.use('/attendance', require("./routes/Operations/attendanceRoutes"));
+opsRouter.use('/projects', require("./routes/Common/projectRoutes"));
+opsRouter.use('/work-logs', require("./routes/Operations/dailyWorkLogRoutes"));
+opsRouter.use('/vehicle-logs', require("./routes/Operations/vehicleLogRoutes"));
+opsRouter.use('/team', require("./routes/Operations/teamRoutes"));
+opsRouter.use('/notes', require("./routes/Operations/noteRoutes"));
+opsRouter.use('/expense-categories', require("./routes/Operations/opsExpenseCategoryRoutes"));
+opsRouter.use('/payroll', require("./routes/Operations/payrollRoutes"));
+opsRouter.use('/member-portal', require("./routes/Common/memberPortalRoutes"));
 
-app.use('/api/manufacturing-sector', mfgRouter);
+app.use('/api/operations-sector', opsRouter);
+app.use('/api/manufacturing-sector', opsRouter);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', sector: 'manufacturing', timestamp: new Date() }));
@@ -76,5 +79,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Manufacturing Backend Server running on port ${PORT}`);
+    console.log(`Operations Backend Server running on port ${PORT}`);
 });

@@ -40,7 +40,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
                                 <div className="flex flex-col gap-[24px] mb-[48px] items-center lg:items-start">
                                     <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Go to your workspace:</p>
                                     <Link
-                                        to="/manufacturing"
+                                        to="/operations"
                                         className="inline-flex items-center gap-[12px] bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-[12px] tracking-widest px-[32px] py-[20px] rounded-[24px] shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all hover:-translate-y-[2px]"
                                     >
                                         Enter Operations Hub <ArrowRight className="w-[16px] h-[16px]" />
@@ -50,7 +50,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
                                 <div className="flex flex-col gap-[24px] mb-[48px] items-center lg:items-start">
                                     <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Access the system:</p>
                                     <button
-                                        onClick={() => { localStorage.setItem('selectedSector', 'manufacturing'); onSignupClick(); }}
+                                        onClick={() => { localStorage.setItem('selectedSector', 'operations'); onSignupClick(); }}
                                         className="inline-flex items-center gap-[12px] bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-[12px] tracking-widest px-[32px] py-[20px] rounded-[24px] shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all hover:-translate-y-[2px]"
                                     >
                                         Create Account / Login <ArrowRight className="w-[16px] h-[16px]" />
@@ -60,7 +60,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
 
                             {/* Center Feature Cards */}
                             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[20px] max-w-[896px] mx-auto lg:mx-0">
-                                <Link to="/manufacturing/reminders" className="block">
+                                <Link to="/operations/reminders" className="block">
                                     <div className="p-[24px] sm:p-[32px] rounded-[32px] sm:rounded-[40px] bg-[#eff6ff] border border-blue-100 flex flex-col items-center text-center group cursor-pointer hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500 h-full">
                                         <div className="w-[56px] h-[56px] sm:w-[64px] sm:h-[64px] bg-[#2d5bff] rounded-[20px] sm:rounded-[24px] flex items-center justify-center mb-[20px] sm:mb-[24px] shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
                                             <Bell className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] text-white" />
@@ -72,7 +72,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
                                     </div>
                                 </Link>
 
-                                <Link to="/manufacturing/expenses" className="block">
+                                <Link to="/operations/expenses" className="block">
                                     <div className="p-[24px] sm:p-[32px] rounded-[32px] sm:rounded-[40px] bg-[#ecfdf5] border border-emerald-100 flex flex-col items-center text-center group cursor-pointer hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-500 h-full">
                                         <div className="w-[56px] h-[56px] sm:w-[64px] sm:h-[64px] bg-[#00d1a0] rounded-[20px] sm:rounded-[24px] flex items-center justify-center mb-[20px] sm:mb-[24px] shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
                                             <Wallet className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] text-white" />
@@ -84,7 +84,7 @@ const LandingPage = ({ token, user, onProfileClick, onSignupClick }) => {
                                     </div>
                                 </Link>
 
-                                <Link to="/manufacturing/attendance" className="block sm:col-span-2 lg:col-span-1">
+                                <Link to="/operations/attendance" className="block sm:col-span-2 lg:col-span-1">
                                     <div className="p-[24px] sm:p-[32px] rounded-[32px] sm:rounded-[40px] bg-[#fff7ed] border border-orange-100 flex flex-col items-center text-center group cursor-pointer hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 h-full">
                                         <div className="w-[56px] h-[56px] sm:w-[64px] sm:h-[64px] bg-orange-500 rounded-[20px] sm:rounded-[24px] flex items-center justify-center mb-[20px] sm:mb-[24px] shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
                                             <UserCheck className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] text-white" />

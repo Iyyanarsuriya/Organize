@@ -1007,7 +1007,7 @@ const ExpenseTrackerMain = () => {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-[12px]">
                                 <Link
-                                    to="/manufacturing"
+                                    to="/operations"
                                     className="w-[40px] h-[40px] bg-white border border-slate-200 rounded-[12px] flex items-center justify-center text-slate-500 hover:text-[#2d5bff] hover:border-[#2d5bff] transition-all shadow-sm hover:shadow-md active:scale-95 shrink-0"
                                 >
                                     <FaChevronLeft className="w-[16px] h-[16px]" />

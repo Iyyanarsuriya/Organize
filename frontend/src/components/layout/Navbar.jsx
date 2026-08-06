@@ -69,9 +69,9 @@ const Navbar = ({
                     ) : (
                         <div className="flex items-center gap-4 sm:gap-[24px]">
                             {!isLandingPage && (
-                                <button
+                                 <button
                                     onClick={() => {
-                                        const homePath = '/manufacturing';
+                                        const homePath = '/operations';
                                         navigate(homePath);
                                     }}
                                     className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] bg-white/10 hover:bg-white text-white hover:text-black rounded-[10px] sm:rounded-[12px] flex items-center justify-center transition-all duration-300 active:scale-90 shadow-lg shadow-white/5 group"
@@ -123,10 +123,21 @@ const Navbar = ({
                                                 My Profile
                                             </button>
 
+                                             <button
+                                                onClick={() => {
+                                                    navigate('/operations/my-portal');
+                                                    setShowProfileDropdown(false);
+                                                }}
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-blue-600 hover:bg-blue-50 transition-colors"
+                                            >
+                                                <UserIcon className="w-4 h-4 text-blue-600" />
+                                                My Employee Portal
+                                            </button>
+
                                             {(user?.role === 'admin' || user?.role === 'owner') && location.pathname !== '/' && (
                                                 <button
                                                     onClick={() => {
-                                                        const teamPath = '/manufacturing/team';
+                                                        const teamPath = '/operations/team';
 
                                                         navigate(teamPath);
                                                         setShowProfileDropdown(false);
@@ -192,7 +203,7 @@ const Navbar = ({
                                                             key={notif.id}
                                                             onClick={() => {
                                                                 setShowNotifDropdown(false);
-                                                                const path = '/manufacturing/reminders';
+                                                                const path = '/operations/reminders';
                                                                 navigate(path);
                                                             }}
                                                             className="w-full text-left p-[16px] border-b border-slate-50 hover:bg-blue-50/50 transition-colors group cursor-pointer"
@@ -222,7 +233,7 @@ const Navbar = ({
                                                 <button
                                                     onClick={() => {
                                                         setShowNotifDropdown(false);
-                                                        const path = '/manufacturing/reminders';
+                                                        const path = '/operations/reminders';
                                                         navigate(path);
                                                     }}
                                                     className="w-full py-4 text-center text-[11px] font-black text-blue-500 uppercase tracking-widest hover:bg-blue-50 transition-colors"

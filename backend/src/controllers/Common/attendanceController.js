@@ -82,7 +82,7 @@ const ManufacturingAttendanceController = {
             const result = await Attendance.quickMark({ ...req.body, user_id: userId, updated_by: req.user.username });
             res.status(200).json({ success: true, data: result });
         } catch (error) {
-            console.error('Manufacturing quickMark error:', error);
+            console.error('Operations quickMark error:', error);
             res.status(500).json({ success: false, message: error.message });
         }
     }
