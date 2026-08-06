@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { generateCSV, generateTXT, applyStatusCellColor } from '../exportUtils/base.js';
+import { generateCSV, generateTXT, applyStatusCellColor, getStatColors } from '../exportUtils/base.js';
 import toast from 'react-hot-toast';
 
 const calculateAttendanceSummary = (data) => {
@@ -329,12 +329,59 @@ export const exportAttendanceToPDF = ({ data, period, subHeader, filename, theme
     doc.setFontSize(9);
     doc.text(subHeader || '', 15, 48);
 
+    let startY = subHeader ? 55 : 48;
+    if (globalStats && globalStats.length > 0) {
+        const gap = 10;
+        const totalWidth = pageWidth - 30;
+        const itemsPerRow = Math.min(globalStats.length, 4);
+        const cardWidth = (totalWidth - (gap * (itemsPerRow - 1))) / itemsPerRow;
+        const cardHeight = 20;
+
+        let currentY = startY;
+
+        globalStats.forEach((s, i) => {
+            const col = i % itemsPerRow;
+            const row = Math.floor(i / itemsPerRow);
+
+            if (col === 0 && row > 0) {
+                currentY += cardHeight + gap;
+            }
+
+            const x = 15 + col * (cardWidth + gap);
+            const y = currentY;
+
+            const colors = getStatColors(s.label, s.value, themeColor);
+
+            doc.setFillColor(colors.bg[0], colors.bg[1], colors.bg[2]);
+            doc.roundedRect(x, y, cardWidth, cardHeight, 3, 3, 'F');
+
+            doc.setDrawColor(colors.border[0], colors.border[1], colors.border[2]);
+            doc.roundedRect(x, y, cardWidth, cardHeight, 3, 3, 'S');
+
+            doc.setFillColor(colors.accent[0], colors.accent[1], colors.accent[2]);
+            doc.roundedRect(x, y + 2, 3.5, cardHeight - 4, 1.5, 1.5, 'F');
+
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(100, 116, 139);
+            doc.text(String(s.label).toUpperCase(), x + 8, y + 8);
+
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(colors.accent[0], colors.accent[1], colors.accent[2]);
+            doc.text(String(s.value), x + 8, y + 16);
+        });
+
+        const totalRows = Math.ceil(globalStats.length / itemsPerRow);
+        startY = currentY + (totalRows > 1 ? (totalRows - 1) * (cardHeight + gap) : 0) + cardHeight + 12;
+    }
+
     doc.setTextColor(themeColor[0], themeColor[1], themeColor[2]);
     doc.setFontSize(11);
-    doc.text('MEMBER PERFORMANCE SUMMARY', 15, 60);
+    doc.text('MEMBER PERFORMANCE SUMMARY', 15, startY);
 
     autoTable(doc, {
-        startY: 65,
+        startY: startY + 5,
         head: [['Member Name', 'Total Presents', 'Total Absents', 'Half Days', 'No. permissions', 'Working Days', 'Total Perm. Hours', 'Overtime', 'Total OT Hours', 'Total Records']],
         body: memberStatsRows,
         theme: 'grid',

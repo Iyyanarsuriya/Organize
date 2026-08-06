@@ -174,7 +174,8 @@ export const exportMemberPayslipToPDF = ({
             body: [[s.present, s.absent, s.half_day, s.late, s.permission || 0]],
             theme: 'grid',
             headStyles: { fillColor: secondaryColor, textColor: [100, 100, 100], halign: 'center' },
-            bodyStyles: { halign: 'center', fontSize: 11, fontStyle: 'bold' }
+            bodyStyles: { halign: 'center', fontSize: 11, fontStyle: 'bold' },
+            didParseCell: applyStatusCellColor
         });
         currentY = doc.lastAutoTable.finalY + 15;
     }

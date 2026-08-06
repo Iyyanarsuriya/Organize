@@ -84,7 +84,7 @@ export const generateTXT = ({ title, period, stats, additionalContent, logHeader
     URL.revokeObjectURL(url);
 };
 
-const getStatColors = (label = '', value = '', themeColor = [45, 91, 255]) => {
+export const getStatColors = (label = '', value = '', themeColor = [45, 91, 255]) => {
     const text = (String(label) + ' ' + String(value)).toLowerCase();
 
     if (text.includes('completed') || text.includes('paid') || text.includes('present') || text.includes('income') || text.includes('approved') || text.includes('success')) {
