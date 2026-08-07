@@ -68,18 +68,22 @@ const Navbar = ({
                         </>
                     ) : (
                         <div className="flex items-center gap-4 sm:gap-[24px]">
-                            {!isLandingPage && (
-                                 <button
-                                    onClick={() => {
-                                        const homePath = '/operations';
-                                        navigate(homePath);
-                                    }}
-                                    className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] bg-white/10 hover:bg-white text-white hover:text-black rounded-[10px] sm:rounded-[12px] flex items-center justify-center transition-all duration-300 active:scale-90 shadow-lg shadow-white/5 group"
-                                    title="Operations Hub"
-                                >
-                                    <Home className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:scale-110" />
-                                </button>
-                            )}
+                            {(() => {
+                                const role = user?.role || 'admin';
+                                const isNonAdmin = ['user', 'member', 'employee', 'staff'].includes(role);
+                                const homePath = isNonAdmin ? '/operations/my-portal' : '/operations';
+                                const isCurrentHomePage = location.pathname === homePath || location.pathname === '/operations/my-portal' || location.pathname === '/operations';
+                                if (isLandingPage || isCurrentHomePage) return null;
+                                return (
+                                    <button
+                                        onClick={() => navigate(homePath)}
+                                        className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] bg-white/10 hover:bg-white text-white hover:text-black rounded-[10px] sm:rounded-[12px] flex items-center justify-center transition-all duration-300 active:scale-90 shadow-lg shadow-white/5 group"
+                                        title="Home Portal"
+                                    >
+                                        <Home className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:scale-110" />
+                                    </button>
+                                );
+                            })()}
                             {/* Profile Dropdown */}
                             <div
                                 className="relative"

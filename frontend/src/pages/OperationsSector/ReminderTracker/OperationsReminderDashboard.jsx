@@ -144,9 +144,9 @@ const MfgReminderDashboard = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        navigate("/login");
+        localStorage.clear();
+        sessionStorage.clear();
+        navigate("/");
     };
 
     const exportPeriod = periodType === 'range' ? `${customRange.start}_to_${customRange.end}` : periodType;

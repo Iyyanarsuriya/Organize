@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Toaster, useToasterStore, toast } from 'react-hot-toast';
 import { getReminders as getOpsReminders } from './api/Reminder/opsReminder';
 import { updateProfile, getMe } from './api/authApi';
@@ -22,9 +22,21 @@ const Notes = lazy(() => import('./pages/Notes/Notes'));
 const ForgotPassword = lazy(() => import('./pages/Authentication/ForgotPassword'));
 
 // Protected Route Component
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const token = localStorage.getItem('token');
   if (!token) return <Navigate to="/" replace />;
+  
+  if (requireAdmin) {
+    let user = null;
+    try {
+      const saved = localStorage.getItem('user');
+      if (saved) user = JSON.parse(saved);
+    } catch {}
+    const role = user?.role || 'admin';
+    if (['user', 'member', 'employee', 'staff'].includes(role)) {
+      return <Navigate to="/operations/my-portal" replace />;
+    }
+  }
   return children;
 };
 
@@ -45,6 +57,7 @@ const ToastLimiter = () => {
 
 const AppContent = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -141,6 +154,7 @@ const AppContent = () => {
     setShowProfileModal(false);
     window.dispatchEvent(new Event('storage'));
     toast.success("Logged out successfully");
+    navigate('/');
   };
 
   const handleUpdateProfile = async (e) => {
@@ -248,13 +262,13 @@ const AppContent = () => {
             } />
 
             {/* Operations Sector Routes */}
-            <Route path="/operations" element={<ProtectedRoute><OperationsHome /></ProtectedRoute>} />
-            <Route path="/operations/reminders" element={<ProtectedRoute><Reminders /></ProtectedRoute>} />
-            <Route path="/operations/reminder-dashboard" element={<ProtectedRoute><OperationsReminderDashboard /></ProtectedRoute>} />
-            <Route path="/operations/expenses" element={<ProtectedRoute><ExpenseTracker /></ProtectedRoute>} />
-            <Route path="/operations/attendance" element={<ProtectedRoute><AttendanceTracker /></ProtectedRoute>} />
-            <Route path="/operations/team" element={<ProtectedRoute><TeamManagement /></ProtectedRoute>} />
-            <Route path="/operations/payroll" element={<ProtectedRoute><OperationsPayroll /></ProtectedRoute>} />
+            <Route path="/operations" element={<ProtectedRoute requireAdmin={true}><OperationsHome /></ProtectedRoute>} />
+            <Route path="/operations/reminders" element={<ProtectedRoute requireAdmin={true}><Reminders /></ProtectedRoute>} />
+            <Route path="/operations/reminder-dashboard" element={<ProtectedRoute requireAdmin={true}><OperationsReminderDashboard /></ProtectedRoute>} />
+            <Route path="/operations/expenses" element={<ProtectedRoute requireAdmin={true}><ExpenseTracker /></ProtectedRoute>} />
+            <Route path="/operations/attendance" element={<ProtectedRoute requireAdmin={true}><AttendanceTracker /></ProtectedRoute>} />
+            <Route path="/operations/team" element={<ProtectedRoute requireAdmin={true}><TeamManagement /></ProtectedRoute>} />
+            <Route path="/operations/payroll" element={<ProtectedRoute requireAdmin={true}><OperationsPayroll /></ProtectedRoute>} />
             <Route path="/operations/my-portal" element={<EmployeePortal user={user} onLogout={handleLogout} />} />
 
             <Route path="/notes" element={<ProtectedRoute><Notes /></ProtectedRoute>} />
