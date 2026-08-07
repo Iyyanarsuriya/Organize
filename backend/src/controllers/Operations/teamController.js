@@ -55,6 +55,9 @@ exports.createSubUser = async (req, res) => {
                 status: 'active',
                 sector: 'operations',
                 member_type: 'worker',
+                cl_balance: req.body.cl_balance !== undefined ? Number(req.body.cl_balance) : 0,
+                sl_balance: req.body.sl_balance !== undefined ? Number(req.body.sl_balance) : 0,
+                el_balance: req.body.el_balance !== undefined ? Number(req.body.el_balance) : 0,
                 created_by: req.user.username
             });
         } catch (memberError) {

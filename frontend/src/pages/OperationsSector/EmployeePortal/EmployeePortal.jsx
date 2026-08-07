@@ -27,7 +27,8 @@ export default function EmployeePortal({ user, onLogout }) {
         }
         try {
             setLoading(true);
-            const res = await axios.get(`${API_BASE_URL}/my-details?member_id=${memberId}`);
+            const email = user?.email || storedMember?.email || '';
+            const res = await axios.get(`${API_BASE_URL}/my-details?member_id=${memberId}&email=${encodeURIComponent(email)}`);
             if (res.data && res.data.success) {
                 setMemberData(res.data);
             }
