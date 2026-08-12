@@ -137,8 +137,9 @@ const OperationsAttendanceModel = {
                 SUM(CASE WHEN a.status = 'OD' THEN 1 ELSE 0 END) as OD,
                 COALESCE(SUM(a.total_hours), 0) as total_hours
             FROM operations_members w 
-            LEFT JOIN operations_attendance a ON w.id = a.member_id AND a.user_id = ?`;
-        const params = [userId];
+            LEFT JOIN operations_attendance a ON w.id = a.member_id AND a.user_id = ?
+            WHERE w.user_id = ? AND w.status = 'active'`;
+        const params = [userId, userId];
 
         if (filters.startDate && filters.endDate) {
             query += ' AND a.date BETWEEN ? AND ?';
@@ -152,9 +153,6 @@ const OperationsAttendanceModel = {
                 params.push(filters.period);
             }
         }
-
-        query += ` WHERE w.user_id = ? AND w.status = 'active'`;
-        params.push(userId);
 
         if (filters.role) {
             query += ` AND w.role = ?`;

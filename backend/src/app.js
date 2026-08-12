@@ -35,7 +35,6 @@ const withSector = (sector) => (req, res, next) => {
 };
 
 // ==========================================
-// ==========================================
 // OPERATIONS SECTOR ROUTES
 // ==========================================
 const opsRouter = express.Router();
@@ -56,7 +55,6 @@ opsRouter.use('/payroll', require("./routes/Operations/payrollRoutes"));
 opsRouter.use('/member-portal', require("./routes/Common/memberPortalRoutes"));
 
 app.use('/api/operations-sector', opsRouter);
-app.use('/api/manufacturing-sector', opsRouter);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', sector: 'operations', timestamp: new Date() }));

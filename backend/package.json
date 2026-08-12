@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "db:init": "node database/init_db.js"
+    "db:init": "node database/init_db.js",
+    "db:seed": "node database/seed_data.js"
   },
   "type": "commonjs",
   "dependencies": {

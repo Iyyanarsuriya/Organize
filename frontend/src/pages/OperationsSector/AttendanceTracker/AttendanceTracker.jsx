@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ConfirmModal from '../../../components/modals/ConfirmModal';
 import {
     getAttendances,
@@ -24,9 +24,9 @@ import { getActiveMembers } from '../../../api/TeamManagement/opsTeam';
 import toast from 'react-hot-toast';
 import {
     FaCheckCircle, FaTimesCircle, FaClock, FaExclamationCircle,
-    FaPlus, FaTrash, FaEdit, FaCalendarAlt, FaSearch,
-    FaFilter, FaChartBar, FaUserCheck, FaChevronLeft, FaChevronRight,
-    FaFolderPlus, FaTimes, FaInbox, FaUserEdit, FaCheck, FaQuestionCircle,
+    FaEdit, FaCalendarAlt, FaSearch,
+    FaFilter, FaChartBar, FaUserCheck, FaChevronLeft,
+    FaFolderPlus, FaInbox, FaUserEdit,
     FaFileAlt, FaTag, FaBusinessTime
 } from 'react-icons/fa';
 import {
@@ -42,7 +42,6 @@ import CalendarManager from './CalendarManager';
 import ShiftManager from './ShiftManager';
 
 const AttendanceTracker = () => {
-    const navigate = useNavigate();
     const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
     const [attendances, setAttendances] = useState([]);
     const [stats, setStats] = useState([]);
@@ -63,16 +62,6 @@ const AttendanceTracker = () => {
     const [shifts, setShifts] = useState([]);
     const [memberSummary, setMemberSummary] = useState([]);
     const [activeTab, setActiveTab] = useState('records'); // 'records', 'summary', 'quick'
-    const [showCustomReportModal, setShowCustomReportModal] = useState(false);
-    const [customReportLoading, setCustomReportLoading] = useState(false);
-    const [customReportForm, setCustomReportForm] = useState({
-        startDate: new Date().toISOString().split('T')[0],
-        endDate: new Date().toISOString().split('T')[0],
-        projectId: '',
-        memberId: '',
-        status: 'all',
-        role: ''
-    });
 
     const [showPermissionModal, setShowPermissionModal] = useState(false);
     const [permissionModalData, setPermissionModalData] = useState({
@@ -570,46 +559,7 @@ const AttendanceTracker = () => {
         });
     };
 
-    const handleGenerateCustomReport = async (format = 'PDF') => {
-        if (!customReportForm.startDate || !customReportForm.endDate) {
-            toast.error("Please select both start and end dates");
-            return;
-        }
 
-        setCustomReportLoading(format);
-        try {
-            const [attRes, statsRes] = await Promise.all([
-                getAttendances({
-                    projectId: customReportForm.projectId,
-                    memberId: customReportForm.memberId,
-                    startDate: customReportForm.startDate,
-                    endDate: customReportForm.endDate,
-                    status: customReportForm.status === 'all' ? null : customReportForm.status,
-                    role: customReportForm.role === '' ? null : customReportForm.role
-                }),
-                getAttendanceStats({
-                    projectId: customReportForm.projectId,
-                    memberId: customReportForm.memberId,
-                    startDate: customReportForm.startDate,
-                    endDate: customReportForm.endDate,
-                    status: customReportForm.status === 'all' ? null : customReportForm.status,
-                    role: customReportForm.role === '' ? null : customReportForm.role
-                })
-            ]);
-
-            if (format === 'PDF') handleExportPDF(attRes.data.data, statsRes.data.data, customReportForm);
-            else if (format === 'CSV') handleExportCSV(attRes.data.data, customReportForm);
-            else if (format === 'TXT') handleExportTXT(attRes.data.data, statsRes.data.data, customReportForm);
-
-            setShowCustomReportModal(false);
-            toast.success("Attendance report generated!");
-        } catch (error) {
-            console.error(error);
-            toast.error("Failed to generate report");
-        } finally {
-            setCustomReportLoading(false);
-        }
-    };
 
     const filteredAttendances = useMemo(() => {
         return (Array.isArray(attendances) ? attendances : []).filter(a => {
